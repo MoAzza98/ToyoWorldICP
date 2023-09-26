@@ -90,7 +90,7 @@ public class BattleSystem : MonoBehaviour
 
         }
 
-        yield return new WaitForSeconds(0.7f);
+        yield return new WaitForSeconds(0.4f);
 
         Instantiate(effectHandler.PlayerAttack, effectHandler.enemyPoint);
         enemyAnimator.SetTrigger("isHurt");
@@ -215,8 +215,8 @@ public class BattleSystem : MonoBehaviour
 	{
 		if(state == BattleState.WON)
 		{
-			dialogueText.text = "You won the battle!";
 			enemyAnimator.SetBool("isDead", true);
+			dialogueText.text = "You won the battle!";
 
 		} else if (state == BattleState.LOST)
 		{
@@ -233,6 +233,7 @@ public class BattleSystem : MonoBehaviour
 	IEnumerator PlayerHeal()
 	{
         combatButtons.SetActive(false);
+		playerAnimator.SetTrigger("Cast");
         Instantiate(effectHandler.HealEffect, effectHandler.playerPoint);
 		playerUnit.Heal(5);
 
