@@ -233,10 +233,11 @@ public class BattleSystem : MonoBehaviour
 	IEnumerator PlayerHeal()
 	{
         combatButtons.SetActive(false);
+        playerAnimator.SetTrigger("Casted");
         Instantiate(effectHandler.HealEffect, effectHandler.playerPoint);
 		playerUnit.Heal(5);
 
-		playerHUD.SetHP(playerUnit.currentHP);
+        playerHUD.SetHP(playerUnit.currentHP);
 		dialogueText.text = "You feel renewed strength!";
 
 		yield return new WaitForSeconds(2f);
@@ -254,6 +255,7 @@ public class BattleSystem : MonoBehaviour
 
 		if(canHeal)
 		{
+			playerAnimator.SetTrigger("Casted");
 			playerHUD.SetHP(playerUnit.currentHP);
 			dialogueText.text = "Power courses through you!";
             Instantiate(effectHandler.HealEffect, effectHandler.playerPoint);
