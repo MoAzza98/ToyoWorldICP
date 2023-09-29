@@ -26,6 +26,7 @@ public class LoginWindow : Window
     public TextMeshProUGUI loadingTxt;
     public TextMeshProUGUI principalTxt;
     public GameObject pageControl;
+    public GameObject ToyoUI;
 
     readonly List<Type> typesToLoad = new();
 
@@ -148,6 +149,7 @@ public class LoginWindow : Window
                     logInStateTxt.text = "Logged In";
                     principalTxt.text = $"Principal: <b>\"{state.data.principal}\"</b>\nAccountId: <b>\"{state.data.accountIdentifier}\"</b>";
                     pageControl.SetActive(true);
+                    ToyoUI.SetActive(true);
                     logOutBtn.gameObject.SetActive(true);
                     loadingTxt.text = "";
                 }
@@ -171,6 +173,7 @@ public class LoginWindow : Window
                 logInStateTxt.text = "";//"Logged in as Anon";
                 principalTxt.text = ""; //$"Principal: <b>\"{state.data.principal}\"</b>\nAccountId: <b>\"{state.data.accountIdentifier}\"</b>";
                 pageControl.SetActive(false);
+                ToyoUI.SetActive(false);
                 logInBtn.gameObject.SetActive(true);
                 logOutBtn.gameObject.SetActive(false);
                 loadingTxt.text = "Please login";
@@ -183,6 +186,7 @@ public class LoginWindow : Window
             logInStateTxt.text = "";
             principalTxt.text = $"";
             pageControl.SetActive(false);
+            ToyoUI.SetActive(false);
             logInBtn.gameObject.SetActive(false);
             logOutBtn.gameObject.SetActive(false);
         }

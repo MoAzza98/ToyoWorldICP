@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04eac5d006ef6344f9dbee1c4a7844ed, type: 3}
   m_Name: Cleave
   m_EditorClassIdentifier: 
-  name: Cleave
-  description: 
-  toyoType: 0
-  power: 0
-  accuracy: 0
-  pp: 0
+  moveName: Cleave
+  description: The user cleaves it's target in an attempt to cause precise damage.
+  toyoType: 13
+  power: 75
+  accuracy: 100
+  pp: 25

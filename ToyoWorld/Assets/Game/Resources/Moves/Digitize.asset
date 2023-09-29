@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04eac5d006ef6344f9dbee1c4a7844ed, type: 3}
   m_Name: Digitize
   m_EditorClassIdentifier: 
-  name: 
-  description: 
-  toyoType: 0
-  power: 0
-  accuracy: 0
-  pp: 0
+  moveName: Digitize
+  description: The user bombards the enemy with data, overloading their senses.
+  toyoType: 6
+  power: 90
+  accuracy: 100
+  pp: 10

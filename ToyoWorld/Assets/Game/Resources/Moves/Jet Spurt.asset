@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04eac5d006ef6344f9dbee1c4a7844ed, type: 3}
   m_Name: Jet Spurt
   m_EditorClassIdentifier: 
-  name: 
-  description: 
+  moveName: Jet Spurt
+  description: A concentrated jet of water is blasted at the target, causing heavy
+    damage.
   toyoType: 0
-  power: 0
-  accuracy: 0
-  pp: 0
+  power: 40
+  accuracy: 100
+  pp: 20

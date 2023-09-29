@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04eac5d006ef6344f9dbee1c4a7844ed, type: 3}
   m_Name: Granite Slam
   m_EditorClassIdentifier: 
-  name: 
-  description: 
-  toyoType: 0
-  power: 0
-  accuracy: 0
-  pp: 0
+  moveName: Granite Slam
+  description: The user hardens their body before slamming into the target at full
+    speed.
+  toyoType: 8
+  power: 80
+  accuracy: 100
+  pp: 15

@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04eac5d006ef6344f9dbee1c4a7844ed, type: 3}
   m_Name: Flame Lash
   m_EditorClassIdentifier: 
-  name: 
-  description: 
-  toyoType: 0
-  power: 0
-  accuracy: 0
-  pp: 0
+  moveName: Flame Lash
+  description: The user sends a fiery lash of flames towards the target in a rage.
+  toyoType: 2
+  power: 80
+  accuracy: 100
+  pp: 15

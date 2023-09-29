@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04eac5d006ef6344f9dbee1c4a7844ed, type: 3}
   m_Name: True Strike
   m_EditorClassIdentifier: 
-  name: True Strike
+  moveName: True Strike
   description: The user clears their mind before striking the target, this attack
     never misses.
   toyoType: 14

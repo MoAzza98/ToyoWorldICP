@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04eac5d006ef6344f9dbee1c4a7844ed, type: 3}
   m_Name: Esoteric Art
   m_EditorClassIdentifier: 
-  name: Esoteric Art
-  description: 
-  toyoType: 0
-  power: 0
-  accuracy: 0
-  pp: 0
+  moveName: Esoteric Art
+  description: The user engages in an ancient dragon ritual, striking their target
+    with unusual form.
+  toyoType: 9
+  power: 100
+  accuracy: 100
+  pp: 5

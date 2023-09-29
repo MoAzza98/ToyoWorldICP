@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04eac5d006ef6344f9dbee1c4a7844ed, type: 3}
   m_Name: Slap
   m_EditorClassIdentifier: 
-  moveName: 
-  description: 
-  toyoType: 0
-  power: 0
-  accuracy: 0
-  pp: 0
+  moveName: Slap
+  description: The user slaps it's target, causing damage.
+  toyoType: 1
+  power: 40
+  accuracy: 90
+  pp: 15

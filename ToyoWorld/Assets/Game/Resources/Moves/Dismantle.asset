@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04eac5d006ef6344f9dbee1c4a7844ed, type: 3}
   m_Name: Dismantle
   m_EditorClassIdentifier: 
-  name: Cleave
-  description: The user cleaves at the target, this move seems to adapt to it's targets
-    toughness to inflict maximum damage.
+  moveName: Dismantle
+  description: The user precisely slashes the target, this move seems to adapt to
+    it's targets toughness to inflict maximum damage.
   toyoType: 13
   power: 120
   accuracy: 65
