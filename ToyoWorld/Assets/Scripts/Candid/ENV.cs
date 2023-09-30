@@ -13,7 +13,7 @@ public static class Env
         public const string STAKING_HUB = "jozll-yaaaa-aaaap-abf5q-cai";
 
         public const string WORLD_HUB = "j362g-ziaaa-aaaap-abf6a-cai";
-        public const string WORLD = "6irst-uiaaa-aaaap-abgaa-cai";
+        public const string WORLD = "qp5zg-aaaaa-aaaap-ablmq-cai";
     }
     public static class Nfts
     {

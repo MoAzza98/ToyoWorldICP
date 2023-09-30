@@ -5,11 +5,8 @@ using UnityEngine;
 public class EffectHandler : MonoBehaviour
 {
 
-    public GameObject UltimateEffect;
-    public GameObject HealEffect;
-    public GameObject EnemyAttack;
-    public GameObject PlayerAttack;
-    public GameObject PlayerCrit;
+    private GameObject castObject;
+    private GameObject projectileObject;
 
     public Transform playerPoint;
     public Transform enemyPoint;
@@ -24,6 +21,18 @@ public class EffectHandler : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void CastEffect(Move move, Transform target)
+    {
+        castObject = move.Base.Effect;
+        Instantiate(castObject, target.position, Quaternion.identity);
+        castObject.transform.LookAt(target);
+    }
+
+    public void SendProjectile(Move move)
+    {
+
     }
 
 }
