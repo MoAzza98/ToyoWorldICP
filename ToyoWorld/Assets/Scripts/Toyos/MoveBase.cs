@@ -15,6 +15,9 @@ public class MoveBase : ScriptableObject
     [SerializeField] int accuracy;
     [SerializeField] int pp;
 
+    [SerializeField] GameObject effect;
+    [SerializeField] MoveDestination _moveDestnation;
+
     public string MoveName
     {
         get { return moveName; }
@@ -43,4 +46,21 @@ public class MoveBase : ScriptableObject
     {
         get { return pp; }
     }
+
+    public GameObject Effect
+    {
+        get { return effect; }
+    }
+
+    public MoveDestination _MoveDestinaiton
+    {
+        get { return _moveDestnation; }
+    }
+}
+
+public enum MoveDestination
+{
+    Self,
+    Enemy,
+    Projectile
 }

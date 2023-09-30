@@ -56,7 +56,9 @@ public class BattleDialogBox : MonoBehaviour
                 dialogText.text += letter;
                 yield return new WaitForSeconds(1f / lettersPerSecond);
             }
+
         }
+        yield return new WaitForSeconds(1f);
     }
 
     public void GoToActionSelector()
@@ -73,6 +75,26 @@ public class BattleDialogBox : MonoBehaviour
         moveSelector.SetActive(true);
         moveDetails.SetActive(true);
         backButton.SetActive(true);
+    }
+
+    public void EnableBackSelector(bool isEnabled)
+    {
+        backButton.SetActive(isEnabled);
+    }
+
+    public void EnableMoveDetails(bool isEnabled)
+    {
+        moveDetails.SetActive(isEnabled);
+    }
+
+    public void EnableActionSelector(bool isEnabled)
+    {
+        actionSelector.SetActive(isEnabled);
+    }
+
+    public void EnableMoveSelector(bool isEnabled)
+    {
+        moveSelector.SetActive(isEnabled);
     }
 
     private void SetCurrentAction()
@@ -116,7 +138,7 @@ public class BattleDialogBox : MonoBehaviour
     public void UpdateMoveSelction(Move move)
     {
         ppText.text = $"Energy {move.PP}/{move.Base.Pp}";
-        typeText.text = $"Type {move.Base.ToyoType}";
+        typeText.text = $"{move.Base.ToyoType}";
     }
 
     public void SetMoveInfo()

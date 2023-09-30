@@ -367,6 +367,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 29440857}
   m_CullTransparentMesh: 0
+--- !u!1 &38673737
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 38673739}
+  - component: {fileID: 38673738}
+  m_Layer: 0
+  m_Name: EffectSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &38673738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 38673737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91433d2335f9bc64890f7e2360685845, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerPoint: {fileID: 398799702}
+  enemyPoint: {fileID: 602536256}
+--- !u!4 &38673739
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 38673737}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -5.022705, y: 4.7395487, z: 7.3442383}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &46078275
 GameObject:
   m_ObjectHideFlags: 0
@@ -940,11 +986,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c15c8e56f1b2894eb6d3cc73333e0b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _base: {fileID: 11400000, guid: 367b69783d687164c8b3bd6e73c75f0d, type: 2}
+  _base: {fileID: 11400000, guid: d31c6f72ff87779479154004af0c3be8, type: 2}
   level: 7
   isPlayerUnit: 1
   playerSpawnPoint: {fileID: 398799702}
   enemySpawnPoint: {fileID: 64831757}
+  playerAnim: {fileID: 0}
+  enemyAnim: {fileID: 0}
 --- !u!4 &235443669 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1988428005715702991, guid: 60db4311c31acdc439d4d488a975cfcc, type: 3}
@@ -12979,11 +13027,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91433d2335f9bc64890f7e2360685845, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UltimateEffect: {fileID: 2796383364961433820, guid: 05ab99b3c76d154408e804aabb90f0e9, type: 3}
-  HealEffect: {fileID: 5711259345400384183, guid: 80f8485d2c58e754f9cd71d5de600676, type: 3}
-  EnemyAttack: {fileID: 1520397247202789184, guid: 28c79a2e45001aa43bb6ca92d37fd01d, type: 3}
-  PlayerAttack: {fileID: 5215164273107312827, guid: ff56106cd4daf1243be39e5e4841a2c2, type: 3}
-  PlayerCrit: {fileID: 1520397247202789184, guid: 28c79a2e45001aa43bb6ca92d37fd01d, type: 3}
   playerPoint: {fileID: 1437425641}
   enemyPoint: {fileID: 602536256}
 --- !u!114 &1772491291
@@ -13003,6 +13046,7 @@ MonoBehaviour:
   enemyUnit: {fileID: 1777692789}
   enemyHUD: {fileID: 1135157964}
   bDialogue: {fileID: 929744380}
+  effects: {fileID: 38673738}
 --- !u!1 &1777692787
 GameObject:
   m_ObjectHideFlags: 0
@@ -13057,6 +13101,8 @@ MonoBehaviour:
   isPlayerUnit: 0
   playerSpawnPoint: {fileID: 398799702}
   enemySpawnPoint: {fileID: 64831757}
+  playerAnim: {fileID: 0}
+  enemyAnim: {fileID: 0}
 --- !u!1 &1782873255
 GameObject:
   m_ObjectHideFlags: 0

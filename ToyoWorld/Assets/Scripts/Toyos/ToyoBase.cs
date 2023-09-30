@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -119,4 +120,37 @@ public enum ToyoType
     Dream,
     Dark,
     Beast
+}
+
+public class TypeChart
+{
+    static float[][] chart =
+    {                     //nor fir wat ele grs dig cos rck dra fai ice drm drk bst
+        /*nor*/ new float[]{1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 0f, 1f, 0.5f},
+        /*fir*/ new float[]{1f,0.5f,0.5f,1f,2f, 1f, 1f, 1f, 1f, 1f, 2f, 1f, 1f, 1f},
+        /*wat*/ new float[]{1f,2f,0.5f,0.5f,0.5f,2f,1f, 2f, 1f, 1f,0.5f,1f, 1f, 1f},
+        /*ele*/ new float[]{1f, 1f, 2f, 1f,0.5f, 2f, 1f,0f,0.5f,1f, 2f, 1f, 1f, 1f },
+        /*grs*/ new float[]{1f,0.5f,2f, 1f,0.5f, 1f, 1f,2f, 1f, 2f,0.5f, 1f, 1f, 1f },
+        /*dig*/ new float[]{2f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 2f, 1f, 1f, 1f, 1f },
+        /*cos*/ new float[]{2f, 1f, 1f, 1f, 1f, 1f, 0f, 1f, 2f, 2f, 1f,0.5f,0.5f, 1f },
+        /*rck*/ new float[]{1f, 2f,0.5f,2f,0.5f,2f, 1f, 1f, 1f, 1f, 1f, 0f, 1f, 1f },
+        /*dra*/ new float[]{1f, 1f, 1f,0.5f, 1f, 1f, 1f,1f,2f, 2f, 1f, 2f, 1f, 2f },
+        /*fai*/ new float[]{1f, 1f, 1f, 1f, 1f, 0f, 2f, 2f, 1f, 1f, 1f, 1f, 2f, 2f },
+        /*ice*/ new float[]{1f,0.5f,2f, 1f, 1f, 1f, 1f, 1f, 2f, 1f,0.5f, 1f, 1f, 1f },
+        /*drm*/ new float[]{1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 2f, 1f, 1f,0.5f, 1f },
+        /*drk*/ new float[]{1f, 1f, 1f, 1f, 1f, 1f, 2f, 1f, 1f,0.5f,2f, 1f, 1f, 2f },
+        /*bst*/ new float[]{2f,0.5f, 1f, 1f, 1f, 1f, 1f, 1f,0.5f, 1f, 1f, 1f, 1f,2f }
+    };
+
+    public static float GetEffectiveness(ToyoType attackType, ToyoType defenceType)
+    {
+        if(attackType == ToyoType.None || defenceType == ToyoType.None) return 1;
+
+        int row = (int)attackType - 1;
+        int col = (int)defenceType - 1;
+
+        return chart[row][col];
+    }
+
+
 }

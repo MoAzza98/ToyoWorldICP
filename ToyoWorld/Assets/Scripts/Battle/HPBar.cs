@@ -22,4 +22,19 @@ public class HPBar : MonoBehaviour
     {
         health.value = value;
     }
+
+    public IEnumerator SetHPSmooth(float newHP)
+    {
+        float currentHP = health.value;
+        float changeAmount = currentHP - newHP;
+
+        while(currentHP - newHP > Mathf.Epsilon)
+        {
+            currentHP -= changeAmount * Time.deltaTime;
+            health.value = currentHP;
+            yield return null;
+        }
+        health.value = newHP;
+    }
+
 }

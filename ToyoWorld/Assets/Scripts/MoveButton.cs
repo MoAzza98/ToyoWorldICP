@@ -10,12 +10,14 @@ public class MoveButton : MonoBehaviour, IPointerEnterHandler
     public Move buttonMove;
     public Button yourButton;
     public BattleDialogBox battleDialogBox;
+    public BattleSystem battleSystem;
 
     void Start()
     {
         yourButton = GetComponent<Button>();
         battleDialogBox = GetComponentInParent<BattleDialogBox>();
-        yourButton.onClick.AddListener(ShowButtonMove);
+        battleSystem = GameObject.FindAnyObjectByType<BattleSystem>().GetComponent<BattleSystem>();
+        yourButton.onClick.AddListener(UseMove);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -23,10 +25,8 @@ public class MoveButton : MonoBehaviour, IPointerEnterHandler
         battleDialogBox.UpdateMoveSelction(buttonMove);
     }
 
-    public void ShowButtonMove()
+    public void UseMove()
     {
-        Debug.Log(buttonMove.Base.Power);
+        battleSystem.UseCurrentMove(buttonMove);
     }
-
-
 }
