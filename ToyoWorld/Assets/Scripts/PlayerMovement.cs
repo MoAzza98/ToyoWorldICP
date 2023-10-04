@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks.Triggers;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,24 +18,38 @@ public class PlayerMovement : MonoBehaviour
     bool grounded;
 
     public Transform orientation;
+    public Transform lookAt;
 
     public Animator animator;
+    private CameraSetup cameraSetup;
+    public GameObject playerObj;
 
     float horizontalInput;
     float verticalInput;
 
     Vector3 moveDirection;
 
-    Rigidbody rb;
+    [SerializeField] public Rigidbody rb;
 
-    private void Start()
+    void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        cameraSetup = FindObjectOfType<CameraSetup>();
         rb.freezeRotation = true;
+        
+        cameraSetup.playerCam.orientation = orientation;
+        cameraSetup.playerCam.player = gameObject.transform;
+        cameraSetup.playerCam.playerObj = gameObject.transform;
+        cameraSetup.playerCam.rb = rb;
+
+        cameraSetup.freeLookCam.LookAt = lookAt;
+        cameraSetup.freeLookCam.Follow = gameObject.transform;
+
     }
 
-    private void Update()
+    public void FixedUpdate()
     {
+        //Debug.Log("Should be able to move");
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.3f, whatIsGround);
 
         if (Input.GetKey(KeyCode.LeftShift))
@@ -57,11 +72,11 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.drag = 0;
         }
+        MovePlayer();
     }
 
-    private void FixedUpdate()
+    void Update()
     {
-        MovePlayer();
     }
 
     private void MyInput()
@@ -75,7 +90,6 @@ public class PlayerMovement : MonoBehaviour
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
         rb.AddForce(moveDirection.normalized * currentSpeed * 10f, ForceMode.Force);
-
     }
 
     private void SpeedControl()

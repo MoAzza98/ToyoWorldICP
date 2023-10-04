@@ -5,30 +5,31 @@ using UnityEngine.UI;
 
 public class BattleUnit : MonoBehaviour
 {
-    [SerializeField] ToyoBase _base;
-    [SerializeField] int level;
+
     [SerializeField] bool isPlayerUnit;
     [SerializeField] Transform playerSpawnPoint;
     [SerializeField] Transform enemySpawnPoint;
+    public GameObject playerToyo;
+    public GameObject enemyToyo;
     public Animator playerAnim;
     public Animator enemyAnim;
 
     public Toyo Toyo { get; set; }
 
-    public void Setup()
+    public void Setup(Toyo toyo)
     {
-        Toyo = new Toyo(_base, level);
+        Toyo = toyo;
         if(isPlayerUnit)
         {
-            GameObject PlayerToyo = Instantiate(_base.ToyoPrefab, playerSpawnPoint.position, Quaternion.identity);
-            playerAnim = PlayerToyo.GetComponent<Animator>();
-            PlayerToyo.transform.LookAt(enemySpawnPoint);
+            playerToyo = Instantiate(toyo.Base.ToyoPrefab, playerSpawnPoint.position, Quaternion.identity);
+            playerAnim = playerToyo.GetComponent<Animator>();
+            playerToyo.transform.LookAt(enemySpawnPoint);
         }
         else
         {
-            GameObject EnemyToyo = Instantiate(_base.ToyoPrefab, enemySpawnPoint.position, Quaternion.identity);
-            enemyAnim = EnemyToyo.GetComponent<Animator>();
-            EnemyToyo.transform.LookAt(playerSpawnPoint);
+            enemyToyo = Instantiate(toyo.Base.ToyoPrefab, enemySpawnPoint.position, Quaternion.identity);
+            enemyAnim = enemyToyo.GetComponent<Animator>();
+            enemyToyo.transform.LookAt(playerSpawnPoint);
         }
     }
 }

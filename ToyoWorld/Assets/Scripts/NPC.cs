@@ -26,10 +26,10 @@ public class NPC : MonoBehaviour
 
     void Update()
     {
-        Vector3 npcPos = gameObject.transform.position;
-        Vector3 delta = new Vector3(playerPos.position.x - npcPos.x, 0.0f, playerPos.position.z - npcPos.z);
-        Quaternion rotation = Quaternion.LookRotation(delta);
-        gameObject.transform.rotation = rotation;
+        //Vector3 npcPos = gameObject.transform.position;
+        //Vector3 delta = new Vector3(playerPos.position.x - npcPos.x, 0.0f, playerPos.position.z - npcPos.z);
+        //Quaternion rotation = Quaternion.LookRotation(delta);
+        //gameObject.transform.rotation = rotation;
     }
 
     public void OnTriggerStay(Collider other)

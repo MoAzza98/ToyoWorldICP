@@ -22,6 +22,7 @@ public class BattleSystem : MonoBehaviour
     [SerializeField] BattleHUD enemyHUD;
 
     [SerializeField] BattleDialogBox bDialogue;
+    [SerializeField] PartyScreen partyScreen;
 
     [SerializeField] EffectHandler effects;
 
@@ -29,14 +30,37 @@ public class BattleSystem : MonoBehaviour
     int currentAction;
     Move currentMove;
 
+    private ToyoParty playerParty;
+    private Toyo wildToyo;
+
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
+        //playerParty = GameController.instance.currentToyoParty;
+        //wildToyo = GameController.instance.mapArea.GetRandomWildToyo();
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        GameController.instance.state = GameState.Battle;
+        ToyoParty tempParty = new ToyoParty();
+        tempParty.ToyoPartyList = GameController.instance.playerParty.partyMembers;
+        StartBattle(tempParty, GameController.instance.mapArea.GetRandomWildToyo());
+
+    }
+
+    private void OnDestroy()
+    {
+        // Unsubscribe from the event or messaging system
+    }
+
+    public void StartBattle(ToyoParty playerParty, Toyo wildToyo)
+    {
+        this.playerParty = playerParty;
+        this.wildToyo = wildToyo;
         StartCoroutine(SetupBattle());
     }
 
     // Update is called once per frame
-    void Update()
+    public void Update()
     {
         if(state == BattleState.PLAYERACTION) {
             HandleActionSelection();
@@ -45,11 +69,13 @@ public class BattleSystem : MonoBehaviour
 
     public IEnumerator SetupBattle()
     {
-        playerUnit.Setup();
+        playerUnit.Setup(playerParty.GetHealthyToyo());
         playerHUD.SetData(playerUnit.Toyo);
 
-        enemyUnit.Setup();
+        enemyUnit.Setup(wildToyo);
         enemyHUD.SetData(enemyUnit.Toyo);
+
+        partyScreen.Init();
 
         bDialogue.SetMoveNames(playerUnit.Toyo.Moves);
         bDialogue.SetButtonMoves(playerUnit.Toyo.Moves);
@@ -64,6 +90,7 @@ public class BattleSystem : MonoBehaviour
     {
         state = BattleState.PLAYERACTION;
         StartCoroutine(bDialogue.TypeDialog($"Choose an action."));
+        partyScreen.gameObject.SetActive(false);
         bDialogue.GoToActionSelector();
     }
 
@@ -72,7 +99,7 @@ public class BattleSystem : MonoBehaviour
         state = BattleState.BUSY;
 
         var move = currentMove;
-
+        move.PP--;
         yield return bDialogue.TypeDialog($"{playerUnit.Toyo.Base.ToyoName} used {move.Base.MoveName}.");
 
         playerUnit.playerAnim.SetTrigger("Attacked");
@@ -87,6 +114,15 @@ public class BattleSystem : MonoBehaviour
         if (damageDetails.Fainted)
         {
             yield return bDialogue.TypeDialog($"{enemyUnit.Toyo.Base.ToyoName} fainted.");
+
+            yield return new WaitForSeconds(1f);
+
+            yield return bDialogue.TypeDialog($"You win!");
+
+            yield return new WaitForSeconds(1f);
+
+            GameController.instance.UpdatePlayerParty(this.playerParty);
+            GameController.instance.EndBattle();
         }
         else
         {
@@ -114,7 +150,7 @@ public class BattleSystem : MonoBehaviour
         state = BattleState.ENEMYMOVE;
 
         var move = enemyUnit.Toyo.GetRandomMove();
-
+        move.PP--;
         yield return bDialogue.TypeDialog($"{enemyUnit.Toyo.Base.ToyoName} used {move.Base.MoveName}.");
 
         enemyUnit.enemyAnim.SetTrigger("Attacked");
@@ -130,6 +166,30 @@ public class BattleSystem : MonoBehaviour
         if (damageDetails.Fainted)
         {
             yield return bDialogue.TypeDialog($"{playerUnit.Toyo.Base.ToyoName} fainted.");
+
+            //anim.SetTrigger("Fainted") here
+
+            yield return new WaitForSeconds(2f);
+
+            Destroy(playerUnit.playerToyo.gameObject);
+
+            var nextToyo = playerParty.GetHealthyToyo();
+            if(nextToyo != null)
+            {
+                playerUnit.Setup(nextToyo);
+                playerHUD.SetData(nextToyo);
+
+                bDialogue.SetMoveNames(nextToyo.Moves);
+                bDialogue.SetButtonMoves(nextToyo.Moves);
+
+                yield return bDialogue.TypeDialog($"Go! {nextToyo.Base.ToyoName}!");
+
+                PlayerAction();
+            }
+            else
+            {
+                yield return bDialogue.TypeDialog($"All your toyos fainted! You black out...");
+            }
         }
         else
         {
@@ -137,6 +197,12 @@ public class BattleSystem : MonoBehaviour
         }
 
 
+    }
+
+    public void OpenPartyScreen()
+    {
+        partyScreen.SetPartyData(playerParty.ToyoPartyList);
+        partyScreen.gameObject.SetActive(true);
     }
 
     public void PlayerMove()

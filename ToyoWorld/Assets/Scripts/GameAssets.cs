@@ -9,7 +9,8 @@
                unitycodemonkey.com
     --------------------------------------------------
  */
- 
+
+using Cinemachine;
 using UnityEngine;
 
 public class GameAssets : MonoBehaviour {

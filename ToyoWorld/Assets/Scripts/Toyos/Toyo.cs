@@ -3,19 +3,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class Toyo
 {
-    public ToyoBase Base { get; set; }
-    public int Level { get; set; }
+    [SerializeField] ToyoBase _base;
+    [SerializeField] int level;
 
     public int HP { get; set; }
 
     public List<Move> Moves { get; set; }
 
-    public Toyo(ToyoBase tBase, int tLevel)
+    public ToyoBase Base 
+    { 
+        get { return _base; }
+    }
+
+    public int Level
     {
-        Base = tBase;
-        Level = tLevel;
+        get { return level; }
+    }
+
+    public void Init()
+    {
         HP = MaxHP; 
 
         Moves = new List<Move>();
@@ -80,9 +89,12 @@ public class Toyo
             Fainted = false,
         };
 
+        float attack = (move.Base.IsSpecial) ? attacker.SpAtk : attacker.Attack;
+        float defence = (move.Base.IsSpecial) ? attacker.SpDef : attacker.Defence;
+
         float modifiers = Random.Range(0.85f, 1f) * type * critical;
         float a = (2 * attacker.Level + 10) / 250f;
-        float d = a * move.Base.Power * ((float)attacker.Attack / Defence) + 2;
+        float d = a * move.Base.Power * ((float)attack / defence) + 2;
         int damage = Mathf.FloorToInt(d * modifiers);
 
         HP -= damage;

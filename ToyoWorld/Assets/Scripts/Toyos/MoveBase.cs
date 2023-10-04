@@ -14,6 +14,7 @@ public class MoveBase : ScriptableObject
     [SerializeField] int power;
     [SerializeField] int accuracy;
     [SerializeField] int pp;
+    [SerializeField] bool isSpecial;
 
     [SerializeField] GameObject effect;
     [SerializeField] MoveDestination _moveDestnation;
@@ -45,6 +46,11 @@ public class MoveBase : ScriptableObject
     public int Pp
     {
         get { return pp; }
+    }
+
+    public bool IsSpecial
+    {
+        get { return isSpecial; }
     }
 
     public GameObject Effect

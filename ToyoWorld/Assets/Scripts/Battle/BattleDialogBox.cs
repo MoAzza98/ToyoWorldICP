@@ -123,9 +123,14 @@ public class BattleDialogBox : MonoBehaviour
         {
             if (i < moves.Count)
             {
-                moveBtn  = moveButtons[i].gameObject.AddComponent<MoveButton>();
+                MoveButton hasMove = moveButtons[i].gameObject.GetComponent<MoveButton>();
+                if (hasMove != null)
+                {
+                    Destroy(moveButtons[i].gameObject.GetComponent<MoveButton>());
+                }
+                moveBtn = moveButtons[i].gameObject.AddComponent<MoveButton>();
                 moveBtn.buttonMove = moves[i];
-                Debug.Log($"{moves[i].Base.name} has been added to a button number:" + i + 
+                Debug.Log($"{moves[i].Base.name} has been added to a button number:" + i +
                     $" {moveBtn.buttonMove.Base.name} should be the same.");
             }
             else
@@ -133,6 +138,11 @@ public class BattleDialogBox : MonoBehaviour
                 break;
             }
         }
+    }
+
+    void OpenPartyScreen()
+    {
+
     }
 
     public void UpdateMoveSelction(Move move)
