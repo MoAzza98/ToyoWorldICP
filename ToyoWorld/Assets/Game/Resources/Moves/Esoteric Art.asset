@@ -19,5 +19,6 @@ MonoBehaviour:
   power: 100
   accuracy: 100
   pp: 5
+  isSpecial: 1
   effect: {fileID: 3902912774187533837, guid: 1df386d66e13e394baf573eb3927fcef, type: 3}
   _moveDestnation: 1
