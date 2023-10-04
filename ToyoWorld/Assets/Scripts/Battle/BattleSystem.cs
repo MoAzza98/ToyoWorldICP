@@ -69,6 +69,7 @@ public class BattleSystem : MonoBehaviour
 
     public IEnumerator SetupBattle()
     {
+
         playerUnit.Setup(playerParty.GetHealthyToyo());
         playerHUD.SetData(playerUnit.Toyo);
 

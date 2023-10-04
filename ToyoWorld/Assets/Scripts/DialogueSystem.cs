@@ -14,6 +14,8 @@ public class DialogueSystem : MonoBehaviour
     public Transform dialogueBoxGUI;
     public NPC character;
 
+    public DialogueManager diaManager;
+
 
     public float letterDelay = 0.1f;
     public float letterMultiplier = 0.5f;
@@ -39,9 +41,23 @@ public class DialogueSystem : MonoBehaviour
         dialogueText.text = "";
     }
 
+    void Awake()
+    {
+        SetDialogueRefs();
+    }
+
     void Update()
     {
 
+    }
+
+    void SetDialogueRefs()
+    {
+        diaManager = FindAnyObjectByType<DialogueManager>();
+        nameText = diaManager.nameText;
+        dialogueText = diaManager.panelText;
+        dialogueGUI = diaManager.dialoguePanel;
+        dialogueBoxGUI = diaManager.dialoguePanel.transform;
     }
 
     public void NPCName()

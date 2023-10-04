@@ -42,6 +42,16 @@ public class Toyo
         }
     }
 
+    /*
+    public void FullRestore()
+    {
+        HP = MaxHP;
+        foreach(var move in Moves)
+        {
+            move.PP = move.Base.Pp;
+        }
+    }*/
+
     public int Attack
     {
         get { return Mathf.FloorToInt((Base.Attack * Level) / 100f) + 5; }
