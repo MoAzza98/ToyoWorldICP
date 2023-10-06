@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerInteract : MonoBehaviour
 {
     public float interactRange = 2f;
+    //public ToyoParty party { get; set; }
 
     // Start is called before the first frame update
     void Start()
