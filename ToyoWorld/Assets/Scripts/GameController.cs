@@ -27,6 +27,7 @@ public class GameController : MonoBehaviour
         }
         sceneDataSaver = GetComponent<SceneDataSaver>();
         sceneDataLoader = GetComponent<SceneDataLoader>();
+        gcParty = GetComponent<ToyoParty>();
     }
 
     [SerializeField] BattleSystem battleSystem;
@@ -35,6 +36,10 @@ public class GameController : MonoBehaviour
     public ToyoParty currentToyoParty;
     public ToyoParty storedToyoParty;
     [SerializeField] Toyo wildToyo;
+
+    public ToyoParty gcParty;
+    bool partyInitialized;
+    bool mouseLocked = true;
 
     [SerializeField] public MapArea mapArea;
 
@@ -51,17 +56,23 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(state == GameState.FreeRoam)
-        {
-            if(player == null)
+        if (state == GameState.FreeRoam)
+        {       
+            if (player == null)
             {
-                player = FindAnyObjectByType<PlayerMovement>().gameObject;
-                if(playerParty.partyMembers.Count <= 0)
-                {
-                    currentToyoParty = player.GetComponent<ToyoParty>();
-                    UpdatePlayerParty(currentToyoParty);
-                }
+                player = FindAnyObjectByType<ThirdPersonMovement>().gameObject;
+                currentToyoParty = player.GetComponent<ToyoParty>();
+                UpdateControllerParty(currentToyoParty);
 
+                if(!partyInitialized)
+                {
+                    foreach(var member in currentToyoParty.ToyoPartyList)
+                    {
+                        gcParty.ToyoPartyList.Add(member);
+                    }
+                    partyInitialized = true;
+                }
+                
             }
         }
         if(state == GameState.Battle)
@@ -99,14 +110,20 @@ public class GameController : MonoBehaviour
     }
 
     // Example method to update the player's party information
-    public void UpdatePlayerParty(ToyoParty newParty)
+    public void UpdateControllerParty(ToyoParty newParty)
     {
         playerParty.partyMembers = newParty.ToyoPartyList;
+        //gcParty = newParty;
     }
 
     public List<Toyo> GetStoredToyoPartyList()
     {
         return playerParty.partyMembers;
+    }
+
+    public ToyoParty GetStoredToyoParty()
+    {
+        return gcParty;
     }
 
     public void SwitchToBattleScene()
@@ -138,6 +155,6 @@ public class GameController : MonoBehaviour
 
     public void SetPlayer()
     {
-        player = FindAnyObjectByType<PlayerMovement>().gameObject;
+        player = FindAnyObjectByType<ThirdPersonMovement>().gameObject;
     }
 }

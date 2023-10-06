@@ -10,7 +10,8 @@ public enum BattleState
     PLAYERACTION,
     PLAYERMOVE,
     ENEMYMOVE,
-    BUSY
+    BUSY,
+    PARTYSCREEN
 }
 
 public class BattleSystem : MonoBehaviour
@@ -43,7 +44,7 @@ public class BattleSystem : MonoBehaviour
         GameController.instance.state = GameState.Battle;
         ToyoParty tempParty = new ToyoParty();
         tempParty.ToyoPartyList = GameController.instance.playerParty.partyMembers;
-        StartBattle(tempParty, GameController.instance.mapArea.GetRandomWildToyo());
+        StartBattle(GameController.instance.gcParty, GameController.instance.mapArea.GetRandomWildToyo());
 
     }
 
@@ -122,7 +123,7 @@ public class BattleSystem : MonoBehaviour
 
             yield return new WaitForSeconds(1f);
 
-            GameController.instance.UpdatePlayerParty(this.playerParty);
+            GameController.instance.UpdateControllerParty(this.playerParty);
             GameController.instance.EndBattle();
         }
         else
@@ -170,22 +171,14 @@ public class BattleSystem : MonoBehaviour
 
             //anim.SetTrigger("Fainted") here
 
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(1f);
 
             Destroy(playerUnit.playerToyo.gameObject);
 
             var nextToyo = playerParty.GetHealthyToyo();
             if(nextToyo != null)
             {
-                playerUnit.Setup(nextToyo);
-                playerHUD.SetData(nextToyo);
-
-                bDialogue.SetMoveNames(nextToyo.Moves);
-                bDialogue.SetButtonMoves(nextToyo.Moves);
-
-                yield return bDialogue.TypeDialog($"Go! {nextToyo.Base.ToyoName}!");
-
-                PlayerAction();
+                OpenPartyScreen();
             }
             else
             {
@@ -200,8 +193,47 @@ public class BattleSystem : MonoBehaviour
 
     }
 
+    public void SendToyo(Toyo selectedToyo)
+    {
+        if(selectedToyo.HP <= 0)
+        {
+            partyScreen.SetMessageText("You can't send out a fainted Toyo");
+            return;
+        }
+        if(selectedToyo == playerUnit.Toyo)
+        {
+            partyScreen.SetMessageText("You can't send out the same Toyo");
+            return;
+        }
+        partyScreen.gameObject.SetActive(false);
+        state = BattleState.BUSY;
+
+        StartCoroutine(SwitchToyo(selectedToyo));
+
+    }
+
+    public IEnumerator SwitchToyo(Toyo toyo)
+    {
+        yield return bDialogue.TypeDialog($"Come back, {playerUnit.Toyo.Base.ToyoName}!");
+        //play animation here
+        Destroy(playerUnit.playerToyo.gameObject);
+        yield return new WaitForSeconds(2f);
+
+        playerUnit.Setup(toyo);
+        playerHUD.SetData(toyo);
+
+        bDialogue.SetMoveNames(toyo.Moves);
+        bDialogue.SetButtonMoves(toyo.Moves);
+
+        yield return bDialogue.TypeDialog($"Go! {toyo.Base.ToyoName}!");
+
+        StartCoroutine(EnemyMove());
+
+    }
+
     public void OpenPartyScreen()
     {
+        state = BattleState.PARTYSCREEN;
         partyScreen.SetPartyData(playerParty.ToyoPartyList);
         partyScreen.gameObject.SetActive(true);
     }

@@ -1,10 +1,7 @@
 using worldId = System.String;
 using userId = System.String;
-using quantity = System.Double;
 using groupId = System.String;
 using entityId = System.String;
-using duration = EdjCase.ICP.Candid.Models.UnboundedUInt;
-using attribute = System.String;
 using actionId = System.String;
 using List_1 = EdjCase.ICP.Candid.Models.OptionalValue<Candid.UserNode.Models.List_1Item>;
 using List = EdjCase.ICP.Candid.Models.OptionalValue<Candid.UserNode.Models.ListItem>;
@@ -42,7 +39,7 @@ namespace Candid.UserNode.Models
 			return new Result_2(Result_2Tag.Err, info);
 		}
 
-		public static Result_2 Ok(List<Action> info)
+		public static Result_2 Ok(List<ActionState> info)
 		{
 			return new Result_2(Result_2Tag.Ok, info);
 		}
@@ -53,10 +50,10 @@ namespace Candid.UserNode.Models
 			return (string)this.Value!;
 		}
 
-		public List<Action> AsOk()
+		public List<ActionState> AsOk()
 		{
 			this.ValidateTag(Result_2Tag.Ok);
-			return (List<Action>)this.Value!;
+			return (List<ActionState>)this.Value!;
 		}
 
 		private void ValidateTag(Result_2Tag tag)
@@ -74,7 +71,7 @@ namespace Candid.UserNode.Models
 		[VariantOptionType(typeof(string))]
 		Err,
 		[CandidName("ok")]
-		[VariantOptionType(typeof(List<Action>))]
+		[VariantOptionType(typeof(List<ActionState>))]
 		Ok
 	}
 }

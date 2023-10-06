@@ -1,6 +1,6 @@
 // Ignore Spelling: Util
 
-using Candid.World.Models;
+using Boom;
 using EdjCase.ICP.Agent.Agents;
 using Boom.Patterns.Broadcasts;
 using Boom.Utility;
@@ -457,23 +457,5 @@ public static class UserUtil
         if (tokenResult.IsErr) return 0;
 
         return tokenResult.AsOk().baseUnitAmount;
-    }
-
-    /// <summary>
-    /// This is for lassy people who wants to fetch a Token along with its Config by its tokenCanisterId
-    /// </summary>
-    /// <param name="canisterId">Canister Id of the Token</param>
-    /// <returns></returns>
-    public static UResult<(DataTypes.Token token, DataTypes.TokenConfig configs), string> GetTokenAndConfigs(string canisterId)
-    {
-        var tokenResult = GetElementOfType<DataTypes.Token>(canisterId);
-
-        if (tokenResult.IsErr) return new(tokenResult.AsErr());
-
-        var configsResult = GetElementOfType<DataTypes.TokenConfig>(canisterId);
-
-        if (configsResult.IsErr) return new(configsResult.AsErr());
-
-        return new((tokenResult.AsOk(), configsResult.AsOk()));
     }
 }

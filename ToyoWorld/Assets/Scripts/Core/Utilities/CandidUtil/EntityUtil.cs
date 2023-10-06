@@ -1,237 +1,345 @@
 ﻿
+using Boom.Utility;
 using Boom.Values;
 using Candid.World.Models;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 // Ignore Spelling: Util
 
+public enum ConfigQueryType
+{
+    Eid,
+    Gid
+}
 internal static class EntityUtil
 {
-    public static string GetKey(this ActionConstraint.EntityConstraintItemItem actionConfig)
+    public static string BuildConfigId(string id, string wid = "")
     {
-        return $"{actionConfig.Wid}{actionConfig.Gid}{actionConfig.Eid}";
-    }
-    public static string GetKey(this Entity entity)
-    {
-        return $"{entity.Wid}{entity.Gid}{entity.Eid}";
-    }
-    public static string GetKey(this ReceiveEntityQuantity entity)
-    {
-        var wid = entity.Wid.GetValueOrDefault();
         if (string.IsNullOrEmpty(wid)) wid = Env.CanisterIds.WORLD;
 
-        return $"{wid}{entity.Gid}{entity.Eid}";
-    }
-    //HAS CONFIG
-    public static bool HasConfig(string entityId, out DataTypes.EntityConfig config)
-    {
-        config = default;
-        var result = UserUtil.GetElementOfType<DataTypes.EntityConfig>(entityId);
-        if (result.IsOk) config = result.AsOk();
-        return result.IsOk;
+        return $"{wid}{id}";
     }
 
-    // GET NAME
-    public static string GetName(string key, string defaultValue = "None")
+    public static string GetConfigId(this DataTypes.Entity entity, ConfigQueryType configQueryType = ConfigQueryType.Eid)
     {
-        if (HasConfig(key, out var config))
+        var wid = entity.wid;
+        if (string.IsNullOrEmpty(wid)) wid = Env.CanisterIds.WORLD;
+
+        return configQueryType == ConfigQueryType.Eid? $"{wid}{entity.eid}" : $"{wid}{entity.gid}";
+    }
+    public static string GetConfigId(this NewEntityValues entity, ConfigQueryType configQueryType = ConfigQueryType.Eid)
+    {
+        var wid = entity.wid;
+        if (string.IsNullOrEmpty(wid)) wid = Env.CanisterIds.WORLD;
+
+        return configQueryType == ConfigQueryType.Eid ? $"{wid}{entity.eid}" : $"{wid}{entity.gid}";
+    }
+    public static string GetConfigId(this EntityConstrainTypes.Base entity, ConfigQueryType configQueryType = ConfigQueryType.Eid)
+    {
+        var wid = entity.Wid;
+        if (string.IsNullOrEmpty(wid)) wid = Env.CanisterIds.WORLD;
+
+        return configQueryType == ConfigQueryType.Eid ? $"{wid}{entity.Eid}" : $"{wid}{entity.Gid}";
+    }
+    public static string GetConfigId(this ActionOutcomeTypes.ActionOutcomeEditEntity entity, ConfigQueryType configQueryType = ConfigQueryType.Eid)
+    {
+        var wid = entity.Wid;
+        if (string.IsNullOrEmpty(wid)) wid = Env.CanisterIds.WORLD;
+
+        return configQueryType == ConfigQueryType.Eid ? $"{wid}{entity.Eid}" : $"{wid}{entity.Gid}";
+    }
+
+    //TRY GET CONFGIS
+    public static bool TryGetConfig(string entityConfigKey, out DataTypes.Config entityConfig)
+    {
+        entityConfig = default;
+        var config = UserUtil.GetElementOfType<DataTypes.Config>(entityConfigKey);
+
+
+        if (config.IsOk)
         {
-            if (string.IsNullOrEmpty(config.name) == false) return config.name;
+            entityConfig = config.AsOk();
         }
-        return defaultValue;
+
+        return config.IsOk;
     }
 
-    // GET DESCRIPTION
-    public static string GetDescription(string key, string defaultValue = "None")
+    public static bool TryGetConfig(this NewEntityValues entity, out DataTypes.Config entityConfig, ConfigQueryType configQueryType = ConfigQueryType.Eid)
     {
-        if (HasConfig(key, out var config))
+        return TryGetConfig(entity.GetConfigId(configQueryType), out entityConfig);
+    }
+    public static bool TryGetConfig(this DataTypes.Entity entity, out DataTypes.Config entityConfig, ConfigQueryType configQueryType = ConfigQueryType.Eid)
+    {
+        return TryGetConfig(entity.GetConfigId(configQueryType), out entityConfig);
+    }
+    public static bool TryGetConfig(this EntityConstrainTypes.Base entity, out DataTypes.Config entityConfig, ConfigQueryType configQueryType = ConfigQueryType.Eid)
+    {
+        return TryGetConfig(entity.GetConfigId(configQueryType), out entityConfig);
+    }
+    public static bool TryGetConfig(Predicate<DataTypes.Config> predicate, out DataTypes.Config returnValue)
+    {
+        returnValue = default;
+
+        var result = UserUtil.GetElementsOfType<DataTypes.Config>();
+        if (result.IsErr)
         {
-            if (string.IsNullOrEmpty(config.description) == false) return config.description;
-        }
-        return defaultValue;
-    }
+            Debug.LogError(result.AsErr());
 
-    // GET IMAGE URL
-    public static string GetImageUrl(string key, string defaultValue = "None")
-    {
-        if (HasConfig(key, out var config))
+            return false;
+        }
+
+        var elements = result.AsOk();
+
+        foreach (var item in elements)
         {
-            if (string.IsNullOrEmpty(config.imageUrl) == false) return config.imageUrl;
+            if (predicate(item))
+            {
+                returnValue = item;
+                return true;
+            }
         }
-        return defaultValue;
-    }
 
-    // GET OBJECT URL
-    public static string GetObjetUrl(string key, string defaultValue = "None")
+        return false;
+    }
+    public static bool QueryConfigs(Predicate<DataTypes.Config> predicate, out LinkedList<DataTypes.Config> returnValue)
     {
-        if (HasConfig(key, out var config))
+        returnValue = default;
+
+        var result = UserUtil.GetDataOfType<DataTypes.Config>();
+
+        if (result.IsErr)
         {
-            if (string.IsNullOrEmpty(config.objectUrl) == false) return config.objectUrl;
-        }
-        return defaultValue;
-    }
+            Debug.LogError(result.AsErr());
 
-    // GET RARITY
-    public static string GetRarity(string key, string defaultValue = "None")
-    {
-        if (HasConfig(key, out var config))
+            return false;
+        }
+
+        returnValue = new();
+
+        foreach (var item in result.AsOk().data.elements)
         {
-            if (string.IsNullOrEmpty(config.rarity) == false) return config.rarity;
+            if (predicate(item.Value)) returnValue.AddLast(item.Value);
         }
-        return defaultValue;
-    }
 
-    // GET TAG
-    public static string GetTag(string key, string defaultValue = "None")
+        return true;
+    }
+    public static bool QueryConfigsByTag(string tag, out LinkedList<DataTypes.Config> returnValue)
     {
-        if (HasConfig(key, out var config))
+        return QueryConfigs(e =>
         {
-            if (string.IsNullOrEmpty(config.tag) == false) return config.tag;
-        }
-        return defaultValue;
+            if (!e.fields.TryGetValue("tag", out var value)) return false;
+
+            return value.ToString() == tag;
+        }, out returnValue);
     }
 
-    // GET MERADATA
-    public static string GetMetadata(string key, string defaultValue = "None")
+    public static bool GetConfigFieldAs<T>(string configId, string fieldName, out T returnValue, T defaultValue = default)
     {
-        if (HasConfig(key, out var config))
+        returnValue = defaultValue;
+
+        var result = UserUtil.GetElementOfType<DataTypes.Config>(configId);
+        if (result.IsErr)
         {
-            if (string.IsNullOrEmpty(config.metadata) == false) return config.metadata;
+            Debug.LogError(result.AsErr());
+
+            return false;
         }
-        return defaultValue;
-    }
 
-    // GET QUANTITY
-    public static double GetCurrentQuantity(string emtityId)
+        if (!result.AsOk().fields.TryGetValue(fieldName, out var value)) return false;
+
+        if (value.TryParseValue<T>(out returnValue))
+        {
+            return true;
+        }
+        Debug.LogError($"Error on \"value\" type, current type: {value.GetType()}, desired type is: {typeof(T)}");
+        return false;
+    }
+    public static bool GetConfigFieldAs<T>(this DataTypes.Entity entity, string fieldName, out T returnValue, T defaultValue = default)
     {
-        var result = UserUtil.GetElementOfType<DataTypes.Entity>(emtityId);
-        if (result.IsErr) return default;
-
-        return result.AsOk().quantity.GetValueOrDefault();
+        return GetConfigFieldAs(entity.GetConfigId(), fieldName, out returnValue, defaultValue);
     }
-    public static double GetQuantity(this Entity entity)
+    public static bool GetConfigFieldAs<T>(this DataTypes.Config config, string fieldName, out T returnValue, T defaultValue = default)
     {
-        return entity.Quantity.ValueOrDefault;
+        return GetConfigFieldAs(config.GetKey(), fieldName, out returnValue, defaultValue);
+    }
+    public static bool GetConfigFieldAs<T>(this NewEntityValues newEntityValues, string fieldName, out T returnValue, T defaultValue = default, ConfigQueryType configQueryType = ConfigQueryType.Eid)
+    {
+        return GetConfigFieldAs(newEntityValues.GetConfigId(configQueryType), fieldName, out returnValue, defaultValue);
+    }
+    public static bool GetConfigFieldAs<T>(this ActionOutcomeTypes.ActionOutcomeEditEntity newEntityValues, string fieldName, out T returnValue, T defaultValue = default, ConfigQueryType configQueryType = ConfigQueryType.Eid)
+    {
+        return GetConfigFieldAs(newEntityValues.GetConfigId(configQueryType), fieldName, out returnValue, defaultValue);
     }
 
+    public static bool GetFieldAs<T>(string entityKey, string fieldName, out T returnValue, T defaultValue = default)
+    {
+        returnValue = defaultValue;
+
+        var result = UserUtil.GetElementOfType<DataTypes.Entity>(entityKey);
+        if (result.IsErr)
+        {
+            return false;
+        }
+
+        if (!result.AsOk().fields.TryGetValue(fieldName, out var value)) return false;
+
+        if (value.TryParseValue<T>(out returnValue))
+        {
+            return true;
+        }
+        Debug.LogError($"Error on \"value\" type, current type: {value.GetType()}, desired type is: {typeof(T)}");
+        return false;
+    }
+    public static bool GetFieldAs<T>(this DataTypes.Entity entity, string fieldName, out T returnValue, T defaultValue = default)
+    {
+        returnValue = defaultValue;
+
+        if (!entity.fields.TryGetValue(fieldName, out var value)) return false;
+
+        if (value.TryParseValue<T>(out returnValue))
+        {
+            return true;
+        }
+        Debug.LogError($"Error on \"value\" type, current type: {value.GetType()}, desired type is: {typeof(T)}");
+        return false;
+    }
+    public static bool GetFieldAs<T>(this NewEntityValues newEntityValues, string fieldName, out T returnValue, T defaultValue = default)
+    {
+        returnValue = defaultValue;
+
+        if (!newEntityValues.fields.TryGetValue(fieldName, out var edit)) return false;
+
+        try
+        {
+            returnValue = (T)edit.Value;
+            return true;
+        }
+        catch
+        {
+            Debug.LogError($"Error on \"value\" type, current type: {edit.Value.GetType()}, desired type is: {typeof(T)}");
+            return false;
+        }
+    }
 
     /// <summary>
     /// Will return true if all requirements are met
     /// </summary>
-    /// <param name="constrains"></param>
+    /// <param name="action"></param>
     /// <returns></returns>
-    public static UResult<bool, string> MeetEntityRequirements(params ActionConstraint.EntityConstraintItemItem[] constrains)
+    public static UResult<bool, string> MeetEntityRequirements(DataTypes.Action action)
     {
-        var data = UserUtil.GetElementsOfType<DataTypes.Entity>();
-
-        if (data.Tag == UResultTag.Err) return new(data.AsErr());
-
-        var asOk = data.AsOk();
-
-        foreach (var constrain in constrains)
+        if (action.entityConstraints != null)
         {
-            bool doContinue = false;
-            foreach (var ownEntity in asOk)
+            var entitiesResult = UserUtil.GetElementsOfType<DataTypes.Entity>();
+
+            if (entitiesResult.Tag == UResultTag.Err) return new(entitiesResult.AsErr());
+
+            var entitiesResultAsOk = entitiesResult.AsOk();
+
+            foreach (var constrain in action.entityConstraints)
             {
-                if ($"{ownEntity.wid}{ownEntity.gid}{ownEntity.eid}" == $"{constrain.Wid}{constrain.Gid}{constrain.Eid}")
+                bool fail = true;
+
+                foreach (var ownEntity in entitiesResultAsOk)
                 {
-                    int a = 0, b = 0;
-
-                    if (constrain.GreaterThanOrEqualQuantity.HasValue)
+                    if(constrain.GetKey() == ownEntity.GetKey())
                     {
-                        ++a;
-                        if (constrain.GreaterThanOrEqualQuantity.ValueOrDefault <= ownEntity.quantity)
+                        if (constrain.Check(ownEntity))
                         {
-                            ++b;
+                            fail = false;
+                            break;
                         }
                     }
-
-                    if (constrain.LessThanQuantity.HasValue)
-                    {
-                        ++a;
-                        if (constrain.LessThanQuantity.ValueOrDefault > ownEntity.quantity)
-                        {
-                            ++b;
-                        }
-                    }
-
-                    if (constrain.EqualToAttribute.HasValue)
-                    {
-                        ++a;
-                        if (constrain.EqualToAttribute.ValueOrDefault == ownEntity.attribute)
-                        {
-                            ++b;
-                        }
-                    }
-
-                    if (constrain.NotExpired.HasValue)
-                    {
-                        ++a;
-                        if (constrain.NotExpired.ValueOrDefault ? ownEntity.lastTs >= Time.time : ownEntity.lastTs < Time.time)
-                        {
-                            ++b;
-                        }
-                    }
-
-                    doContinue = a == b;
-                    break;
                 }
+
+                if (fail) return new(false);
+
             }
 
-            if (doContinue) continue;
-
-            return new(false);
+            return new(true);
         }
-
-        return new(true);
+        else return new(true);
     }
 
-    public static double IncrementCurrentQuantity(params DataTypes.Entity[] valuesToIncrementBy)
+    public static void EditEntities(params NewEntityValues[] newEntityValuesArr)
     {
-        List<DataTypes.Entity> newValues = new();
-        double currentQuantity = 0;
-
-        for (int i = 0; i < valuesToIncrementBy.Length; i++)
+        if (!UserUtil.IsDataValid<DataTypes.Entity>())
         {
-            var element = valuesToIncrementBy[i];
-            currentQuantity = UserUtil.GetPropertyFromType<DataTypes.Entity, double>(element.GetKey(), e => e.quantity.GetValueOrDefault(), 0);
+            Debug.LogError("Error, entity has not been loaded yet");
 
-            if(element.quantity != null)
-            {
-                element.quantity += currentQuantity;
-                newValues.Add(element);
-            }
+            return;
         }
 
-        UserUtil.UpdateData<DataTypes.Entity>(newValues.ToArray());
+        var currentEntities = UserUtil.GetDataOfType<DataTypes.Entity>().AsOk().data.elements;
 
-        return currentQuantity;
-    }
-    public static double DecrementCurrentQuantity(params DataTypes.Entity[] valuesToIncrementBy)
-    {
-        List<DataTypes.Entity> newValues = new();
-        double currentQuantity = 0;
 
-        for (int i = 0; i < valuesToIncrementBy.Length; i++)
-        {
-            var element = valuesToIncrementBy[i];
-            currentQuantity = UserUtil.GetPropertyFromType<DataTypes.Entity, double>(element.GetKey(), e => e.quantity.GetValueOrDefault(), 0);
-
-            if(currentQuantity > 0)
+        foreach (NewEntityValues newEntityValues in newEntityValuesArr) { 
+            
+            if(!newEntityValues.dispose)
             {
-                if (element.quantity != null)
+                if (!currentEntities.TryGetValue(newEntityValues.GetKey(), out var currentEntity))
                 {
-                    element.quantity = currentQuantity - element.quantity;
+                    currentEntity = new(newEntityValues.wid, newEntityValues.gid, newEntityValues.eid, new());
+                    currentEntities.Add(currentEntity.GetKey(), currentEntity);
+                }
 
-                    if (element.quantity < 0) element.quantity = 0;
+                foreach (var field in newEntityValues.fields)
+                {
+                    Debug.Log($"FIELD TO EDIT, id: {field.Key}, edit type: {field.Value.EditType}, editValue: {field.Value.Value} ");
+                    var editData = field.Value;
 
-                    newValues.Add(element);
+                    if(editData.EditType == EntityFieldEditType.SetString)
+                    {
+
+                        if (!currentEntity.fields.TryAdd(field.Key, editData.Value.ToString()))
+                        {
+                            currentEntity.fields[field.Key] = editData.Value.ToString();
+                        }
+                    }
+                    else if (editData.EditType == EntityFieldEditType.SetNumber)
+                    {
+                        if (!currentEntity.fields.TryAdd(field.Key, editData.Value.ToString()))
+                        {
+                            currentEntity.fields[field.Key] = editData.Value.ToString();
+                        }
+                    }
+                    else if (editData.EditType == EntityFieldEditType.IncrementNumber)
+                    {
+                        if (!newEntityValues.GetFieldAs<double>(field.Key, out var value)) continue;
+
+
+                        if (!currentEntity.fields.TryAdd(field.Key, value.ToString()))
+                        {
+                            if(!currentEntity.GetFieldAs<double>(field.Key, out var currentValue)) continue;
+
+                            currentEntity.fields[field.Key] = (currentValue + value).ToString();
+                        }
+                    }
+                    else if (editData.EditType == EntityFieldEditType.DecrementNumber)
+                    {
+                        if (!newEntityValues.GetFieldAs<double>(field.Key, out var value)) continue;
+
+                        if (!currentEntity.GetFieldAs<double>(field.Key, out var currentValue)) continue;
+
+                        currentEntity.fields[field.Key] = (currentValue - value).ToString();
+                    }
+                    else
+                    {
+                        if (!currentEntity.fields.TryAdd(field.Key, editData.Value.ToString()))
+                        {
+                            currentEntity.fields[field.Key] = editData.Value.ToString();
+                        }
+                    }
                 }
             }
+            else
+            {
+                currentEntities.Remove(newEntityValues.GetKey());
+            }
+
         }
 
-        UserUtil.UpdateData<DataTypes.Entity>(newValues.ToArray());
-
-        return currentQuantity;
+        UserUtil.UpdateData<DataTypes.Entity>(new DataTypes.Entity[0]);
     }
 }

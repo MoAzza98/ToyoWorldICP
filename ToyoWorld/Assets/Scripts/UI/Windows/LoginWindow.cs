@@ -8,17 +8,13 @@ using UnityEngine.UI;
 using System;
 using System.Collections.Generic;
 using Boom.Utility;
-using Cysharp.Threading.Tasks;
+using Boom;
 
 public class LoginWindow : Window
 {
     public class WindowData
     {
     }
-    public Button incrementBtn;
-    public Button doubleBtn;
-    public Button getBtn;
-
 
     public Button logInBtn;
     public Button logOutBtn;
@@ -26,7 +22,6 @@ public class LoginWindow : Window
     public TextMeshProUGUI loadingTxt;
     public TextMeshProUGUI principalTxt;
     public GameObject pageControl;
-    public GameObject ToyoUI;
 
     readonly List<Type> typesToLoad = new();
 
@@ -39,9 +34,9 @@ public class LoginWindow : Window
     public override void Setup(object data)
     {
         UserUtil.RegisterToLoginDataChange(UpdateWindow, true);
+        BroadcastState.Register<CanLogin>(UpdateWindow, true);
         UserUtil.RegisterToDataChange<DataTypes.Entity>(UpdateWindow);
-        UserUtil.RegisterToDataChange<DataTypes.Action>(UpdateWindow);
-        UserUtil.RegisterToDataChange<DataTypes.Stake>(UpdateWindow);
+        UserUtil.RegisterToDataChange<DataTypes.ActionState>(UpdateWindow);
         UserUtil.RegisterToDataChange<DataTypes.NftCollection>(UpdateWindow);
 
         logInBtn.onClick.AddListener(LogIn);
@@ -51,10 +46,11 @@ public class LoginWindow : Window
         principalTxt.text = "";
 
         typesToLoad.Add(typeof(DataTypes.Entity));
-        typesToLoad.Add(typeof(DataTypes.Action));
-        typesToLoad.Add(typeof(DataTypes.Stake));
+        typesToLoad.Add(typeof(DataTypes.ActionState));
         typesToLoad.Add(typeof(DataTypes.NftCollection));
     }
+
+
     private void OnDestroy()
     {
         LoginManager.Instance.CancelLogin();
@@ -63,10 +59,15 @@ public class LoginWindow : Window
         logOutBtn.onClick.RemoveListener(LogoutUser);
 
         UserUtil.UnregisterToLoginDataChange(UpdateWindow);
+        BroadcastState.Unregister<CanLogin>(UpdateWindow);
         UserUtil.UnregisterToDataChange<DataTypes.Entity>(UpdateWindow);
-        UserUtil.UnregisterToDataChange<DataTypes.Action>(UpdateWindow);
-        UserUtil.UnregisterToDataChange<DataTypes.Stake>(UpdateWindow);
+        UserUtil.UnregisterToDataChange<DataTypes.ActionState>(UpdateWindow);
         UserUtil.UnregisterToDataChange<DataTypes.NftCollection>(UpdateWindow);
+    }
+
+    private void UpdateWindow(CanLogin state)
+    {
+        logInBtn.interactable = state.value;
     }
 
     private void UpdateWindow(DataState<Data<DataTypes.Entity>> state)
@@ -82,26 +83,13 @@ public class LoginWindow : Window
         var loginDataStateResult = UserUtil.GetLogInDataState();
         if (loginDataStateResult.IsOk) UpdateWindow(loginDataStateResult.AsOk());
     }
-    private void UpdateWindow(DataState<Data<DataTypes.Action>> state)
+    private void UpdateWindow(DataState<Data<DataTypes.ActionState>> state)
     {
         if (state.IsReady() && typesToLoad.Count > 0)
         {
-            if (typesToLoad.Contains(typeof(DataTypes.Action)))
+            if (typesToLoad.Contains(typeof(DataTypes.ActionState)))
             {
-                typesToLoad.Remove(typeof(DataTypes.Action));
-            }
-        }
-
-        var loginDataStateResult = UserUtil.GetLogInDataState();
-        if (loginDataStateResult.IsOk) UpdateWindow(loginDataStateResult.AsOk());
-    }
-    private void UpdateWindow(DataState<Data<DataTypes.Stake>> state)
-    {
-        if (state.IsReady() && typesToLoad.Count > 0)
-        {
-            if (typesToLoad.Contains(typeof(DataTypes.Stake)))
-            {
-                typesToLoad.Remove(typeof(DataTypes.Stake));
+                typesToLoad.Remove(typeof(DataTypes.ActionState));
             }
         }
 
@@ -127,17 +115,13 @@ public class LoginWindow : Window
         bool isLoading = state.IsLoading();
         var getIsLoginResult = UserUtil.GetLogInType();
 
-        //logInBtn.interactable = state.IsReady();
-        //logOutBtn.interactable = state.IsReady();
-
         if (getIsLoginResult.Tag == UResultTag.Ok)
         {
             if(getIsLoginResult.AsOk() == UserUtil.LoginType.User)
             {
                 var isUserDataLoaded =
                     UserUtil.IsDataValid<DataTypes.Entity>() &&
-                    UserUtil.IsDataValid<DataTypes.Action>() &&
-                    UserUtil.IsDataValid<DataTypes.Stake>() &&
+                    UserUtil.IsDataValid<DataTypes.ActionState>() &&
                     UserUtil.IsDataValid<DataTypes.NftCollection>(Env.Nfts.BOOM_COLLECTION_CANISTER_ID);
 
                 logInBtn.gameObject.SetActive(false);
@@ -149,7 +133,6 @@ public class LoginWindow : Window
                     logInStateTxt.text = "Logged In";
                     principalTxt.text = $"Principal: <b>\"{state.data.principal}\"</b>\nAccountId: <b>\"{state.data.accountIdentifier}\"</b>";
                     pageControl.SetActive(true);
-                    ToyoUI.SetActive(true);
                     logOutBtn.gameObject.SetActive(true);
                     loadingTxt.text = "";
                 }
@@ -163,8 +146,7 @@ public class LoginWindow : Window
                 if (initialized.HasValue && initialized.Value)
                 {
                     typesToLoad.Add(typeof(DataTypes.Entity));
-                    typesToLoad.Add(typeof(DataTypes.Action));
-                    typesToLoad.Add(typeof(DataTypes.Stake));
+                    typesToLoad.Add(typeof(DataTypes.ActionState));
                     typesToLoad.Add(typeof(DataTypes.NftCollection));
                 }
                 initialized = false;
@@ -173,7 +155,6 @@ public class LoginWindow : Window
                 logInStateTxt.text = "";//"Logged in as Anon";
                 principalTxt.text = ""; //$"Principal: <b>\"{state.data.principal}\"</b>\nAccountId: <b>\"{state.data.accountIdentifier}\"</b>";
                 pageControl.SetActive(false);
-                ToyoUI.SetActive(false);
                 logInBtn.gameObject.SetActive(true);
                 logOutBtn.gameObject.SetActive(false);
                 loadingTxt.text = "Please login";
@@ -186,7 +167,6 @@ public class LoginWindow : Window
             logInStateTxt.text = "";
             principalTxt.text = $"";
             pageControl.SetActive(false);
-            ToyoUI.SetActive(false);
             logInBtn.gameObject.SetActive(false);
             logOutBtn.gameObject.SetActive(false);
         }
@@ -194,26 +174,14 @@ public class LoginWindow : Window
 
     //
 
-    public void CancelWalletIntegration()
-    {
-        Close();
-    }
-
     private void LogoutUser()
     {
-        PlayerPrefs.SetString("authTokenId", string.Empty);
         Broadcast.Invoke<UserLogout>();
     }
 
     //Login
     public void LogIn()
     {
-        if (BroadcastState.TryRead<DataState<LoginData>>(out var dataState))
-        {
-            if (dataState.IsLoading()) return;
-        }
-
-        PlayerPrefs.SetString("walletType", "II");
         UserUtil.StartLogin("Logging In...");
     }
 }

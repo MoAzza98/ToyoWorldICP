@@ -1,9 +1,7 @@
 using worldId = System.String;
-using quantity = System.Double;
 using groupId = System.String;
 using entityId = System.String;
-using duration = EdjCase.ICP.Candid.Models.UnboundedUInt;
-using attribute = System.String;
+using configId = System.String;
 using BlockIndex = System.UInt64;
 using EdjCase.ICP.Candid.Mapping;
 using Candid.World.Models;
@@ -36,7 +34,7 @@ namespace Candid.World.Models
 			return new Result_6(Result_6Tag.Err, info);
 		}
 
-		public static Result_6 Ok(List<Action> info)
+		public static Result_6 Ok(List<ActionState> info)
 		{
 			return new Result_6(Result_6Tag.Ok, info);
 		}
@@ -47,10 +45,10 @@ namespace Candid.World.Models
 			return (string)this.Value!;
 		}
 
-		public List<Action> AsOk()
+		public List<ActionState> AsOk()
 		{
 			this.ValidateTag(Result_6Tag.Ok);
-			return (List<Action>)this.Value!;
+			return (List<ActionState>)this.Value!;
 		}
 
 		private void ValidateTag(Result_6Tag tag)
@@ -68,7 +66,7 @@ namespace Candid.World.Models
 		[VariantOptionType(typeof(string))]
 		Err,
 		[CandidName("ok")]
-		[VariantOptionType(typeof(List<Action>))]
+		[VariantOptionType(typeof(List<ActionState>))]
 		Ok
 	}
 }

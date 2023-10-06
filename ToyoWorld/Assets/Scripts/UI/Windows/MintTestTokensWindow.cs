@@ -2,12 +2,9 @@ using Boom.Patterns.Broadcasts;
 using Boom.UI;
 using Boom.Utility;
 using Boom.Values;
-using Candid.IcrcLedger;
-using Candid.World.Models;
 using Cysharp.Threading.Tasks;
-using EdjCase.ICP.Candid.Models;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using Boom;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -83,7 +80,7 @@ public class MintTestTokensWindow : Window
         var resultAsOk = actionResult.AsOk();
         DisplayActionResponse(resultAsOk);
 
-        var actionConfigResult = UserUtil.GetElementOfType<DataTypes.ActionConfig>(mintIcrcActionId);
+        var actionConfigResult = UserUtil.GetElementOfType<DataTypes.Action>(mintIcrcActionId);
 
         if (actionConfigResult.IsErr)
         {
@@ -93,19 +90,6 @@ public class MintTestTokensWindow : Window
             BroadcastState.Invoke(new WaitingForResponse(false));
             return;
         }
-
-        var actionConfig = actionConfigResult.AsOk();
-
-        actionConfig.actionResult.Outcomes.Once(e => e.PossibleOutcomes.Once(k =>
-        {
-            if (k.Option.Tag == ActionOutcomeOption.OptionInfoTag.MintToken)
-            {
-                TokenUtil.IncrementTokenByDecimal(k.Option.AsMintToken().Canister, k.Option.AsMintToken().Quantity);
-            }
-        }));
-
-        //UserUtil.RequestData<DataTypes.Token>(canisterId);
-
 
         BroadcastState.Invoke(new WaitingForResponse(false));
 
@@ -132,7 +116,7 @@ public class MintTestTokensWindow : Window
 
             if (fetchOwnTokenDataResult.IsOk)
             {
-                tokenName = fetchOwnTokenDataResult.AsOk().collectionName;
+                tokenName = fetchOwnTokenDataResult.AsOk().name;
             }
             else
             {
@@ -146,7 +130,7 @@ public class MintTestTokensWindow : Window
         resonse.tokens.Iterate(e =>
         {
             string tokenName = "Some Name";
-            var fetchOwnTokenDataResult = UserUtil.GetElementOfType<DataTypes.TokenConfig>(e.Canister);
+            var fetchOwnTokenDataResult = UserUtil.GetElementOfType<DataTypes.TokenMetadata>(e.Canister);
 
             if (fetchOwnTokenDataResult.IsOk)
             {

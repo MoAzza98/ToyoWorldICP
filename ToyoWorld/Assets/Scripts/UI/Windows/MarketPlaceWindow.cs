@@ -11,6 +11,7 @@ namespace Boom.UI
     using UnityEngine;
     using UnityEngine.UI;
     using Cysharp.Threading.Tasks;
+    using static DataTypes;
 
     public class MarketPlaceWindow : Window
     {
@@ -181,7 +182,7 @@ namespace Boom.UI
 
             var listingResult = UserUtil.GetElementsOfType<DataTypes.Listing>();
 
-            if (listingResult.Tag == Values.UResultTag.Err)
+            if (listingResult.Tag == UResultTag.Err)
             {
                 //Is Fetching
                 Debug.LogWarning("Fetching Listings, msg: "+ listingResult.AsErr());
@@ -268,7 +269,6 @@ namespace Boom.UI
         private async UniTaskVoid CheckForSettlement(Extv2BoomApiClient collectionInterface)
         {
             if (checkingForSettlement) return;
-            Debug.Log($"CheckForSettlement");
 
             checkingForSettlement = true;
 
@@ -276,7 +276,6 @@ namespace Boom.UI
             {
                 var settlementsResponse = await collectionInterface.HeartbeatPending();
 
-                Debug.Log($"Settlement Count: {settlementsResponse.Count}");
                 if (settlementsResponse.Count > 0)
                 {
                     await collectionInterface.HeartbeatExternal();
@@ -305,15 +304,16 @@ namespace Boom.UI
             var accountIdentifier = getAccountIdentifierResult.AsOk().Value;
 
 
-            var icpBalanceResult = UserUtil.GetElementOfType<DataTypes.Token>(Env.CanisterIds.ICP_LEDGER);
+            var tokenDataResult = TokenUtil.GetTokenDetails(Env.CanisterIds.ICP_LEDGER);
 
-            if(icpBalanceResult.Tag == Values.UResultTag.Err)
+            if (tokenDataResult.IsErr)
             {
-                Debug.LogError(icpBalanceResult.AsErr());
+                Debug.LogError("Could not find Icp token Config");
                 return;
             }
+            var tokenData = tokenDataResult.AsOk();
 
-            if(icpBalanceResult.AsOk().baseUnitAmount < price)
+            if (tokenData.token.baseUnitAmount < price)
             {
                 WindowManager.Instance.OpenWindow<InfoPopupWindow>(new InfoPopupWindow.WindowData("You don't have enough ICP", $"Requirements:\n{$"{price.ConvertToDecimal(CandidUtil.ICP_DECIMALS)} ICP\n\nYou need to deposit some ICP"}"), 3);
                 return;
@@ -342,8 +342,9 @@ namespace Boom.UI
             Debug.Log("Lock success, msg: " + lockResult.AsOk());
 
             var addressToTransferTo = lockResult.AsOk();
-            Debug.Log("Transfer from: " + accountIdentifier);
-            var transferResult = await ActionUtil.Transfer.TransferIcp(price, addressToTransferTo);
+            Debug.Log("Transfer from: " + accountIdentifier + " Price: " + price);
+
+            var transferResult = await ActionUtil.Transfer.TransferIcp(CandidUtil.ConvertToDecimal(price, tokenData.configs.decimals), addressToTransferTo);
 
             if (transferResult.Tag == Values.UResultTag.Err)
             {
@@ -377,7 +378,46 @@ namespace Boom.UI
 
             CheckForSettlement(collectionInterface).Forget();
 
-            UserUtil.RequestData<DataTypes.NftCollection>(new NftCollectionToFetch(Env.Nfts.BOOM_COLLECTION_CANISTER_ID, "Test Nft Collection", false));
+            //
+
+            if (EntityUtil.QueryConfigsByTag("nft", out var nftConfigs))
+            {
+                nftConfigs.Iterate(e =>
+                {
+                    if (!e.GetConfigFieldAs<string>("canister", out var _canisterId))
+                    {
+                        Debug.LogError($"config of tag \"nft\" doesn't have field \"canister\"");
+
+                        return;
+                    }
+
+                    if (_canisterId != collectionId) return;
+
+                    if (!e.GetConfigFieldAs<string>("name", out var collectionName))
+                    {
+                        Debug.LogWarning($"config of tag \"nft\" doesn't have field \"collectionName\"");
+                    }
+                    if (!e.GetConfigFieldAs<string>("description", out var description))
+                    {
+                        Debug.LogWarning($"config of tag \"nft\" doesn't have field \"description\"");
+                    }
+                    if (!e.GetConfigFieldAs<string>("urlLogo", out var urlLogo))
+                    {
+                        Debug.LogWarning($"config of tag \"nft\" doesn't have field \"urlLogo\"");
+                    }
+
+                    if (!e.GetConfigFieldAs<bool>("isStandard", out var isStandard))
+                    {
+                        Debug.LogError($"config of tag \"nft\" doesn't have field \"isStandard\"");
+
+                        return;
+                    }
+
+                     UserUtil.RequestData<DataTypes.NftCollection>(new NftCollectionToFetch(collectionId, collectionName, description, urlLogo, isStandard));
+                });
+            }
+
+            //
 
             BroadcastState.Invoke(new WaitingForResponse(false));
             UserUtil.Clean<DataTypes.Listing>();

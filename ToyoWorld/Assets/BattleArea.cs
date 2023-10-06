@@ -27,7 +27,7 @@ public class BattleArea : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         
-        if (other.TryGetComponent(out PlayerMovement playerMove) && resetTimer < 0)
+        if (other.TryGetComponent(out ThirdPersonMovement playerMove) && resetTimer < 0)
         {
             BattleChance();
             resetTimer = 3f;

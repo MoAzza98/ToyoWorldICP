@@ -20,7 +20,7 @@ public class NPC : MonoBehaviour
     void Start()
     {
         ani = GetComponent<Animator>();
-        playerPos = FindObjectOfType<PlayerMovement>().transform;
+        playerPos = FindObjectOfType<ThirdPersonMovement>().transform;
         dialogueSystem = FindObjectOfType<DialogueSystem>();
     }
 
@@ -28,7 +28,7 @@ public class NPC : MonoBehaviour
     {
         if(playerPos == null)
         {
-            playerPos = FindObjectOfType<PlayerMovement>().transform;
+            playerPos = FindObjectOfType<ThirdPersonMovement>().transform;
         }
         Vector3 npcPos = gameObject.transform.position;
         Vector3 delta = new Vector3(playerPos.position.x - npcPos.x, 0.0f, playerPos.position.z - npcPos.z);
@@ -39,6 +39,7 @@ public class NPC : MonoBehaviour
     public void OnTriggerStay(Collider other)
     {
         this.gameObject.GetComponent<NPC>().enabled = true;
+        /*
         if ((other.gameObject.tag == "Player") && Input.GetKeyDown(KeyCode.F))
         {
             ani.SetTrigger("Talk");
@@ -47,11 +48,24 @@ public class NPC : MonoBehaviour
             dialogueSystem.dialogueLines = sentences;
             dialogueSystem.NPCName();
         }
+        */
     }
 
-    public void OnTriggerExit()
+    public void Talk()
     {
-        FindObjectOfType<DialogueSystem>().OutOfRange();
+        ani.SetTrigger("Talk");
+        this.gameObject.GetComponent<NPC>().enabled = true;
+        dialogueSystem.Names = Name;
+        dialogueSystem.dialogueLines = sentences;
+        dialogueSystem.NPCName();
+    }
+
+    public void OnTriggerExit(Collider other)
+    {
+        if (other.TryGetComponent(out DialogueSystem dialogueSystem))
+        {
+            dialogueSystem.OutOfRange();
+        }
         this.gameObject.GetComponent<NPC>().enabled = false;
     }
 }

@@ -1,13 +1,12 @@
 using worldId = System.String;
-using quantity = System.Double;
 using groupId = System.String;
 using entityId = System.String;
-using duration = EdjCase.ICP.Candid.Models.UnboundedUInt;
-using attribute = System.String;
+using configId = System.String;
 using BlockIndex = System.UInt64;
 using EdjCase.ICP.Candid.Mapping;
 using Candid.World.Models;
 using System;
+using EdjCase.ICP.Candid.Models;
 
 namespace Candid.World.Models
 {
@@ -48,9 +47,19 @@ namespace Candid.World.Models
 			{
 			}
 
+			public static ActionOutcomeOption.OptionInfo DecrementNumber(ActionOutcomeOption.OptionInfo.DecrementNumberInfo info)
+			{
+				return new ActionOutcomeOption.OptionInfo(ActionOutcomeOption.OptionInfoTag.DecrementNumber, info);
+			}
+
 			public static ActionOutcomeOption.OptionInfo DeleteEntity(DeleteEntity info)
 			{
 				return new ActionOutcomeOption.OptionInfo(ActionOutcomeOption.OptionInfoTag.DeleteEntity, info);
+			}
+
+			public static ActionOutcomeOption.OptionInfo IncrementNumber(ActionOutcomeOption.OptionInfo.IncrementNumberInfo info)
+			{
+				return new ActionOutcomeOption.OptionInfo(ActionOutcomeOption.OptionInfoTag.IncrementNumber, info);
 			}
 
 			public static ActionOutcomeOption.OptionInfo MintNft(MintNft info)
@@ -63,35 +72,37 @@ namespace Candid.World.Models
 				return new ActionOutcomeOption.OptionInfo(ActionOutcomeOption.OptionInfoTag.MintToken, info);
 			}
 
-			public static ActionOutcomeOption.OptionInfo ReceiveEntityQuantity(ReceiveEntityQuantity info)
+			public static ActionOutcomeOption.OptionInfo RenewTimestamp(ActionOutcomeOption.OptionInfo.RenewTimestampInfo info)
 			{
-				return new ActionOutcomeOption.OptionInfo(ActionOutcomeOption.OptionInfoTag.ReceiveEntityQuantity, info);
+				return new ActionOutcomeOption.OptionInfo(ActionOutcomeOption.OptionInfoTag.RenewTimestamp, info);
 			}
 
-			public static ActionOutcomeOption.OptionInfo ReduceEntityExpiration(ReduceEntityExpiration info)
+			public static ActionOutcomeOption.OptionInfo SetNumber(ActionOutcomeOption.OptionInfo.SetNumberInfo info)
 			{
-				return new ActionOutcomeOption.OptionInfo(ActionOutcomeOption.OptionInfoTag.ReduceEntityExpiration, info);
+				return new ActionOutcomeOption.OptionInfo(ActionOutcomeOption.OptionInfoTag.SetNumber, info);
 			}
 
-			public static ActionOutcomeOption.OptionInfo RenewEntityExpiration(RenewEntityExpiration info)
+			public static ActionOutcomeOption.OptionInfo SetString(ActionOutcomeOption.OptionInfo.SetStringInfo info)
 			{
-				return new ActionOutcomeOption.OptionInfo(ActionOutcomeOption.OptionInfoTag.RenewEntityExpiration, info);
+				return new ActionOutcomeOption.OptionInfo(ActionOutcomeOption.OptionInfoTag.SetString, info);
 			}
 
-			public static ActionOutcomeOption.OptionInfo SetEntityAttribute(SetEntityAttribute info)
+			public ActionOutcomeOption.OptionInfo.DecrementNumberInfo AsDecrementNumber()
 			{
-				return new ActionOutcomeOption.OptionInfo(ActionOutcomeOption.OptionInfoTag.SetEntityAttribute, info);
-			}
-
-			public static ActionOutcomeOption.OptionInfo SpendEntityQuantity(SpendEntityQuantity info)
-			{
-				return new ActionOutcomeOption.OptionInfo(ActionOutcomeOption.OptionInfoTag.SpendEntityQuantity, info);
+				this.ValidateTag(ActionOutcomeOption.OptionInfoTag.DecrementNumber);
+				return (ActionOutcomeOption.OptionInfo.DecrementNumberInfo)this.Value!;
 			}
 
 			public DeleteEntity AsDeleteEntity()
 			{
 				this.ValidateTag(ActionOutcomeOption.OptionInfoTag.DeleteEntity);
 				return (DeleteEntity)this.Value!;
+			}
+
+			public ActionOutcomeOption.OptionInfo.IncrementNumberInfo AsIncrementNumber()
+			{
+				this.ValidateTag(ActionOutcomeOption.OptionInfoTag.IncrementNumber);
+				return (ActionOutcomeOption.OptionInfo.IncrementNumberInfo)this.Value!;
 			}
 
 			public MintNft AsMintNft()
@@ -106,34 +117,22 @@ namespace Candid.World.Models
 				return (MintToken)this.Value!;
 			}
 
-			public ReceiveEntityQuantity AsReceiveEntityQuantity()
+			public ActionOutcomeOption.OptionInfo.RenewTimestampInfo AsRenewTimestamp()
 			{
-				this.ValidateTag(ActionOutcomeOption.OptionInfoTag.ReceiveEntityQuantity);
-				return (ReceiveEntityQuantity)this.Value!;
+				this.ValidateTag(ActionOutcomeOption.OptionInfoTag.RenewTimestamp);
+				return (ActionOutcomeOption.OptionInfo.RenewTimestampInfo)this.Value!;
 			}
 
-			public ReduceEntityExpiration AsReduceEntityExpiration()
+			public ActionOutcomeOption.OptionInfo.SetNumberInfo AsSetNumber()
 			{
-				this.ValidateTag(ActionOutcomeOption.OptionInfoTag.ReduceEntityExpiration);
-				return (ReduceEntityExpiration)this.Value!;
+				this.ValidateTag(ActionOutcomeOption.OptionInfoTag.SetNumber);
+				return (ActionOutcomeOption.OptionInfo.SetNumberInfo)this.Value!;
 			}
 
-			public RenewEntityExpiration AsRenewEntityExpiration()
+			public ActionOutcomeOption.OptionInfo.SetStringInfo AsSetString()
 			{
-				this.ValidateTag(ActionOutcomeOption.OptionInfoTag.RenewEntityExpiration);
-				return (RenewEntityExpiration)this.Value!;
-			}
-
-			public SetEntityAttribute AsSetEntityAttribute()
-			{
-				this.ValidateTag(ActionOutcomeOption.OptionInfoTag.SetEntityAttribute);
-				return (SetEntityAttribute)this.Value!;
-			}
-
-			public SpendEntityQuantity AsSpendEntityQuantity()
-			{
-				this.ValidateTag(ActionOutcomeOption.OptionInfoTag.SpendEntityQuantity);
-				return (SpendEntityQuantity)this.Value!;
+				this.ValidateTag(ActionOutcomeOption.OptionInfoTag.SetString);
+				return (ActionOutcomeOption.OptionInfo.SetStringInfo)this.Value!;
 			}
 
 			private void ValidateTag(ActionOutcomeOption.OptionInfoTag tag)
@@ -143,34 +142,189 @@ namespace Candid.World.Models
 					throw new InvalidOperationException($"Cannot cast '{this.Tag}' to type '{tag}'");
 				}
 			}
+
+			public class DecrementNumberInfo
+			{
+				[CandidName("eid")]
+				public entityId Eid { get; set; }
+
+				[CandidName("field")]
+				public string Field { get; set; }
+
+				[CandidName("gid")]
+				public groupId Gid { get; set; }
+
+				[CandidName("value")]
+				public double Value { get; set; }
+
+				[CandidName("wid")]
+				public OptionalValue<worldId> Wid { get; set; }
+
+				public DecrementNumberInfo(entityId eid, string field, groupId gid, double value, OptionalValue<worldId> wid)
+				{
+					this.Eid = eid;
+					this.Field = field;
+					this.Gid = gid;
+					this.Value = value;
+					this.Wid = wid;
+				}
+
+				public DecrementNumberInfo()
+				{
+				}
+			}
+
+			public class IncrementNumberInfo
+			{
+				[CandidName("eid")]
+				public entityId Eid { get; set; }
+
+				[CandidName("field")]
+				public string Field { get; set; }
+
+				[CandidName("gid")]
+				public groupId Gid { get; set; }
+
+				[CandidName("value")]
+				public double Value { get; set; }
+
+				[CandidName("wid")]
+				public OptionalValue<worldId> Wid { get; set; }
+
+				public IncrementNumberInfo(entityId eid, string field, groupId gid, double value, OptionalValue<worldId> wid)
+				{
+					this.Eid = eid;
+					this.Field = field;
+					this.Gid = gid;
+					this.Value = value;
+					this.Wid = wid;
+				}
+
+				public IncrementNumberInfo()
+				{
+				}
+			}
+
+			public class RenewTimestampInfo
+			{
+				[CandidName("eid")]
+				public entityId Eid { get; set; }
+
+				[CandidName("field")]
+				public string Field { get; set; }
+
+				[CandidName("gid")]
+				public groupId Gid { get; set; }
+
+				[CandidName("value")]
+				public UnboundedUInt Value { get; set; }
+
+				[CandidName("wid")]
+				public OptionalValue<worldId> Wid { get; set; }
+
+				public RenewTimestampInfo(entityId eid, string field, groupId gid, UnboundedUInt value, OptionalValue<worldId> wid)
+				{
+					this.Eid = eid;
+					this.Field = field;
+					this.Gid = gid;
+					this.Value = value;
+					this.Wid = wid;
+				}
+
+				public RenewTimestampInfo()
+				{
+				}
+			}
+
+			public class SetNumberInfo
+			{
+				[CandidName("eid")]
+				public entityId Eid { get; set; }
+
+				[CandidName("field")]
+				public string Field { get; set; }
+
+				[CandidName("gid")]
+				public groupId Gid { get; set; }
+
+				[CandidName("value")]
+				public double Value { get; set; }
+
+				[CandidName("wid")]
+				public OptionalValue<worldId> Wid { get; set; }
+
+				public SetNumberInfo(entityId eid, string field, groupId gid, double value, OptionalValue<worldId> wid)
+				{
+					this.Eid = eid;
+					this.Field = field;
+					this.Gid = gid;
+					this.Value = value;
+					this.Wid = wid;
+				}
+
+				public SetNumberInfo()
+				{
+				}
+			}
+
+			public class SetStringInfo
+			{
+				[CandidName("eid")]
+				public entityId Eid { get; set; }
+
+				[CandidName("field")]
+				public string Field { get; set; }
+
+				[CandidName("gid")]
+				public groupId Gid { get; set; }
+
+				[CandidName("value")]
+				public string Value { get; set; }
+
+				[CandidName("wid")]
+				public OptionalValue<worldId> Wid { get; set; }
+
+				public SetStringInfo(entityId eid, string field, groupId gid, string value, OptionalValue<worldId> wid)
+				{
+					this.Eid = eid;
+					this.Field = field;
+					this.Gid = gid;
+					this.Value = value;
+					this.Wid = wid;
+				}
+
+				public SetStringInfo()
+				{
+				}
+			}
 		}
 
 		public enum OptionInfoTag
 		{
+			[CandidName("decrementNumber")]
+			[VariantOptionType(typeof(ActionOutcomeOption.OptionInfo.DecrementNumberInfo))]
+			DecrementNumber,
 			[CandidName("deleteEntity")]
 			[VariantOptionType(typeof(DeleteEntity))]
 			DeleteEntity,
+			[CandidName("incrementNumber")]
+			[VariantOptionType(typeof(ActionOutcomeOption.OptionInfo.IncrementNumberInfo))]
+			IncrementNumber,
 			[CandidName("mintNft")]
 			[VariantOptionType(typeof(MintNft))]
 			MintNft,
 			[CandidName("mintToken")]
 			[VariantOptionType(typeof(MintToken))]
 			MintToken,
-			[CandidName("receiveEntityQuantity")]
-			[VariantOptionType(typeof(ReceiveEntityQuantity))]
-			ReceiveEntityQuantity,
-			[CandidName("reduceEntityExpiration")]
-			[VariantOptionType(typeof(ReduceEntityExpiration))]
-			ReduceEntityExpiration,
-			[CandidName("renewEntityExpiration")]
-			[VariantOptionType(typeof(RenewEntityExpiration))]
-			RenewEntityExpiration,
-			[CandidName("setEntityAttribute")]
-			[VariantOptionType(typeof(SetEntityAttribute))]
-			SetEntityAttribute,
-			[CandidName("spendEntityQuantity")]
-			[VariantOptionType(typeof(SpendEntityQuantity))]
-			SpendEntityQuantity
+			[CandidName("renewTimestamp")]
+			[VariantOptionType(typeof(ActionOutcomeOption.OptionInfo.RenewTimestampInfo))]
+			RenewTimestamp,
+			[CandidName("setNumber")]
+			[VariantOptionType(typeof(ActionOutcomeOption.OptionInfo.SetNumberInfo))]
+			SetNumber,
+			[CandidName("setString")]
+			[VariantOptionType(typeof(ActionOutcomeOption.OptionInfo.SetStringInfo))]
+			SetString
 		}
 	}
 }

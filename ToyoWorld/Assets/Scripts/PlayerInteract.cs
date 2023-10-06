@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class PlayerInteract : MonoBehaviour
 {
-    float interactRange = 2f;
-
+    public float interactRange = 2f;
 
     // Start is called before the first frame update
     void Start()
@@ -26,5 +25,34 @@ public class PlayerInteract : MonoBehaviour
                 }
             }
         }
+    }
+
+    public InteractableItem GetInteractableObject()
+    {
+        List<InteractableItem> interactableList = new List<InteractableItem>();
+        Collider[] colliderArray = Physics.OverlapSphere(transform.position, interactRange);
+        foreach (Collider collider in colliderArray)
+        {
+            if (collider.TryGetComponent(out InteractableItem interactableItem))
+            {
+                interactableList.Add(interactableItem);
+            }
+        }
+
+        InteractableItem closestInteract = null;
+        foreach(InteractableItem interactableItem in interactableList)
+        {
+            if (closestInteract == null)
+            {
+                closestInteract = interactableItem;
+            } else if(Vector3.Distance(transform.position, interactableItem.transform.position) < 
+                Vector3.Distance(transform.position, closestInteract.transform.position))
+            {
+                //is closer
+                closestInteract = interactableItem;
+            }
+        }
+
+        return closestInteract;
     }
 }

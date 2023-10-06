@@ -29,4 +29,9 @@ public class PartyScreen : MonoBehaviour
         }
         messageText.text = "Choose a Toyo";
     }
+
+    public void SetMessageText(string message) 
+    {
+        messageText.text = message;
+    }
 }

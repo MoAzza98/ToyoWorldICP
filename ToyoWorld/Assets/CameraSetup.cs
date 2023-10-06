@@ -7,6 +7,7 @@ public class CameraSetup : MonoBehaviour
 {
     public ThirdPersonCam playerCam;
     public CinemachineFreeLook freeLookCam;
+    public Transform mainCam;
 
     // Start is called before the first frame update
     void Start()

@@ -42,6 +42,23 @@ public class Toyo
         }
     }
 
+    public void ReInitMoves()
+    {
+        Moves = new List<Move>();
+        foreach (var move in Base.LearnableMoves)
+        {
+            if (move.Level <= Level)
+            {
+                Moves.Add(new Move(move.Base));
+
+                if (Moves.Count >= 4)
+                {
+                    break;
+                }
+            }
+        }
+    }
+
     /*
     public void FullRestore()
     {

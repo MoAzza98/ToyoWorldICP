@@ -466,8 +466,8 @@ MonoBehaviour:
     value: 
     <IsInit>k__BackingField: 0
     <InitialValue>k__BackingField: 
+  principal: 
   paymentHubIdentifier: 
-  stakingHubIdentifier: 
 --- !u!114 &1047092352
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,10 +1,7 @@
 using worldId = System.String;
 using userId = System.String;
-using quantity = System.Double;
 using groupId = System.String;
 using entityId = System.String;
-using duration = EdjCase.ICP.Candid.Models.UnboundedUInt;
-using attribute = System.String;
 using actionId = System.String;
 using List_1 = EdjCase.ICP.Candid.Models.OptionalValue<Candid.UserNode.Models.List_1Item>;
 using List = EdjCase.ICP.Candid.Models.OptionalValue<Candid.UserNode.Models.ListItem>;
@@ -41,9 +38,9 @@ namespace Candid.UserNode.Models
 			public Key F0 { get; set; }
 
 			[CandidTag(1U)]
-			public List<string> F1 { get; set; }
+			public List<worldId> F1 { get; set; }
 
-			public F0Info(Key f0, List<string> f1)
+			public F0Info(Key f0, List<worldId> f1)
 			{
 				this.F0 = f0;
 				this.F1 = f1;
