@@ -91,6 +91,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   icpBalanceText: {fileID: 8744804969766396809}
+  icrcBalances: {fileID: 0}
+  nftCountTxt: {fileID: 0}
 --- !u!1 &8744804969613659409
 GameObject:
   m_ObjectHideFlags: 0
