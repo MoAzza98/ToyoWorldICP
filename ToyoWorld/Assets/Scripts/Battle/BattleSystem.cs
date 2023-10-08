@@ -214,10 +214,13 @@ public class BattleSystem : MonoBehaviour
 
     public IEnumerator SwitchToyo(Toyo toyo)
     {
-        yield return bDialogue.TypeDialog($"Come back, {playerUnit.Toyo.Base.ToyoName}!");
-        //play animation here
-        Destroy(playerUnit.playerToyo.gameObject);
-        yield return new WaitForSeconds(2f);
+        if(playerUnit.Toyo.HP < 0)
+        {
+            yield return bDialogue.TypeDialog($"Come back, {playerUnit.Toyo.Base.ToyoName}!");
+            //play animation here
+            Destroy(playerUnit.playerToyo.gameObject);
+            yield return new WaitForSeconds(2f);
+        }
 
         playerUnit.Setup(toyo);
         playerHUD.SetData(toyo);

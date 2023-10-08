@@ -9,6 +9,7 @@ public class NPC : MonoBehaviour
     private DialogueSystem dialogueSystem;
 
     public string Name;
+    public bool isObject;
 
     public Animator ani { get; set; }
     private Transform playerPos;
@@ -26,14 +27,17 @@ public class NPC : MonoBehaviour
 
     void Update()
     {
-        if(playerPos == null)
+        if (!isObject)
         {
-            playerPos = FindObjectOfType<ThirdPersonMovement>().transform;
+            if(playerPos == null)
+            {
+                playerPos = FindObjectOfType<ThirdPersonMovement>().transform;
+            }
+            Vector3 npcPos = gameObject.transform.position;
+            Vector3 delta = new Vector3(playerPos.position.x - npcPos.x, 0.0f, playerPos.position.z - npcPos.z);
+            Quaternion rotation = Quaternion.LookRotation(delta);
+            gameObject.transform.rotation = rotation;
         }
-        Vector3 npcPos = gameObject.transform.position;
-        Vector3 delta = new Vector3(playerPos.position.x - npcPos.x, 0.0f, playerPos.position.z - npcPos.z);
-        Quaternion rotation = Quaternion.LookRotation(delta);
-        gameObject.transform.rotation = rotation;
     }
 
     public void OnTriggerStay(Collider other)
@@ -53,7 +57,10 @@ public class NPC : MonoBehaviour
 
     public void Talk()
     {
-        ani.SetTrigger("Talk");
+        if (!isObject)
+        {
+            ani.SetTrigger("Talk");
+        }
         this.gameObject.GetComponent<NPC>().enabled = true;
         dialogueSystem.Names = Name;
         dialogueSystem.dialogueLines = sentences;

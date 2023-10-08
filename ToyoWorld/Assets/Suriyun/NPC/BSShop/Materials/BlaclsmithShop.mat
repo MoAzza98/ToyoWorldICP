@@ -11,13 +11,18 @@ Material:
   m_Shader: {fileID: 4800000, guid: be891319084e9d147b09d89e80ce60e0, type: 3}
   m_ValidKeywords:
   - _EMISSIVE_SIMPLE
+  - _IS_ANGELRING_OFF
+  - _IS_CLIPPING_OFF
+  - _IS_OUTLINE_CLIPPING_NO
   - _OUTLINE_NML
   m_InvalidKeywords: []
-  m_LightmapFlags: 5
+  m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
-  stringTagMap: {}
+  stringTagMap:
+    IgnoreProjection: False
+    RenderType: Opaque
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
@@ -127,7 +132,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: dc07c05561298fd4da58f5d48e45bae4, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskMap:
@@ -250,6 +255,7 @@ Material:
     - _AddPrecomputedVelocity: 0
     - _Add_Antipodean_RimLight: 0
     - _AlbedoAffectEmissive: 0
+    - _AlphaClip: 0
     - _AlphaCutoff: 0.5
     - _AlphaCutoffEnable: 0
     - _AlphaCutoffPostpass: 0.5
@@ -271,18 +277,25 @@ Material:
     - _BaseColor_Step: 0.5
     - _BaseShade_Feather: 0.0001
     - _Base_Speed: 0
+    - _Blend: 0
     - _BlendMode: 0
+    - _BlendOp: 0
     - _BlurLevelMatcap: 0
     - _BlurLevelSGM: 0
     - _BumpScale: 1
     - _BumpScaleMatcap: 1
+    - _CameraFadingEnabled: 0
+    - _CameraFarFadeDistance: 2
+    - _CameraNearFadeDistance: 1
     - _CameraRolling_Stabilizer: 0
     - _ClippingMatteMode: 0
     - _ClippingMode: 0
     - _Clipping_Level: 0
     - _CoatMask: 0
+    - _ColorMode: 0
     - _ColorShift_Speed: 0
     - _ComposerMaskMode: 0
+    - _Cull: 2
     - _CullMode: 2
     - _CullModeForward: 2
     - _Cutoff: 0.5
@@ -297,6 +310,7 @@ Material:
     - _DisplacementLockObjectScale: 1
     - _DisplacementLockTilingScale: 1
     - _DisplacementMode: 0
+    - _DistortionBlend: 0.5
     - _DistortionBlendMode: 0
     - _DistortionBlurBlendMode: 0
     - _DistortionBlurDstBlend: 0
@@ -307,8 +321,11 @@ Material:
     - _DistortionDepthTest: 1
     - _DistortionDstBlend: 0
     - _DistortionEnable: 0
+    - _DistortionEnabled: 0
     - _DistortionScale: 1
     - _DistortionSrcBlend: 0
+    - _DistortionStrength: 1
+    - _DistortionStrengthScaled: 0
     - _DistortionVectorBias: -1
     - _DistortionVectorScale: 2
     - _DoubleSidedEnable: 0
@@ -316,6 +333,7 @@ Material:
     - _DstBlend: 0
     - _EMISSIVE: 0
     - _EdgeThickness: 5.61
+    - _EmissionEnabled: 0
     - _EmissiveColorMode: 1
     - _EmissiveExposureWeight: 1
     - _EmissiveIntensity: 1
@@ -328,6 +346,7 @@ Material:
     - _Farthest_Distance: 100
     - _FirstShadeOverridden: 0
     - _FirstShadeVisible: 1
+    - _FlipbookMode: 0
     - _GI_Intensity: 0
     - _Glossiness: 0.5
     - _HeightAmplitude: 0.02
@@ -380,6 +399,7 @@ Material:
     - _Is_ViewCoord_Scroll: 0
     - _Is_ViewShift: 0
     - _LightDirection_MaskOn: 0
+    - _LightingEnabled: 0
     - _LinkDetailsWithBase: 1
     - _MatCap: 0
     - _MaterialID: 1
@@ -403,6 +423,7 @@ Material:
     - _PPDPrimitiveLength: 1
     - _PPDPrimitiveWidth: 1
     - _Parallax: 0.02
+    - _QueueOffset: 0
     - _ReceivesSSR: 1
     - _RefractionModel: 0
     - _RimLight: 0
@@ -417,6 +438,7 @@ Material:
     - _SPRDefaultUnlitColorMask: 15
     - _SRPDefaultUnlitColMode: 1
     - _SSRefractionProjectionModel: 0
+    - _SampleGI: 0
     - _Scroll_EmissiveU: 0
     - _Scroll_EmissiveV: 0
     - _SecondShadeOverridden: 0
@@ -427,12 +449,15 @@ Material:
     - _Smoothness: 0.5
     - _SmoothnessRemapMax: 1
     - _SmoothnessRemapMin: 0
+    - _SoftParticlesEnabled: 0
+    - _SoftParticlesFarFadeDistance: 1
+    - _SoftParticlesNearFadeDistance: 0
     - _SpecularAAScreenSpaceVariance: 0.1
     - _SpecularAAThreshold: 0.2
     - _SpecularOcclusionMode: 1
     - _SpecularPower: 20
     - _SrcBlend: 1
-    - _StencilComp: 8
+    - _StencilComp: 0
     - _StencilMode: 0
     - _StencilNo: 1
     - _StencilOpFail: 0
@@ -450,7 +475,18 @@ Material:
     - _StepOffset: 0
     - _SubsurfaceMask: 1
     - _SupportDecals: 1
+    - _Surface: 0
     - _SurfaceType: 0
+    - _TessEdgeLength: 5
+    - _TessExtrusionAmount: 0
+    - _TessPhongStrength: 0.5
+    - _TessellationBackFaceCullEpsilon: -0.25
+    - _TessellationFactor: 4
+    - _TessellationFactorMaxDistance: 50
+    - _TessellationFactorMinDistance: 20
+    - _TessellationFactorTriangleSize: 100
+    - _TessellationMode: 0
+    - _TessellationShapeFactor: 0.75
     - _TexWorldScale: 1
     - _TexWorldScaleEmissive: 1
     - _Thickness: 1
@@ -506,7 +542,9 @@ Material:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _BaseColorMap_MipInfo: {r: 0, g: 0, b: 0, a: 0}
     - _BaseColorMaskColor: {r: 1, g: 1, b: 1, a: 1}
+    - _CameraFadeParams: {r: 0, g: Infinity, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _ColorAddSubDiff: {r: 0, g: 0, b: 0, a: 0}
     - _ColorShift: {r: 0, g: 0, b: 0, a: 1}
     - _DiffusionProfileAsset: {r: 0, g: 0, b: 0, a: 0}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
@@ -526,6 +564,7 @@ Material:
     - _RimLightMaskColor: {r: 1, g: 0, b: 1, a: 1}
     - _SecondShadeMaskColor: {r: 0, g: 0, b: 1, a: 1}
     - _ShadowColor: {r: 0.8, g: 0.8, b: 1, a: 1}
+    - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
     - _ThicknessRemap: {r: 0, g: 1, b: 0, a: 0}

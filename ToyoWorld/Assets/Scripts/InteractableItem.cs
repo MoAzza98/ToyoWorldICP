@@ -7,10 +7,26 @@ public class InteractableItem : MonoBehaviour
 {
     [SerializeField] private string interactText;
     public NPC npcTalker;
+    private HealToyos healer;
+
+    public bool isNPC;
+    public bool isInteractable;
+    public bool isHealer;
     // Start is called before the first frame update
     void Start()
     {
-        npcTalker = GetComponent<NPC>();
+        if (isNPC)
+        {
+            npcTalker = GetComponent<NPC>();
+        }
+        if(isInteractable)
+        {
+
+        }
+        if (isHealer)
+        {
+            healer = GetComponent<HealToyos>();
+        }
     }
 
     // Update is called once per frame
@@ -21,7 +37,21 @@ public class InteractableItem : MonoBehaviour
 
     public void Interact()
     {
-        npcTalker.Talk();
+        if (isInteractable)
+        {
+
+        }
+        if(isNPC) 
+        { 
+            if (npcTalker != null)
+            {
+                npcTalker.Talk();
+            }
+        }
+        if(isHealer)
+        {
+            healer.HealParty();
+        }
     }
 
     public string GetInteractText()
