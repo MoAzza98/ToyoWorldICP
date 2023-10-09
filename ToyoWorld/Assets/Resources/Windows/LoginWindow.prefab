@@ -203,7 +203,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: af79c2a93a77b3949aa26b84a203c17a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e6c3b1b231aabe94f91dc7644714ffde, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1012,7 +1012,7 @@ MonoBehaviour:
   showEventFoldout: 0
   showBetaFoldout: 0
   info:
-  - pos: {x: -106.875, y: 20.811798, z: 0}
+  - pos: {x: -114.609375, y: 20.811798, z: 0}
     offset: {x: 0, y: 0, z: 0}
     lineSpacing: 1
     isEndOfParagraph: 0
@@ -1052,7 +1052,7 @@ MonoBehaviour:
     chSize: 64
     submeshChange: 0
     invoked: 1
-  - pos: {x: -80.859375, y: 20.811798, z: 0}
+  - pos: {x: -87.890625, y: 20.811798, z: 0}
     offset: {x: 0, y: 0, z: 0}
     lineSpacing: 1
     isEndOfParagraph: 0
@@ -1092,7 +1092,7 @@ MonoBehaviour:
     chSize: 64
     submeshChange: 0
     invoked: 1
-  - pos: {x: -58.359375, y: 20.811798, z: 0}
+  - pos: {x: -63.28125, y: 20.811798, z: 0}
     offset: {x: 0, y: 0, z: 0}
     lineSpacing: 1
     isEndOfParagraph: 0
@@ -1132,7 +1132,7 @@ MonoBehaviour:
     chSize: 64
     submeshChange: 0
     invoked: 1
-  - pos: {x: -29.53125, y: 20.811798, z: 0}
+  - pos: {x: -34.453125, y: 20.811798, z: 0}
     offset: {x: 0, y: 0, z: 0}
     lineSpacing: 1
     isEndOfParagraph: 0
@@ -1172,7 +1172,7 @@ MonoBehaviour:
     chSize: 64
     submeshChange: 0
     invoked: 1
-  - pos: {x: -4.21875, y: 20.811798, z: 0}
+  - pos: {x: -8.4375, y: 20.811798, z: 0}
     offset: {x: 0, y: 0, z: 0}
     lineSpacing: 1
     isEndOfParagraph: 0
@@ -1212,7 +1212,7 @@ MonoBehaviour:
     chSize: 64
     submeshChange: 0
     invoked: 1
-  - pos: {x: 5.625, y: 20.811798, z: 0}
+  - pos: {x: 4.21875, y: 20.811798, z: 0}
     offset: {x: 0, y: 0, z: 0}
     lineSpacing: 1
     isEndOfParagraph: 0
@@ -1252,7 +1252,7 @@ MonoBehaviour:
     chSize: 64
     submeshChange: 0
     invoked: 1
-  - pos: {x: 35.859375, y: 20.811798, z: 0}
+  - pos: {x: 37.265625, y: 20.811798, z: 0}
     offset: {x: 0, y: 0, z: 0}
     lineSpacing: 1
     isEndOfParagraph: 0
@@ -1292,7 +1292,7 @@ MonoBehaviour:
     chSize: 64
     submeshChange: 0
     invoked: 1
-  - pos: {x: 68.203125, y: 20.811798, z: 0}
+  - pos: {x: 71.71875, y: 20.811798, z: 0}
     offset: {x: 0, y: 0, z: 0}
     lineSpacing: 1
     isEndOfParagraph: 0
@@ -1338,7 +1338,7 @@ MonoBehaviour:
   _text: <c=rainbow><w>PLAY NOW
   drawText: PLAY NOW
   hyphenedText: PLAY NOW
-  font: {fileID: 12800000, guid: 92af8c94974284c4388316b4f89b4f02, type: 2}
+  font: {fileID: 12800000, guid: e110c919ea5e84fea8cbc2f0556ecfef, type: 3}
   _color32:
     serializedVersion: 2
     rgba: 4294967295
@@ -1389,23 +1389,23 @@ MonoBehaviour:
   textMesh: {fileID: 0}
   rawTopLeftBounds: {x: 202.81287, y: -65.8118, z: 0}
   rawBottomRightBounds: {x: -202.81287, y: 65.8118, z: 0}
-  rawBottomRightTextBounds: {x: 213.75, y: -45, z: 0}
+  rawBottomRightTextBounds: {x: 229.21875, y: -45, z: 0}
   topLeftBounds: {x: 757.18713, y: 833.4502, z: 0}
   topRightBounds: {x: 1162.8129, y: 833.4502, z: 0}
   bottomLeftBounds: {x: 757.18713, y: 701.8266, z: 0}
   bottomRightBounds: {x: 1162.8129, y: 701.8266, z: 0}
   centerBounds: {x: 960, y: 767.6384, z: 0}
-  topLeftTextBounds: {x: 853.125, y: 790.1384, z: 0}
-  topRightTextBounds: {x: 1066.875, y: 790.1384, z: 0}
-  bottomLeftTextBounds: {x: 853.125, y: 745.1384, z: 0}
-  bottomRightTextBounds: {x: 1066.875, y: 745.1384, z: 0}
+  topLeftTextBounds: {x: 845.3906, y: 790.1384, z: 0}
+  topRightTextBounds: {x: 1074.6094, y: 790.1384, z: 0}
+  bottomLeftTextBounds: {x: 845.3906, y: 745.1384, z: 0}
+  bottomRightTextBounds: {x: 1074.6094, y: 745.1384, z: 0}
   centerTextBounds: {x: 960, y: 767.6384, z: 0}
-  finalTopLeftTextBounds: {x: 853.125, y: 790.1384, z: 0}
-  finalTopRightTextBounds: {x: 1066.875, y: 790.1384, z: 0}
-  finalBottomLeftTextBounds: {x: 853.125, y: 745.1384, z: 0}
-  finalBottomRightTextBounds: {x: 1066.875, y: 745.1384, z: 0}
+  finalTopLeftTextBounds: {x: 845.3906, y: 790.1384, z: 0}
+  finalTopRightTextBounds: {x: 1074.6094, y: 790.1384, z: 0}
+  finalBottomLeftTextBounds: {x: 845.3906, y: 745.1384, z: 0}
+  finalBottomRightTextBounds: {x: 1074.6094, y: 745.1384, z: 0}
   finalCenterTextBounds: {x: 960, y: 767.6384, z: 0}
-  unwrappedBottomRightTextBounds: {x: 213.75, y: -45, z: 0}
+  unwrappedBottomRightTextBounds: {x: 229.21875, y: -45, z: 0}
   onCompleteEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -1430,7 +1430,7 @@ MonoBehaviour:
   debugMode: 0
   totalReadTime: 0.00001
   totalUnreadTime: 0.00001
-  currentReadTime: 1.2020637
+  currentReadTime: 28.931566
   autoRead: 1
   rememberReadPosition: 1
   autoQuality: 0
@@ -2921,7 +2921,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: d08f60ef09739438ca3ab0cde6f4720f, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3134,8 +3134,8 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: e0962d31f1f084fa3ba7147d76f5b6e8, type: 2}
+  m_sharedMaterial: {fileID: 1653631458307283989, guid: e0962d31f1f084fa3ba7147d76f5b6e8, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

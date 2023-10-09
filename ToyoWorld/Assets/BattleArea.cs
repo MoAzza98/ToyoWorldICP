@@ -21,14 +21,15 @@ public class BattleArea : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        /*
         float isBattle = Random.Range(0f, 100f);
 
-        if (isBattle > 66f)
+        if (isBattle > 80f)
         {
 
             Debug.Log("battle triggered");
             controller.CallBattleStartMethod();
-        }
+        }*/
     }
 
     private void OnTriggerStay(Collider other)

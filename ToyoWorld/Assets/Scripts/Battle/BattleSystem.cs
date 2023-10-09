@@ -217,6 +217,9 @@ public class BattleSystem : MonoBehaviour
         partyScreen.gameObject.SetActive(false);
         state = BattleState.BUSY;
 
+        Destroy(playerUnit.playerToyo.gameObject);
+        Debug.Log(playerUnit.playerToyo.gameObject.name);
+
         StartCoroutine(SwitchToyo(selectedToyo));
 
     }
@@ -227,8 +230,8 @@ public class BattleSystem : MonoBehaviour
         {
             yield return bDialogue.TypeDialog($"Come back, {playerUnit.Toyo.Base.ToyoName}!");
             //play animation here
-            Destroy(playerUnit.playerToyo.gameObject);
             yield return new WaitForSeconds(2f);
+
         }
 
         playerUnit.Setup(toyo);

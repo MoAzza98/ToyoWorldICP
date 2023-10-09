@@ -8,7 +8,12 @@ public class SceneUIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        if (GameController.instance.setName)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            isMouseLocked = true;
+        }
     }
 
     // Update is called once per frame
