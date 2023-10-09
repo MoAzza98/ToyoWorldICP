@@ -16,6 +16,8 @@ public class DialogueSystem : MonoBehaviour
 
     public DialogueManager diaManager;
 
+    [SerializeField] public AudioSource audioSource;
+
 
     public float letterDelay = 0.1f;
     public float letterMultiplier = 0.5f;
@@ -30,9 +32,6 @@ public class DialogueSystem : MonoBehaviour
     public bool dialogueActive = false;
     public bool dialogueEnded = false;
     public bool outOfRange = true;
-
-    public AudioClip audioClip;
-    AudioSource audioSource;
 
     void Start()
     {
@@ -133,13 +132,13 @@ public class DialogueSystem : MonoBehaviour
                     {
                         yield return new WaitForSeconds(letterDelay * letterMultiplier);
 
-                        if (audioClip) audioSource.PlayOneShot(audioClip, 0.5F);
+                        audioSource.Play();
                     }
                     else
                     {
                         yield return new WaitForSeconds(letterDelay * letterMultiplier);
 
-                        if (audioClip) audioSource.PlayOneShot(audioClip, 0.5F);
+                        audioSource.Play();
                     }
                 }
                 else
