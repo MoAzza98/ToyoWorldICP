@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c4d5ea10f35d49408ef39bd0f085974, type: 3}
   m_Name: ToyoMin
   m_EditorClassIdentifier: 
-  toyoName: MinMin
+  toyoName: Galei
   description: This toyo can commonly be found in cool clear climates, it's innocent
     lookand demeanor make it a popular Toyo for first time trainers.
   toyoPrefab: {fileID: 8429715588382163536, guid: d474234577a2b3d42a4ff26cfed642a7, type: 3}

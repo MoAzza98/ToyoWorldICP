@@ -13,6 +13,9 @@ public class GameController : MonoBehaviour
     public SceneDataSaver sceneDataSaver;
     public SceneDataLoader sceneDataLoader;
     public Transform spawnPoint;
+    public int toyosDefeated = 0;
+    public bool lostBattle;
+    public bool setName = false;
 
     private void Awake()
     {
@@ -36,10 +39,13 @@ public class GameController : MonoBehaviour
     public ToyoParty currentToyoParty;
     public ToyoParty storedToyoParty;
     [SerializeField] Toyo wildToyo;
+    [SerializeField] ToyoParty rewardToyo;
 
     public ToyoParty gcParty;
     bool partyInitialized;
     bool mouseLocked = true;
+
+    public string Username;
 
     [SerializeField] public MapArea mapArea;
 
@@ -56,6 +62,11 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (lostBattle)
+        {
+            
+        }
+
         if (state == GameState.FreeRoam)
         {       
             if (player == null)
@@ -156,5 +167,13 @@ public class GameController : MonoBehaviour
     public void SetPlayer()
     {
         player = FindAnyObjectByType<ThirdPersonMovement>().gameObject;
+    }
+
+    public void AddToyoReward()
+    {
+        foreach(var toyo in rewardToyo.ToyoPartyList)
+        {
+            gcParty.ToyoPartyList.Add(toyo);
+        }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Burst;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum BattleState
 {
@@ -125,6 +126,7 @@ public class BattleSystem : MonoBehaviour
 
             GameController.instance.UpdateControllerParty(this.playerParty);
             GameController.instance.EndBattle();
+            GameController.instance.toyosDefeated++;
         }
         else
         {
@@ -183,6 +185,13 @@ public class BattleSystem : MonoBehaviour
             else
             {
                 yield return bDialogue.TypeDialog($"All your toyos fainted! You black out...");
+
+                foreach(var member in GameController.instance.gcParty.ToyoPartyList)
+                {
+                    member.Init();
+                }
+                GameController.instance.EndBattle();
+
             }
         }
         else
