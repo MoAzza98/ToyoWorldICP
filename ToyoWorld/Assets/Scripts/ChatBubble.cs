@@ -9,9 +9,10 @@ public class ChatBubble : MonoBehaviour
     private static TextMeshProUGUI nameText;
     private static GameObject nameFrame;
 
-    private void Start()
+    private void Awake()
     {
         nameFrame = GameObject.Find("Name");
+        Debug.Log($"nameframe is {nameFrame}");
         nameText = GameObject.Find("NameText").GetComponent<TextMeshProUGUI>();
     }
 
