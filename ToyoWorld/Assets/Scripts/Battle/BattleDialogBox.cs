@@ -104,6 +104,7 @@ public class BattleDialogBox : MonoBehaviour
 
     public void SetMoveNames(List<Move> moves)
     {
+        Debug.Log("Setting moves");
         for(int i = 0; i < moveTexts.Count; i++)
         {
             if(i < moves.Count)

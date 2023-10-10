@@ -7,6 +7,9 @@ public class DialogueManager : MonoBehaviour
 {
     [SerializeField] public GameObject dialoguePanel;
     [SerializeField] public TextMeshProUGUI panelText;
+    [SerializeField] public TextMeshProUGUI nameText;
+    [SerializeField] public GameObject interactionPrompt;
+
 
     // Start is called before the first frame update
     void Start()

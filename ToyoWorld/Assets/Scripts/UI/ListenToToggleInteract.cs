@@ -1,7 +1,5 @@
 using Boom.Patterns.Broadcasts;
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using Boom;
 using UnityEngine;
 using UnityEngine.UI;
 

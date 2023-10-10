@@ -14,6 +14,10 @@ public class DialogueSystem : MonoBehaviour
     public Transform dialogueBoxGUI;
     public NPC character;
 
+    public DialogueManager diaManager;
+
+    [SerializeField] public AudioSource audioSource;
+
 
     public float letterDelay = 0.1f;
     public float letterMultiplier = 0.5f;
@@ -29,9 +33,6 @@ public class DialogueSystem : MonoBehaviour
     public bool dialogueEnded = false;
     public bool outOfRange = true;
 
-    public AudioClip audioClip;
-    AudioSource audioSource;
-
     void Start()
     {
         character = GetComponent<NPC>();
@@ -39,9 +40,23 @@ public class DialogueSystem : MonoBehaviour
         dialogueText.text = "";
     }
 
+    void Awake()
+    {
+        SetDialogueRefs();
+    }
+
     void Update()
     {
 
+    }
+
+    void SetDialogueRefs()
+    {
+        diaManager = FindAnyObjectByType<DialogueManager>();
+        nameText = diaManager.nameText;
+        dialogueText = diaManager.panelText;
+        dialogueGUI = diaManager.dialoguePanel;
+        dialogueBoxGUI = diaManager.dialoguePanel.transform;
     }
 
     public void NPCName()
@@ -117,13 +132,13 @@ public class DialogueSystem : MonoBehaviour
                     {
                         yield return new WaitForSeconds(letterDelay * letterMultiplier);
 
-                        if (audioClip) audioSource.PlayOneShot(audioClip, 0.5F);
+                        audioSource.Play();
                     }
                     else
                     {
                         yield return new WaitForSeconds(letterDelay * letterMultiplier);
 
-                        if (audioClip) audioSource.PlayOneShot(audioClip, 0.5F);
+                        audioSource.Play();
                     }
                 }
                 else

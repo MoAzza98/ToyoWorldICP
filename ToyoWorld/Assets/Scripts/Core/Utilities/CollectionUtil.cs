@@ -200,6 +200,16 @@
                 }
             }
         }
+        public static IEnumerable<T> Merge<T>(this IEnumerable<IEnumerable<T>> arr)
+        {
+            foreach (IEnumerable<T> subArr in arr)
+            {
+                foreach (T item in subArr)
+                {
+                    yield return (item);
+                }
+            }
+        }
         public static string Reduce<T>(this IEnumerable<T> arr, Func<T, string> callback, string separator = ", ")
         {
             System.Text.StringBuilder builder = new();

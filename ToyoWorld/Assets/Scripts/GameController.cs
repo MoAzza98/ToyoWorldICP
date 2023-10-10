@@ -13,6 +13,9 @@ public class GameController : MonoBehaviour
     public SceneDataSaver sceneDataSaver;
     public SceneDataLoader sceneDataLoader;
     public Transform spawnPoint;
+    public int toyosDefeated = 0;
+    public bool lostBattle;
+    public bool setName = false;
 
     private void Awake()
     {
@@ -27,6 +30,7 @@ public class GameController : MonoBehaviour
         }
         sceneDataSaver = GetComponent<SceneDataSaver>();
         sceneDataLoader = GetComponent<SceneDataLoader>();
+        gcParty = GetComponent<ToyoParty>();
     }
 
     [SerializeField] BattleSystem battleSystem;
@@ -35,33 +39,52 @@ public class GameController : MonoBehaviour
     public ToyoParty currentToyoParty;
     public ToyoParty storedToyoParty;
     [SerializeField] Toyo wildToyo;
+    [SerializeField] ToyoParty rewardToyo;
+
+    public ToyoParty gcParty;
+    bool partyInitialized;
+    bool mouseLocked = true;
+
+    public string Username;
 
     [SerializeField] public MapArea mapArea;
 
-    private PlayerMovement playerMovement;
+    public TransitionAnimation transition;
+
 
     public GameState state = GameState.FreeRoam;
 
     // Start is called before the first frame update
     void Start()
     {
-        //UpdatePlayerParty(currentToyoParty);
+        transition = FindObjectOfType<TransitionAnimation>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(state == GameState.FreeRoam)
+        if (lostBattle)
         {
-            if(player == null)
-            {
-                player = FindAnyObjectByType<PlayerMovement>().gameObject;
-                if(playerParty.partyMembers.Count <= 0)
-                {
-                    currentToyoParty = player.GetComponent<ToyoParty>();
-                    UpdatePlayerParty(currentToyoParty);
-                }
+            
+        }
 
+        if (state == GameState.FreeRoam)
+        {       
+            if (player == null)
+            {
+                player = FindAnyObjectByType<ThirdPersonMovement>().gameObject;
+                currentToyoParty = player.GetComponent<ToyoParty>();
+                UpdateControllerParty(currentToyoParty);
+
+                if(!partyInitialized)
+                {
+                    foreach(var member in currentToyoParty.ToyoPartyList)
+                    {
+                        gcParty.ToyoPartyList.Add(member);
+                    }
+                    partyInitialized = true;
+                }
+                
             }
         }
         if(state == GameState.Battle)
@@ -84,7 +107,8 @@ public class GameController : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log("OnSceneLoaded: " + scene.name);
+        transition = FindObjectOfType<TransitionAnimation>();
+        //Debug.Log("OnSceneLoaded: " + scene.name);
         Debug.Log(mode);
         if(scene.name == "PlayerScene")
         {
@@ -99,9 +123,10 @@ public class GameController : MonoBehaviour
     }
 
     // Example method to update the player's party information
-    public void UpdatePlayerParty(ToyoParty newParty)
+    public void UpdateControllerParty(ToyoParty newParty)
     {
         playerParty.partyMembers = newParty.ToyoPartyList;
+        //gcParty = newParty;
     }
 
     public List<Toyo> GetStoredToyoPartyList()
@@ -109,14 +134,25 @@ public class GameController : MonoBehaviour
         return playerParty.partyMembers;
     }
 
+    public ToyoParty GetStoredToyoParty()
+    {
+        return gcParty;
+    }
+
     public void SwitchToBattleScene()
     {
-        SceneManager.LoadScene("MainBattle");
+        //index 1
+        StartCoroutine(transition.LoadLevel(2));
+        transition = FindObjectOfType<TransitionAnimation>();
+        //SceneManager.LoadScene("MainBattle");
     }
 
     public void SwitchToPlayScene()
     {
-        SceneManager.LoadScene("PlayerScene");
+        //index 2
+        StartCoroutine(transition.LoadLevel(1));
+        transition = FindObjectOfType<TransitionAnimation>();
+        //SceneManager.LoadScene("PlayerScene");
         //InitController();
     }
 
@@ -138,6 +174,14 @@ public class GameController : MonoBehaviour
 
     public void SetPlayer()
     {
-        player = FindAnyObjectByType<PlayerMovement>().gameObject;
+        player = FindAnyObjectByType<ThirdPersonMovement>().gameObject;
+    }
+
+    public void AddToyoReward()
+    {
+        foreach(var toyo in rewardToyo.ToyoPartyList)
+        {
+            gcParty.ToyoPartyList.Add(toyo);
+        }
     }
 }

@@ -1,0 +1,100 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &929499299132377468
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 929499299132377465}
+  - component: {fileID: 929499299132377470}
+  - component: {fileID: 929499299132377471}
+  - component: {fileID: 929499299132377464}
+  - component: {fileID: 929499299132377467}
+  m_Layer: 0
+  m_Name: Map Area
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &929499299132377465
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 929499299132377468}
+  m_LocalRotation: {x: -0, y: -0.07004936, z: -0, w: 0.9975435}
+  m_LocalPosition: {x: -13.50855, y: 11.93, z: -4.9330373}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: -8.034, z: 0}
+--- !u!114 &929499299132377470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 929499299132377468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b7a846fa512e2c43b3855c41f2c0368, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controller: {fileID: 0}
+--- !u!65 &929499299132377471
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 929499299132377468}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 20.111818, y: 0.58778286, z: 10.827016}
+  m_Center: {x: 0, y: 0, z: -3.4707778}
+--- !u!114 &929499299132377464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 929499299132377468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6ec44f6a5fc4e947bf82e86a783cc10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wildToyos:
+  - _base: {fileID: 11400000, guid: d31c6f72ff87779479154004af0c3be8, type: 2}
+    level: 5
+  - _base: {fileID: 11400000, guid: 367b69783d687164c8b3bd6e73c75f0d, type: 2}
+    level: 3
+  - _base: {fileID: 11400000, guid: 66a117fce3f63c44aa83ceac320559b0, type: 2}
+    level: 5
+--- !u!114 &929499299132377467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 929499299132377468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39596e84dd9339340a7d4eca2d616b78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  battleSystem: {fileID: 0}
+  player: {fileID: 0}
+  wildToyo:
+    _base: {fileID: 0}
+    level: 0
+  mapArea: {fileID: 0}

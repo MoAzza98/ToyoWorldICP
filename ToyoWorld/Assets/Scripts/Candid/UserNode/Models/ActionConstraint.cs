@@ -1,10 +1,7 @@
 using worldId = System.String;
 using userId = System.String;
-using quantity = System.Double;
 using groupId = System.String;
 using entityId = System.String;
-using duration = EdjCase.ICP.Candid.Models.UnboundedUInt;
-using attribute = System.String;
 using actionId = System.String;
 using List_1 = EdjCase.ICP.Candid.Models.OptionalValue<Candid.UserNode.Models.List_1Item>;
 using List = EdjCase.ICP.Candid.Models.OptionalValue<Candid.UserNode.Models.ListItem>;
@@ -15,6 +12,7 @@ using EdjCase.ICP.Candid.Mapping;
 using Candid.UserNode.Models;
 using System.Collections.Generic;
 using EdjCase.ICP.Candid.Models;
+using System;
 
 namespace Candid.UserNode.Models
 {
@@ -38,40 +36,162 @@ namespace Candid.UserNode.Models
 
 		public class EntityConstraintItemItem
 		{
-			[CandidName("entityId")]
-			public string Eid { get; set; }
+			[CandidName("eid")]
+			public entityId Eid { get; set; }
 
-			[CandidName("equalToAttribute")]
-			public OptionalValue<string> EqualToAttribute { get; set; }
+			[CandidName("fieldName")]
+			public string FieldName { get; set; }
 
-			[CandidName("greaterThanOrEqualQuantity")]
-			public OptionalValue<double> GreaterThanOrEqualQuantity { get; set; }
+			[CandidName("gid")]
+			public groupId Gid { get; set; }
 
-			[CandidName("groupId")]
-			public string Gid { get; set; }
+			[CandidName("validation")]
+			public ActionConstraint.EntityConstraintItemItem.ValidationInfo Validation { get; set; }
 
-			[CandidName("lessThanQuantity")]
-			public OptionalValue<double> LessThanQuantity { get; set; }
+			[CandidName("wid")]
+			public OptionalValue<worldId> Wid { get; set; }
 
-			[CandidName("notExpired")]
-			public OptionalValue<bool> NotExpired { get; set; }
-
-			[CandidName("worldId")]
-			public string Wid { get; set; }
-
-			public EntityConstraintItemItem(string entityId, OptionalValue<string> equalToAttribute, OptionalValue<double> greaterThanOrEqualQuantity, string groupId, OptionalValue<double> lessThanQuantity, OptionalValue<bool> notExpired, string worldId)
+			public EntityConstraintItemItem(entityId eid, string fieldName, groupId gid, ActionConstraint.EntityConstraintItemItem.ValidationInfo validation, OptionalValue<worldId> wid)
 			{
-				this.Eid = entityId;
-				this.EqualToAttribute = equalToAttribute;
-				this.GreaterThanOrEqualQuantity = greaterThanOrEqualQuantity;
-				this.Gid = groupId;
-				this.LessThanQuantity = lessThanQuantity;
-				this.NotExpired = notExpired;
-				this.Wid = worldId;
+				this.Eid = eid;
+				this.FieldName = fieldName;
+				this.Gid = gid;
+				this.Validation = validation;
+				this.Wid = wid;
 			}
 
 			public EntityConstraintItemItem()
 			{
+			}
+
+			[Variant(typeof(ActionConstraint.EntityConstraintItemItem.ValidationInfoTag))]
+			public class ValidationInfo
+			{
+				[VariantTagProperty()]
+				public ActionConstraint.EntityConstraintItemItem.ValidationInfoTag Tag { get; set; }
+
+				[VariantValueProperty()]
+				public System.Object? Value { get; set; }
+
+				public ValidationInfo(ActionConstraint.EntityConstraintItemItem.ValidationInfoTag tag, object? value)
+				{
+					this.Tag = tag;
+					this.Value = value;
+				}
+
+				protected ValidationInfo()
+				{
+				}
+
+				public static ActionConstraint.EntityConstraintItemItem.ValidationInfo EqualToNumber(double info)
+				{
+					return new ActionConstraint.EntityConstraintItemItem.ValidationInfo(ActionConstraint.EntityConstraintItemItem.ValidationInfoTag.EqualToNumber, info);
+				}
+
+				public static ActionConstraint.EntityConstraintItemItem.ValidationInfo EqualToString(string info)
+				{
+					return new ActionConstraint.EntityConstraintItemItem.ValidationInfo(ActionConstraint.EntityConstraintItemItem.ValidationInfoTag.EqualToString, info);
+				}
+
+				public static ActionConstraint.EntityConstraintItemItem.ValidationInfo GreaterThanEqualToNumber(double info)
+				{
+					return new ActionConstraint.EntityConstraintItemItem.ValidationInfo(ActionConstraint.EntityConstraintItemItem.ValidationInfoTag.GreaterThanEqualToNumber, info);
+				}
+
+				public static ActionConstraint.EntityConstraintItemItem.ValidationInfo GreaterThanNowTimestamp()
+				{
+					return new ActionConstraint.EntityConstraintItemItem.ValidationInfo(ActionConstraint.EntityConstraintItemItem.ValidationInfoTag.GreaterThanNowTimestamp, null);
+				}
+
+				public static ActionConstraint.EntityConstraintItemItem.ValidationInfo GreaterThanNumber(double info)
+				{
+					return new ActionConstraint.EntityConstraintItemItem.ValidationInfo(ActionConstraint.EntityConstraintItemItem.ValidationInfoTag.GreaterThanNumber, info);
+				}
+
+				public static ActionConstraint.EntityConstraintItemItem.ValidationInfo LessThanEqualToNumber(double info)
+				{
+					return new ActionConstraint.EntityConstraintItemItem.ValidationInfo(ActionConstraint.EntityConstraintItemItem.ValidationInfoTag.LessThanEqualToNumber, info);
+				}
+
+				public static ActionConstraint.EntityConstraintItemItem.ValidationInfo LessThanNowTimestamp()
+				{
+					return new ActionConstraint.EntityConstraintItemItem.ValidationInfo(ActionConstraint.EntityConstraintItemItem.ValidationInfoTag.LessThanNowTimestamp, null);
+				}
+
+				public static ActionConstraint.EntityConstraintItemItem.ValidationInfo LessThanNumber(double info)
+				{
+					return new ActionConstraint.EntityConstraintItemItem.ValidationInfo(ActionConstraint.EntityConstraintItemItem.ValidationInfoTag.LessThanNumber, info);
+				}
+
+				public double AsEqualToNumber()
+				{
+					this.ValidateTag(ActionConstraint.EntityConstraintItemItem.ValidationInfoTag.EqualToNumber);
+					return (double)this.Value!;
+				}
+
+				public string AsEqualToString()
+				{
+					this.ValidateTag(ActionConstraint.EntityConstraintItemItem.ValidationInfoTag.EqualToString);
+					return (string)this.Value!;
+				}
+
+				public double AsGreaterThanEqualToNumber()
+				{
+					this.ValidateTag(ActionConstraint.EntityConstraintItemItem.ValidationInfoTag.GreaterThanEqualToNumber);
+					return (double)this.Value!;
+				}
+
+				public double AsGreaterThanNumber()
+				{
+					this.ValidateTag(ActionConstraint.EntityConstraintItemItem.ValidationInfoTag.GreaterThanNumber);
+					return (double)this.Value!;
+				}
+
+				public double AsLessThanEqualToNumber()
+				{
+					this.ValidateTag(ActionConstraint.EntityConstraintItemItem.ValidationInfoTag.LessThanEqualToNumber);
+					return (double)this.Value!;
+				}
+
+				public double AsLessThanNumber()
+				{
+					this.ValidateTag(ActionConstraint.EntityConstraintItemItem.ValidationInfoTag.LessThanNumber);
+					return (double)this.Value!;
+				}
+
+				private void ValidateTag(ActionConstraint.EntityConstraintItemItem.ValidationInfoTag tag)
+				{
+					if (!this.Tag.Equals(tag))
+					{
+						throw new InvalidOperationException($"Cannot cast '{this.Tag}' to type '{tag}'");
+					}
+				}
+			}
+
+			public enum ValidationInfoTag
+			{
+				[CandidName("equalToNumber")]
+				[VariantOptionType(typeof(double))]
+				EqualToNumber,
+				[CandidName("equalToString")]
+				[VariantOptionType(typeof(string))]
+				EqualToString,
+				[CandidName("greaterThanEqualToNumber")]
+				[VariantOptionType(typeof(double))]
+				GreaterThanEqualToNumber,
+				[CandidName("greaterThanNowTimestamp")]
+				GreaterThanNowTimestamp,
+				[CandidName("greaterThanNumber")]
+				[VariantOptionType(typeof(double))]
+				GreaterThanNumber,
+				[CandidName("lessThanEqualToNumber")]
+				[VariantOptionType(typeof(double))]
+				LessThanEqualToNumber,
+				[CandidName("lessThanNowTimestamp")]
+				LessThanNowTimestamp,
+				[CandidName("lessThanNumber")]
+				[VariantOptionType(typeof(double))]
+				LessThanNumber
 			}
 		}
 

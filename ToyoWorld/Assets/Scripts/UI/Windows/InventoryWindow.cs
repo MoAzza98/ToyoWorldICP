@@ -1,8 +1,10 @@
 using Boom.UI;
 using Boom.Utility;
 using Boom.Values;
+using System;
 using TMPro;
 using UnityEngine;
+using Boom;
 
 public class InventoryWindow : Window
 {
@@ -68,17 +70,23 @@ public class InventoryWindow : Window
 
         state.data.elements.Iterate(e =>
         {
-            if (EntityUtil.GetTag(e.Key).Contains("item"))
+            if(e.Value.gid == "item")
             {
-                if(e.Value.quantity > 0)
+                try
                 {
-                    WindowManager.Instance.AddWidgets<InventoryWidget>(new InventoryWidget.WindowData()
-                    { content = $"{EntityUtil.GetName(e.Key, e.Key)} x {e.Value.quantity}" }, content);
+                    if (!EntityUtil.GetConfigFieldAs<string>(e.Value.GetConfigId(), "name", out var configName)) throw new Exception($"Element of id : \"{e.Value.GetConfigId()}\" doesn't have field \"item\"");
+                    if (!EntityUtil.GetFieldAs<double>(e.Value, "quantity", out var currentQuantity)) throw new Exception($"Element of id : \"{e.Value.GetKey()}\" doesn't have field \"quantity\"");
+
+                    if (currentQuantity > 0)
+                    {
+                        WindowManager.Instance.AddWidgets<InventoryWidget>(new InventoryWidget.WindowData()
+                        { content = $"{configName} x {currentQuantity}" }, content);
+                    }
                 }
-            }
-            else
-            {
-                Debug.Log($"Element of id : \"{e.Key}\" doesn't have tag \"item\", it has: \"{EntityUtil.GetTag(e.Key)}\"");
+                catch (Exception err)
+                {
+                    Debug.LogError(err.Message);
+                }
             }
         });
     }

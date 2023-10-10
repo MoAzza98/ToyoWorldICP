@@ -3,15 +3,12 @@ using Boom.Patterns.Broadcasts;
 using Boom.UI;
 using Boom.Utility;
 using Boom.Values;
-using Newtonsoft.Json;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using System;
 using Unity.VisualScripting;
 using Cysharp.Threading.Tasks;
-using System.Linq;
-using static Org.BouncyCastle.Math.EC.ECCurve;
+using Boom;
 
 public class ShopWindow : Window
 {
@@ -30,34 +27,34 @@ public class ShopWindow : Window
     public override void Setup(object data)
     {
         UserUtil.RegisterToDataChange<DataTypes.Entity>(UpdateWindow);
-        UserUtil.RegisterToDataChange<DataTypes.Action>(UpdateWindow);
-        UserUtil.RegisterToDataChange<DataTypes.EntityConfig>(UpdateWindow, true);
+        UserUtil.RegisterToDataChange<DataTypes.ActionState>(UpdateWindow);
+        UserUtil.RegisterToDataChange<DataTypes.Config>(UpdateWindow, true);
     }
 
     private void OnDestroy()
     {
         UserUtil.UnregisterToDataChange<DataTypes.Entity>(UpdateWindow);
-        UserUtil.UnregisterToDataChange<DataTypes.Action>(UpdateWindow);
-        UserUtil.UnregisterToDataChange<DataTypes.EntityConfig>(UpdateWindow);
+        UserUtil.UnregisterToDataChange<DataTypes.ActionState>(UpdateWindow);
+        UserUtil.UnregisterToDataChange<DataTypes.Config>(UpdateWindow);
     }
     private void UpdateWindow(DataState<Data<DataTypes.Entity>> state)
     {
         if (UserUtil.IsDataValid<DataTypes.Entity>())
         {
-            var entityConfigData = UserUtil.GetDataOfType<DataTypes.EntityConfig>();
+            var entityConfigData = UserUtil.GetDataOfType<DataTypes.Config>();
             UpdateWindow(entityConfigData.AsOk());
         }
     }
-    private void UpdateWindow(DataState<Data<DataTypes.Action>> state)
+    private void UpdateWindow(DataState<Data<DataTypes.ActionState>> state)
     {
         if (UserUtil.IsDataValid<DataTypes.Entity>())
         {
-            var entityConfigData = UserUtil.GetDataOfType<DataTypes.EntityConfig>();
+            var entityConfigData = UserUtil.GetDataOfType<DataTypes.Config>();
             UpdateWindow(entityConfigData.AsOk());
         }
     }
 
-    private void UpdateWindow(DataState<Data<DataTypes.EntityConfig>> state)
+    private void UpdateWindow(DataState<Data<DataTypes.Config>> state)
     {
         foreach (Transform child in content)
         {
@@ -87,15 +84,22 @@ public class ShopWindow : Window
             {
                 var constrain = actionOffer.entityConstraints?.Reduce(e =>
                 {
-                    double amount = e.GreaterThanOrEqualQuantity.HasValue ? e.GreaterThanOrEqualQuantity.ValueOrDefault : 0;
-                    string name = EntityUtil.GetName(e.GetKey(), e.GetKey());
+                    if(e.ConstrainType != $"{nameof(EntityConstrainTypes.GreaterThanEqualToNumber)}")
+                    {
+                        return $"ConstrainType Error! "+ e.ConstrainType;
+                    }
+                    double amount = (double) e.GetValue();
+                    string name = e.GetKey();
+
+                    if (EntityUtil.GetConfigFieldAs<string>(e.GetConfigId(), "name", out var configName)) name = configName; 
+
                     return $"{name} x {amount}\n\n";
                 },"\n");
 
                 ActionWidget aw = WindowManager.Instance.AddWidgets<ActionWidget>(new ActionWidget.WindowData()
                 {
                     id = key,
-                    textButtonContent = $"Trade",
+                    textButtonContent = $"Trade Item",
                     content = $"{actionOffer.name}\n\n{constrain} -> ItemC x 1",
                     action = (actionId, customData) => { Trade(actionId, constrain).Forget(); },
                     imageContentType = new ImageContentType.Url(actionOffer.imageUrl),
@@ -104,16 +108,16 @@ public class ShopWindow : Window
             }
             else
             {
-                var actionPlugin = actionOffer.actionPlugin;
+                var actionPluginResult = actionOffer.actionPlugin;
 
                 if (actionOffer.HasPluginType(ActionPluginTag.VerifyTransferIcp))
                 {
-                    var config = actionPlugin.AsVerifyTransferIcp();
+                    var config = actionPluginResult.AsVerifyTransferIcp();
 
                     ActionWidget aw = WindowManager.Instance.AddWidgets<ActionWidget>(new ActionWidget.WindowData()
                     {
                         id = key,
-                        textButtonContent = $"{(actionOffer.tag == "Mint" ? "Mint" : "Buy")}",
+                        textButtonContent = $"{(actionOffer.tag == "Mint" ? "Mint Nft" : "Buy Item")}",
                         content = $"{actionOffer.name}\n\nprice: {config.Amt.NotScientificNotation()} ICP",
                         action = (actionId, customData) => { BuyWithIcp(actionId, config, actionOffer).Forget(); },
                         imageContentType = new ImageContentType.Url(actionOffer.imageUrl),
@@ -122,15 +126,15 @@ public class ShopWindow : Window
                 }
                 else if (actionOffer.HasPluginType(ActionPluginTag.VerifyTransferIcrc))
                 {
-                    var config = actionPlugin.AsVerifyTransferIcrc();
+                    var config = actionPluginResult.AsVerifyTransferIcrc();
 
-                    var tokenNameResult = UserUtil.GetPropertyFromType<DataTypes.TokenConfig, string>(config.Canister, e => e.name);
+                    var tokenNameResult = UserUtil.GetPropertyFromType<DataTypes.TokenMetadata, string>(config.Canister, e => e.name);
                     var tokenName = tokenNameResult.Tag == UResultTag.Ok ? tokenNameResult.AsOk() : "ICRC";
 
                     ActionWidget aw = WindowManager.Instance.AddWidgets<ActionWidget>(new ActionWidget.WindowData()
                     {
                         id = key,
-                        textButtonContent = $"{(actionOffer.tag == "Mint" ? "Mint" : "Buy")}",
+                        textButtonContent = $"{(actionOffer.tag == "Mint" ? "Mint Nft" : "Buy Item")}",
                         content = $"{actionOffer.name}\n\nprice: {config.Amt.ToString("0." + new string('#', 339))} {tokenName}",
                         action = (actionId, customData) => { BuyWithIcrc(actionId, config, actionOffer).Forget(); }
                         ,
@@ -138,10 +142,112 @@ public class ShopWindow : Window
                         infoWindowData = new InfoPopupWindow.WindowData(actionOffer.name, actionOffer.description)
                     }, content);
                 }
-                else Debug.Log($"Trying to call wrong action type of id: {actionPlugin.Tag} -" + key);
+                else if (actionOffer.HasPluginType(ActionPluginTag.VerifyBurnNfts))
+                {
+                    var plugin = actionPluginResult.AsVerifyBurnNfts();
+
+                    string possibleOutcoemsContent = actionOffer.actionResult.GetAllPossibleOutcomes().Filter(e =>
+                    {
+                        return e.OutcomeType == ActionOutcomeOption.OptionInfoTag.IncrementNumber;
+                    }).Reduce(k =>
+                    {
+                        if (k is ActionOutcomeTypes.IncrementNumber receiveQuantity)
+                        {
+                            var quantity = receiveQuantity.Quantity;
+
+                            EntityUtil.GetConfigFieldAs<string>(receiveQuantity.GetConfigId(), "name", out var configName, receiveQuantity.GetConfigId());
+
+                            return $"{configName} x {quantity}";
+                        }
+                        else
+                        {
+                            return $"Wrong type: {k.GetType()}";
+                        }
+                    });
+
+
+                    ActionWidget aw = WindowManager.Instance.AddWidgets<ActionWidget>(new ActionWidget.WindowData()
+                    {
+                        id = key,
+                        textButtonContent = $"Burn Nft",
+                        content = $"Posible Rewards:\n\n{possibleOutcoemsContent}",
+                        action = (actionId, customData) => { BurnNftHandler(actionId); }
+                      ,
+                        imageContentType = new ImageContentType.Url(actionOffer.imageUrl),
+                        infoWindowData = new InfoPopupWindow.WindowData(actionOffer.name, actionOffer.description)
+                    }, content);
+                }
+                else Debug.Log($"Trying to call wrong action type of id: {actionPluginResult.Tag} -" + key);
             }
         });
     }
+
+    private void BurnNftHandler(string actionid)
+    {
+        BurnNft(actionid).Forget();
+    }
+
+    private async UniTaskVoid BurnNft(string actionid)
+    {
+        //await UniTask.SwitchToMainThread();
+
+        BroadcastState.Invoke(new WaitingForResponse(true));
+
+
+        var nextNftIndexResult = NftUtil.TryGetNextNftIndex(Env.Nfts.BOOM_COLLECTION_CANISTER_ID);
+
+        if (nextNftIndexResult.IsErr)
+        {
+            WindowManager.Instance.OpenWindow<InfoPopupWindow>(new InfoPopupWindow.WindowData("Some other issue!", nextNftIndexResult.AsErr()), 3);
+            BroadcastState.Invoke(new WaitingForResponse(false));
+
+            return;
+        }
+
+        var result = await ActionUtil.Action.VerifyBurnNfts(actionid, Env.Nfts.BOOM_COLLECTION_CANISTER_ID);
+
+        if (result.Tag == UResultTag.Err)
+        {
+            //UserUtil.RequestData<DataTypes.NftCollection>(new NftCollectionToFetch(Env.Nfts.BOOM_COLLECTION_CANISTER_ID, "Test Nft Collection", false));
+            Debug.LogError(result.AsErr().content);
+
+            switch (result.AsErr())
+            {
+                case ActionErrType.InsufficientBalance content:
+                    Window infoPopup = null;
+                    infoPopup = WindowManager.Instance.OpenWindow<InfoPopupWindow>(
+                    new InfoPopupWindow.WindowData(
+                        $"You don't a nft to burn",
+                        $"{content.content}",
+                        new(
+                            new(
+                                $"Mint a Nft",
+                                () =>
+                                {
+                                    if (infoPopup != null) infoPopup.Close();
+                                    Close();
+                                    WindowManager.Instance.OpenWindow<MintTestTokensWindow>(null, 1);
+                                }
+                               )
+                            )),
+                        3);
+                    break;
+                default:
+                    WindowManager.Instance.OpenWindow<InfoPopupWindow>(new InfoPopupWindow.WindowData("Some other issue!", result.AsErr().Content), 3);
+                    break;
+            }
+
+            BroadcastState.Invoke(new WaitingForResponse(false));
+            return;
+        }
+
+        var resultAsOk = result.AsOk();
+
+        DisplayActionResponse(resultAsOk);
+
+        BroadcastState.Invoke(new WaitingForResponse(false));
+    }
+
     private async UniTaskVoid Trade(string actionId, string constrain)
     {
         BroadcastState.Invoke(new WaitingForResponse(true));
@@ -174,11 +280,11 @@ public class ShopWindow : Window
         DisplayActionResponse(resultAsOk);
 
         BroadcastState.Invoke(new WaitingForResponse(false));
-        EntityUtil.IncrementCurrentQuantity(resultAsOk.receivedEntities.ToArray());
-        EntityUtil.DecrementCurrentQuantity(resultAsOk.spentEntities.ToArray());
+        //EntityUtil.IncrementNumber(resultAsOk.receivedEntities.ToArray());
+        //EntityUtil.Decrementnumber(resultAsOk.spentEntities.ToArray());
 
     }
-    private async UniTaskVoid BuyWithIcp(string actionId, ActionPlugin.VerifyTransferIcpInfo config, DataTypes.ActionConfig actionOffer)
+    private async UniTaskVoid BuyWithIcp(string actionId, ActionPlugin.VerifyTransferIcpInfo config, DataTypes.Action actionOffer)
     {
         BroadcastState.Invoke(new WaitingForResponse(true));
 
@@ -211,23 +317,23 @@ public class ShopWindow : Window
         DisplayActionResponse(resultAsOk);
 
         BroadcastState.Invoke(new WaitingForResponse(false));
-        if (actionOffer.tag.Contains("Mint"))
-        {
-            NftUtil.TryAddMintedNft(resultAsOk.nfts.ToArray());
-        }
-        else
-        {
-            EntityUtil.IncrementCurrentQuantity(resultAsOk.receivedEntities.ToArray());
-        }
+        //if (actionOffer.tag.Contains("Mint"))
+        //{
+        //    NftUtil.TryAddMintedNft(resultAsOk.nfts.ToArray());
+        //}
+        //else
+        //{
+        //    EntityUtil.IncrementNumber(resultAsOk.receivedEntities.ToArray());
+        //}
     }
-    private async UniTaskVoid BuyWithIcrc(string actionId, ActionPlugin.VerifyTransferIcrcInfo config, DataTypes.ActionConfig actionOffer)
+    private async UniTaskVoid BuyWithIcrc(string actionId, ActionPlugin.VerifyTransferIcrcInfo config, DataTypes.Action actionOffer)
     {
         BroadcastState.Invoke(new WaitingForResponse(true));
 
         var tokenSymbol = "ICRC";
         var userBalance = 0D;
 
-        var tokenAndConfigsResult = UserUtil.GetTokenAndConfigs(config.Canister);
+        var tokenAndConfigsResult = TokenUtil.GetTokenDetails(config.Canister);
 
         if (tokenAndConfigsResult.Tag == UResultTag.Ok)
         {
@@ -267,7 +373,7 @@ public class ShopWindow : Window
                     WindowManager.Instance.OpenWindow<InfoPopupWindow>(new InfoPopupWindow.WindowData("Time constrain!", content.Content), 3);
                     break;
                 default:
-                    WindowManager.Instance.OpenWindow<InfoPopupWindow>(new InfoPopupWindow.WindowData("Other issue!", actionResult.AsErr().content), 3);
+                    WindowManager.Instance.OpenWindow<InfoPopupWindow>(new InfoPopupWindow.WindowData("Other issue! "+ actionResult.AsErr().GetType().Name, actionResult.AsErr().content), 3);
                     break;
             }
 
@@ -280,23 +386,23 @@ public class ShopWindow : Window
         DisplayActionResponse(resultAsOk);
 
         BroadcastState.Invoke(new WaitingForResponse(false));
-        if (actionOffer.tag.Contains("Mint"))
-        {
-            NftUtil.TryAddMintedNft(resultAsOk.nfts.ToArray());
-        }
-        else
-        {
-            EntityUtil.IncrementCurrentQuantity(resultAsOk.receivedEntities.ToArray());
-        }
+        //if (actionOffer.tag.Contains("Mint"))
+        //{
+        //    NftUtil.TryAddMintedNft(resultAsOk.nfts.ToArray());
+        //}
+        //else
+        //{
+        //    EntityUtil.IncrementNumber(resultAsOk.receivedEntities.ToArray());
+        //}
     }
-    private List<KeyValue<string, DataTypes.ActionConfig>> GetValidOffers(List<string> actionOfferIds)
+    private List<KeyValue<string, DataTypes.Action>> GetValidOffers(List<string> actionOfferIds)
     {
 
-        List<KeyValue<string, DataTypes.ActionConfig>> offers = new();
+        List<KeyValue<string, DataTypes.Action>> offers = new();
 
         actionOfferIds.Iterate(e =>
         {
-            var getDataResult = UserUtil.GetElementOfType<DataTypes.ActionConfig>(e);
+            var getDataResult = UserUtil.GetElementOfType<DataTypes.Action>(e);
             if (getDataResult.Tag == UResultTag.Err)
             {
                 return;
@@ -313,7 +419,9 @@ public class ShopWindow : Window
 
             if (actionPlugin != null)
             {
-                if (actionPlugin.Tag != ActionPluginTag.VerifyTransferIcp && actionPlugin.Tag != ActionPluginTag.VerifyTransferIcrc) return;
+                if (actionPlugin.Tag != ActionPluginTag.VerifyTransferIcp &&
+                actionPlugin.Tag != ActionPluginTag.VerifyTransferIcrc &&
+                actionPlugin.Tag != ActionPluginTag.VerifyBurnNfts) return;
             }
 
             offers.Add(new(e, config));
@@ -343,7 +451,7 @@ public class ShopWindow : Window
 
             if (fetchOwnTokenDataResult.IsOk)
             {
-                tokenName = fetchOwnTokenDataResult.AsOk().collectionName;
+                tokenName = fetchOwnTokenDataResult.AsOk().name;
             }
             else
             {
@@ -355,9 +463,13 @@ public class ShopWindow : Window
 
 
         //ENTITIES
-        resonse.receivedEntities.Iterate(e =>
+        resonse.incrementNumberEntities.Iterate(e =>
         {
-            inventoryElements.Add($"{EntityUtil.GetName(e.GetKey(), $"Key: {e.GetKey()}: ")} x {e.quantity}");
+            if (!EntityUtil.GetConfigFieldAs<string>(e.Value.GetConfigId(), "name", out var configName)) return;
+            if (!e.Value.GetFieldAs("quantity", out double configQuantity)) return;
+
+            if (e.Value.TryGetConfig(out var config)) inventoryElements.Add($"{configName} x {configQuantity}");
+            else inventoryElements.Add($"{e.Value.GetKey()} x {configQuantity}");
         });
 
         WindowManager.Instance.OpenWindow<InventoryPopupWindow>(new InventoryPopupWindow.WindowData("Earned Items", inventoryElements), 3);

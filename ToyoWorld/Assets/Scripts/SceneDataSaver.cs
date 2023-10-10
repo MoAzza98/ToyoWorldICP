@@ -9,7 +9,7 @@ public class SceneDataSaver : MonoBehaviour
     }
     public void SaveSceneData()
     {
-        player = FindAnyObjectByType<PlayerMovement>().gameObject;
+        player = FindAnyObjectByType<ThirdPersonMovement>().gameObject;
         // Save NPC dialogue state
         //bool hasTalkedToNPC = true;
         //PlayerPrefs.SetInt("HasTalkedToNPC", hasTalkedToNPC ? 1 : 0);

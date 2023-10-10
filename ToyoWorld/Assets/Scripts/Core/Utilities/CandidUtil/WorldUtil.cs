@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 public static class WorldUtil
 {
-    public async static UniTask<UResult<Dictionary<string, Return>, string>> ProcessWorldCall<Return>(System.Func<WorldApiClient, UniTask<Return>> task, params string[] worldIds)
+    public async static UniTask<UResult<Dictionary<string, Return>, string>> ProcessWorldCall<Return>(System.Func<WorldApiClient, string, UniTask<Return>> task, params string[] worldIds)
     {
         try
         {
@@ -19,7 +19,7 @@ public static class WorldUtil
             {
                 WorldApiClient worldApiClient = new(agentResult.AsOk(), Principal.FromText(wid));
 
-                var response = await task(worldApiClient);
+                var response = await task(worldApiClient, wid);
 
                 responses.TryAdd(wid, response);
 

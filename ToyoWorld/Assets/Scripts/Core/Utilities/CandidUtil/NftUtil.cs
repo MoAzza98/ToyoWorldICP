@@ -270,4 +270,36 @@ public static class NftUtil
 
         if(update) UserUtil.UpdateData<DataTypes.NftCollection>(null);
     }
+
+    public async static void TryAddMintedNft(params DataTypes.NftCollection.Nft[] mintedNfts)
+    {
+        bool update = false;
+        foreach (var mintedNft in mintedNfts)
+        {
+            var nftIndex = mintedNft.index;
+
+            var result = TryGetCollection(mintedNft.canister);
+
+            if (result.IsErr)
+            {
+                $"Could not add of index: {nftIndex} from collection: {mintedNft.canister} cuz you don't have the collection initialized".Warning();
+                continue;
+            }
+
+            var tokenIdentifier = await CandidApiManager.Instance.WorldHub.GetTokenIdentifier(mintedNft.canister, nftIndex);
+
+            var collection = result.AsOk();
+
+            collection.tokens ??= new();
+
+            if (collection.tokens.Has(e => e.index == nftIndex) == false)
+            {
+                collection.tokens.Add(mintedNft);
+
+                update = true;
+            }
+        }
+
+        if (update) UserUtil.UpdateData<DataTypes.NftCollection>(null);
+    }
 }

@@ -15,7 +15,7 @@ MonoBehaviour:
   toyoName: Snaply
   description: Snaply test
   toyoPrefab: {fileID: 2266157265114488493, guid: 2eb3f370fbc1c324abd3d85f109a0e09, type: 3}
-  type1: 4
+  type1: 5
   type2: 0
   maxHP: 55
   attack: 55
