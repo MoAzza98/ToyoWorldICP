@@ -5,36 +5,26 @@ using UnityEngine;
 
 public class ChatBubble : MonoBehaviour
 {
-    private GameObject chatPanel;
-    private TextMeshProUGUI chatText;
+    private string objectName { get; set; }
+    private static TextMeshProUGUI nameText;
+    private static GameObject nameFrame;
 
-    public static void Create(string Text)
+    private void Start()
     {
-        Transform chatBubbleTransform = Instantiate(GameAssets.i.pfChatBubble, GameAssets.i.playerCanvas.transform);
-
-        chatBubbleTransform.GetComponent<ChatBubble>().Setup(Text);
+        nameFrame = GameObject.Find("Name");
+        nameText = GameObject.Find("NameText").GetComponent<TextMeshProUGUI>();
     }
 
-    private void Awake()
+    public static void Setup(string name, bool isCharacter)
     {
-        chatPanel = transform.Find("ChatPanel").gameObject;
-        chatText = transform.Find("Text").GetComponent<TextMeshProUGUI>();
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        //Setup("Hello world!");
-    }
-
-    private void Setup(string text)
-    {
-        chatText.SetText(text);
+        if (isCharacter)
+        {
+            nameFrame.SetActive(true);
+            nameText.text = name;
+        }
+        else
+        {
+            nameFrame.SetActive(false);
+        }
     }
 }

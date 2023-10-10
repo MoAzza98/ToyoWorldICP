@@ -8,6 +8,7 @@ public class PhotoCapture : MonoBehaviour
     [Header("Photo Taker")]
     [SerializeField] private Image photoDisplayArea;
     [SerializeField] private GameObject photoFrame;
+    [SerializeField] private GameObject generalUI;
 
     private Texture2D capture;
     private bool viewingPhoto;
@@ -26,10 +27,12 @@ public class PhotoCapture : MonoBehaviour
         {
             if (!viewingPhoto)
             {
+                generalUI.gameObject.SetActive(false);
                 StartCoroutine(CapturePhoto());
             }
             else
             {
+                generalUI.gameObject.SetActive(true);
                 RemovePhoto();
             }
         }

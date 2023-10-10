@@ -49,14 +49,15 @@ public class GameController : MonoBehaviour
 
     [SerializeField] public MapArea mapArea;
 
-    private PlayerMovement playerMovement;
+    public TransitionAnimation transition;
+
 
     public GameState state = GameState.FreeRoam;
 
     // Start is called before the first frame update
     void Start()
     {
-        //UpdatePlayerParty(currentToyoParty);
+        transition = FindObjectOfType<TransitionAnimation>();
     }
 
     // Update is called once per frame
@@ -106,7 +107,8 @@ public class GameController : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log("OnSceneLoaded: " + scene.name);
+        transition = FindObjectOfType<TransitionAnimation>();
+        //Debug.Log("OnSceneLoaded: " + scene.name);
         Debug.Log(mode);
         if(scene.name == "PlayerScene")
         {
@@ -139,12 +141,18 @@ public class GameController : MonoBehaviour
 
     public void SwitchToBattleScene()
     {
-        SceneManager.LoadScene("MainBattle");
+        //index 1
+        StartCoroutine(transition.LoadLevel(2));
+        transition = FindObjectOfType<TransitionAnimation>();
+        //SceneManager.LoadScene("MainBattle");
     }
 
     public void SwitchToPlayScene()
     {
-        SceneManager.LoadScene("PlayerScene");
+        //index 2
+        StartCoroutine(transition.LoadLevel(1));
+        transition = FindObjectOfType<TransitionAnimation>();
+        //SceneManager.LoadScene("PlayerScene");
         //InitController();
     }
 

@@ -12,6 +12,7 @@ public class NPCLines : MonoBehaviour
     [TextArea(5, 5)]
     public string[] npcLines;
     public string npcName;
+    public bool isCharacter;
 
     // Start is called before the first frame update
     void Start()
@@ -27,7 +28,9 @@ public class NPCLines : MonoBehaviour
 
     public void SetLines()
     {
-        if(animator != null)
+        ChatBubble.Setup(npcName, isCharacter);
+
+        if (animator != null)
         {
             animator.SetTrigger("Talk");
         }

@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class BattleArea : MonoBehaviour
 {
     [SerializeField] public GameController controller;
-    float resetTimer = 5f;
+    float resetTimer = 3f;
     // Start is called before the first frame update
     void Start()
     {
@@ -46,9 +46,11 @@ public class BattleArea : MonoBehaviour
 
     private void BattleChance()
     {
-        float isBattle = Random.Range(0f, 100f);
 
-        if(isBattle > 10f)
+        float isBattle = Random.Range(0, 100);
+
+        Debug.Log(isBattle);
+        if(isBattle > 10)
         {
             
             Debug.Log("battle triggered");

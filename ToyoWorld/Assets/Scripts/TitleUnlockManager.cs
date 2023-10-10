@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class TitleUnlockManager : MonoBehaviour
@@ -16,10 +17,16 @@ public class TitleUnlockManager : MonoBehaviour
     [SerializeField] GameObject name4;
     [SerializeField] GameObject newbie;
 
+    public List<TextMeshProUGUI> counterText;
+
     // Start is called before the first frame update
     void Start()
     {
         CheckButtons();
+        foreach (var t in counterText)
+        {
+            t.text = $"{GameController.instance.toyosDefeated}{t.text}";
+        }
     }
 
     // Update is called once per frame
