@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04eac5d006ef6344f9dbee1c4a7844ed, type: 3}
+  m_Name: Final Gamble
+  m_EditorClassIdentifier: 
+  moveName: Final Gamble
+  description: The user assumes a risky stance, striking with 110% of their power.
+    This moves accuracy is low.
+  toyoType: 1
+  power: 200
+  accuracy: 20
+  pp: 5
+  isSpecial: 0
+  effect: {fileID: 8765350373887584717, guid: ef01e2b1f85c37f4da9696822a685f10, type: 3}
+  _moveDestnation: 1

@@ -116,6 +116,8 @@ public class BattleSystem : MonoBehaviour
 
         if (damageDetails.Fainted)
         {
+            enemyUnit.enemyAnim.SetTrigger("Fainted");
+
             yield return bDialogue.TypeDialog($"{enemyUnit.Toyo.Base.ToyoName} fainted.");
 
             yield return new WaitForSeconds(1f);
@@ -171,7 +173,7 @@ public class BattleSystem : MonoBehaviour
         {
             yield return bDialogue.TypeDialog($"{playerUnit.Toyo.Base.ToyoName} fainted.");
 
-            //anim.SetTrigger("Fainted") here
+            playerUnit.playerAnim.SetTrigger("Fainted");
 
             yield return new WaitForSeconds(1f);
 
@@ -218,7 +220,7 @@ public class BattleSystem : MonoBehaviour
         state = BattleState.BUSY;
 
         Destroy(playerUnit.playerToyo.gameObject);
-        Debug.Log(playerUnit.playerToyo.gameObject.name);
+        //Debug.Log(playerUnit.playerToyo.gameObject.name);
 
         StartCoroutine(SwitchToyo(selectedToyo));
 

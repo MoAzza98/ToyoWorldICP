@@ -28,7 +28,7 @@ public class EffectHandler : MonoBehaviour
         castObject = move.Base.Effect;
         Instantiate(castObject, target.position, Quaternion.identity);
         //Destroy(castObject, 1f);
-        castObject.transform.LookAt(target);
+        //castObject.transform.LookAt(target);
     }
 
     public void SendProjectile(Move move)

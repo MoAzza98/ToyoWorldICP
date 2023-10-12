@@ -18,12 +18,12 @@ MonoBehaviour:
   toyoPrefab: {fileID: 8429715588382163536, guid: d474234577a2b3d42a4ff26cfed642a7, type: 3}
   type1: 1
   type2: 0
-  maxHP: 55
-  attack: 55
-  defence: 50
-  spAtk: 45
-  spDef: 65
-  speed: 55
+  maxHP: 60
+  attack: 60
+  defence: 60
+  spAtk: 60
+  spDef: 60
+  speed: 60
   learnableMoves:
   - moveBase: {fileID: 11400000, guid: c6489d2ff817351468b1f4245342e257, type: 2}
     level: 1
@@ -31,7 +31,5 @@ MonoBehaviour:
     level: 2
   - moveBase: {fileID: 11400000, guid: 15ed93c3682b98741ada70a1b82ded91, type: 2}
     level: 3
-  - moveBase: {fileID: 11400000, guid: 6a8836890de53b6418b75ca05b662dd6, type: 2}
-    level: 4
   - moveBase: {fileID: 11400000, guid: b4a9dc05e1ffcdf42bd8148fcedea86d, type: 2}
     level: 5
