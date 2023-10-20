@@ -8,9 +8,9 @@ using UnityEngine.SceneManagement;
 public enum BattleState
 {
     START,
-    PLAYERACTION,
-    PLAYERMOVE,
-    ENEMYMOVE,
+    ACTIONSELECTION,
+    MOVESELECTION,
+    PERFORMMOVE,
     BUSY,
     PARTYSCREEN
 }
@@ -64,7 +64,7 @@ public class BattleSystem : MonoBehaviour
     // Update is called once per frame
     public void Update()
     {
-        if(state == BattleState.PLAYERACTION) {
+        if(state == BattleState.ACTIONSELECTION) {
             HandleActionSelection();
         }
     }
@@ -91,15 +91,15 @@ public class BattleSystem : MonoBehaviour
 
     public void PlayerAction()
     {
-        state = BattleState.PLAYERACTION;
+        state = BattleState.ACTIONSELECTION;
         StartCoroutine(bDialogue.TypeDialog($"Choose an action."));
         partyScreen.gameObject.SetActive(false);
         bDialogue.GoToActionSelector();
     }
 
-    IEnumerator PerformPlayerMove()
+    IEnumerator PlayerMove()
     {
-        state = BattleState.BUSY;
+        state = BattleState.PERFORMMOVE;
 
         var move = currentMove;
         move.PP--;
@@ -153,7 +153,7 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator EnemyMove()
     {
-        state = BattleState.ENEMYMOVE;
+        state = BattleState.PERFORMMOVE;
 
         var move = enemyUnit.Toyo.GetRandomMove();
         move.PP--;
@@ -202,6 +202,85 @@ public class BattleSystem : MonoBehaviour
         }
 
 
+    }
+
+    void CheckForBattleOver(BattleUnit faintedUnit)
+    {
+        if (faintedUnit.IsPlayerUnit)
+        {
+            var nextToyo = playerParty.GetHealthyToyo();
+            if (nextToyo != null)
+            {
+                OpenPartyScreen();
+            }
+            else
+            {
+
+                //onbattleover method needs to be added here
+                //yield return bDialogue.TypeDialog($"All your toyos fainted! You black out...");
+                foreach (var member in GameController.instance.gcParty.ToyoPartyList)
+                {
+                    member.Init();
+                }
+
+                StartCoroutine(OnBattleOver(false));
+                GameController.instance.EndBattle();
+
+            }
+        }
+        else
+        {
+            StartCoroutine(OnBattleOver(true));
+            GameController.instance.UpdateControllerParty(this.playerParty);
+            GameController.instance.EndBattle();
+            GameController.instance.toyosDefeated++;
+        }
+    }
+
+    IEnumerator RunMove(BattleUnit sourceUnit, BattleUnit targetUnit, Move move)
+    {
+        move.PP--;
+        yield return bDialogue.TypeDialog($"{sourceUnit.Toyo.Base.ToyoName} used {move.Base.MoveName}.");
+
+        sourceUnit.unitAnim.SetTrigger("Attacked");
+
+        if(sourceUnit.IsPlayerUnit)
+        {
+            effects.CastEffect(move, effects.enemyPoint);
+        }
+        else
+        {
+            effects.CastEffect(move, effects.playerPoint);
+        }
+
+        var damageDetails = targetUnit.Toyo.TakeDamage(move, sourceUnit.Toyo);
+        targetUnit.unitAnim.SetTrigger("isHurt");
+
+        yield return enemyHUD.UpdateHP();
+        yield return ShowDamageDetails(damageDetails);
+
+        if (damageDetails.Fainted)
+        {
+            targetUnit.unitAnim.SetTrigger("Fainted");
+
+            yield return bDialogue.TypeDialog($"{targetUnit.Toyo.Base.ToyoName} fainted.");
+
+            yield return new WaitForSeconds(1f);
+
+            CheckForBattleOver(targetUnit);
+        }
+    }
+
+    IEnumerator OnBattleOver(bool didWin)
+    {
+        if (didWin)
+        {
+            yield return bDialogue.TypeDialog($"You won!");
+        }
+        else
+        {
+            yield return bDialogue.TypeDialog($"All your Toyos fainted, you black out!");
+        }
     }
 
     public void SendToyo(Toyo selectedToyo)
@@ -255,9 +334,9 @@ public class BattleSystem : MonoBehaviour
         partyScreen.gameObject.SetActive(true);
     }
 
-    public void PlayerMove()
+    public void MoveSelection()
     {
-        state = BattleState.PLAYERMOVE;
+        state = BattleState.MOVESELECTION;
         bDialogue.GoToMoveSelector();
     }
 
@@ -268,13 +347,13 @@ public class BattleSystem : MonoBehaviour
 
     public void UseCurrentMove(Move move)
     {
-        if(state == BattleState.PLAYERMOVE)
+        if(state == BattleState.MOVESELECTION)
         {
             currentMove = move;
             bDialogue.EnableMoveSelector(false);
             bDialogue.EnableBackSelector(false);
             bDialogue.EnableMoveDetails(false);
-            StartCoroutine(PerformPlayerMove());
+            StartCoroutine(PlayerMove());
         }
         else
         {

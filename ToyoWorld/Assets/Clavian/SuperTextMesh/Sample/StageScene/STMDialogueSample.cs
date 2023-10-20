@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System;
 
 public class STMDialogueSample : MonoBehaviour {
 	public SuperTextMesh textMesh;
@@ -33,7 +34,13 @@ public class STMDialogueSample : MonoBehaviour {
 		{
 			chatPanel.gameObject.SetActive(false);
 		}
-		textMesh.Text = lines[currentLine]; //invoke accessor so rebuild() is called
+		try
+		{
+			textMesh.Text = lines[currentLine]; //invoke accessor so rebuild() is called
+		} catch(Exception e)
+		{
+			Debug.Log(e);
+		}
 		currentLine++; //move to next line of dialogue...
 	}
 	void Update () {

@@ -37,7 +37,10 @@ public class DialogueSystem : MonoBehaviour
     {
         character = GetComponent<NPC>();
         audioSource = GetComponent<AudioSource>();
-        dialogueText.text = "";
+        if(dialogueText != null)
+        {
+            dialogueText.text = "";
+        }
     }
 
     void Awake()

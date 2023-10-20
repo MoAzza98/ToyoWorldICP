@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System;
 
 public enum GameState { FreeRoam, Battle }
 
@@ -72,9 +73,15 @@ public class GameController : MonoBehaviour
         {       
             if (player == null)
             {
-                player = FindAnyObjectByType<ThirdPersonMovement>().gameObject;
-                currentToyoParty = player.GetComponent<ToyoParty>();
-                UpdateControllerParty(currentToyoParty);
+                try
+                {
+                    player = FindAnyObjectByType<ThirdPersonMovement>().gameObject;
+                    currentToyoParty = player.GetComponent<ToyoParty>();
+                    UpdateControllerParty(currentToyoParty);
+                } catch(Exception e)
+                {
+                    Debug.Log(e);
+                }
 
                 if(!partyInitialized)
                 {
