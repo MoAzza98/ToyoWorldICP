@@ -9,6 +9,8 @@ public class BattleUnit : MonoBehaviour
     [SerializeField] bool isPlayerUnit;
     [SerializeField] Transform playerSpawnPoint;
     [SerializeField] Transform enemySpawnPoint;
+    [SerializeField] BattleHUD hud;
+
     public GameObject playerToyo;
     public GameObject enemyToyo;
     public Animator playerAnim;
@@ -18,6 +20,11 @@ public class BattleUnit : MonoBehaviour
     public bool IsPlayerUnit
     {
         get { return isPlayerUnit; }
+    }
+
+    public BattleHUD Hud
+    {
+        get { return hud; }
     }
 
     public Toyo Toyo { get; set; }
@@ -37,5 +44,7 @@ public class BattleUnit : MonoBehaviour
             unitAnim = enemyToyo.GetComponent<Animator>();
             enemyToyo.transform.LookAt(playerSpawnPoint);
         }
+
+        hud.SetData(toyo);
     }
 }

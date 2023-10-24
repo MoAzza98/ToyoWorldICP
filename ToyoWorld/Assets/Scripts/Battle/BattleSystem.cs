@@ -12,16 +12,15 @@ public enum BattleState
     MOVESELECTION,
     PERFORMMOVE,
     BUSY,
-    PARTYSCREEN
+    PARTYSCREEN,
+    BATTLEOVER
 }
 
 public class BattleSystem : MonoBehaviour
 {
     [SerializeField] BattleUnit playerUnit;
-    [SerializeField] BattleHUD playerHUD;
 
     [SerializeField] BattleUnit enemyUnit;
-    [SerializeField] BattleHUD enemyHUD;
 
     [SerializeField] BattleDialogBox bDialogue;
     [SerializeField] PartyScreen partyScreen;
@@ -73,10 +72,8 @@ public class BattleSystem : MonoBehaviour
     {
 
         playerUnit.Setup(playerParty.GetHealthyToyo());
-        playerHUD.SetData(playerUnit.Toyo);
 
         enemyUnit.Setup(wildToyo);
-        enemyHUD.SetData(enemyUnit.Toyo);
 
         partyScreen.Init();
 
@@ -87,6 +84,13 @@ public class BattleSystem : MonoBehaviour
 
         PlayerAction();
 
+    }
+
+    void BattleOver(bool won)
+    {
+        state = BattleState.BATTLEOVER;
+        StartCoroutine(OnBattleOver(won));
+        GameController.instance.EndBattle();
     }
 
     public void PlayerAction()
@@ -103,34 +107,10 @@ public class BattleSystem : MonoBehaviour
 
         var move = currentMove;
         move.PP--;
-        yield return bDialogue.TypeDialog($"{playerUnit.Toyo.Base.ToyoName} used {move.Base.MoveName}.");
 
-        playerUnit.playerAnim.SetTrigger("Attacked");
-        effects.CastEffect(move, effects.enemyPoint);
+        yield return RunMove(playerUnit, enemyUnit, move);
 
-        var damageDetails = enemyUnit.Toyo.TakeDamage(move, playerUnit.Toyo);
-        enemyUnit.enemyAnim.SetTrigger("isHurt");
-
-        yield return enemyHUD.UpdateHP();
-        yield return ShowDamageDetails(damageDetails);
-
-        if (damageDetails.Fainted)
-        {
-            enemyUnit.enemyAnim.SetTrigger("Fainted");
-
-            yield return bDialogue.TypeDialog($"{enemyUnit.Toyo.Base.ToyoName} fainted.");
-
-            yield return new WaitForSeconds(1f);
-
-            yield return bDialogue.TypeDialog($"You win!");
-
-            yield return new WaitForSeconds(1f);
-
-            GameController.instance.UpdateControllerParty(this.playerParty);
-            GameController.instance.EndBattle();
-            GameController.instance.toyosDefeated++;
-        }
-        else
+        if(state == BattleState.PERFORMMOVE)
         {
             StartCoroutine(EnemyMove());
         }
@@ -156,51 +136,13 @@ public class BattleSystem : MonoBehaviour
         state = BattleState.PERFORMMOVE;
 
         var move = enemyUnit.Toyo.GetRandomMove();
-        move.PP--;
-        yield return bDialogue.TypeDialog($"{enemyUnit.Toyo.Base.ToyoName} used {move.Base.MoveName}.");
 
-        enemyUnit.enemyAnim.SetTrigger("Attacked");
-        effects.CastEffect(move, effects.playerPoint);
+        yield return RunMove(enemyUnit, playerUnit, move);
 
-        var damageDetails = playerUnit.Toyo.TakeDamage(move, enemyUnit.Toyo);
-        playerUnit.playerAnim.SetTrigger("isHurt");
-
-        yield return playerHUD.UpdateHP();
-        yield return ShowDamageDetails(damageDetails);
-
-
-        if (damageDetails.Fainted)
-        {
-            yield return bDialogue.TypeDialog($"{playerUnit.Toyo.Base.ToyoName} fainted.");
-
-            playerUnit.playerAnim.SetTrigger("Fainted");
-
-            yield return new WaitForSeconds(1f);
-
-            Destroy(playerUnit.playerToyo.gameObject);
-
-            var nextToyo = playerParty.GetHealthyToyo();
-            if(nextToyo != null)
-            {
-                OpenPartyScreen();
-            }
-            else
-            {
-                yield return bDialogue.TypeDialog($"All your toyos fainted! You black out...");
-
-                foreach(var member in GameController.instance.gcParty.ToyoPartyList)
-                {
-                    member.Init();
-                }
-                GameController.instance.EndBattle();
-
-            }
-        }
-        else
+        if (state == BattleState.PERFORMMOVE)
         {
             PlayerAction();
         }
-
 
     }
 
@@ -208,32 +150,30 @@ public class BattleSystem : MonoBehaviour
     {
         if (faintedUnit.IsPlayerUnit)
         {
+            Debug.Log("Player fainted");
             var nextToyo = playerParty.GetHealthyToyo();
+            Debug.Log(nextToyo);
             if (nextToyo != null)
             {
-                OpenPartyScreen();
+                Debug.Log("Opening screen");
+                OpenPartyScreen(false);
             }
             else
             {
-
                 //onbattleover method needs to be added here
                 //yield return bDialogue.TypeDialog($"All your toyos fainted! You black out...");
                 foreach (var member in GameController.instance.gcParty.ToyoPartyList)
                 {
                     member.Init();
                 }
-
-                StartCoroutine(OnBattleOver(false));
-                GameController.instance.EndBattle();
-
+                BattleOver(false);
             }
         }
         else
         {
-            StartCoroutine(OnBattleOver(true));
             GameController.instance.UpdateControllerParty(this.playerParty);
-            GameController.instance.EndBattle();
             GameController.instance.toyosDefeated++;
+            BattleOver(true);
         }
     }
 
@@ -242,24 +182,56 @@ public class BattleSystem : MonoBehaviour
         move.PP--;
         yield return bDialogue.TypeDialog($"{sourceUnit.Toyo.Base.ToyoName} used {move.Base.MoveName}.");
 
-        sourceUnit.unitAnim.SetTrigger("Attacked");
-
-        if(sourceUnit.IsPlayerUnit)
+        if(move.Base.Category == MoveCategory.Status)
         {
-            effects.CastEffect(move, effects.enemyPoint);
+            var effects = move.Base.Effects.Boosts;
+            if (effects != null)
+            {
+                if(move.Base.MoveTarget == MoveTarget.Self)
+                {
+                    sourceUnit.Toyo.ApplyBoost(effects);
+                }
+                else
+                {
+                    targetUnit.Toyo.ApplyBoost(effects);
+                }
+            }
         }
         else
         {
-            effects.CastEffect(move, effects.playerPoint);
+            var damageDetails = targetUnit.Toyo.TakeDamage(move, sourceUnit.Toyo);
+            targetUnit.unitAnim.SetTrigger("isHurt");
+            sourceUnit.unitAnim.SetTrigger("Attacked");
+            yield return targetUnit.Hud.UpdateHP();
+            yield return ShowDamageDetails(damageDetails);
         }
 
-        var damageDetails = targetUnit.Toyo.TakeDamage(move, sourceUnit.Toyo);
-        targetUnit.unitAnim.SetTrigger("isHurt");
+        if(sourceUnit.IsPlayerUnit)
+        {
+            if(move.Base._MoveDestinaiton == MoveDestination.Self)
+            {
+                effects.CastEffect(move, effects.playerPoint);
+            }
+            else
+            {
+                effects.CastEffect(move, effects.enemyPoint);
+            }
+        }
+        else
+        {
+            if (move.Base._MoveDestinaiton == MoveDestination.Self)
+            {
+                effects.CastEffect(move, effects.enemyPoint);
+            }
+            else
+            {
+                effects.CastEffect(move, effects.playerPoint);
+            }
+        }
 
-        yield return enemyHUD.UpdateHP();
-        yield return ShowDamageDetails(damageDetails);
 
-        if (damageDetails.Fainted)
+
+        if (targetUnit.Toyo.HP <= 0)
         {
             targetUnit.unitAnim.SetTrigger("Fainted");
 
@@ -281,6 +253,8 @@ public class BattleSystem : MonoBehaviour
         {
             yield return bDialogue.TypeDialog($"All your Toyos fainted, you black out!");
         }
+
+        yield return new WaitForSeconds(3f);
     }
 
     public void SendToyo(Toyo selectedToyo)
@@ -316,7 +290,6 @@ public class BattleSystem : MonoBehaviour
         }
 
         playerUnit.Setup(toyo);
-        playerHUD.SetData(toyo);
 
         bDialogue.SetMoveNames(toyo.Moves);
         bDialogue.SetButtonMoves(toyo.Moves);
@@ -327,11 +300,13 @@ public class BattleSystem : MonoBehaviour
 
     }
 
-    public void OpenPartyScreen()
+    public void OpenPartyScreen(bool canLeave)
     {
         state = BattleState.PARTYSCREEN;
         partyScreen.SetPartyData(playerParty.ToyoPartyList);
+        partyScreen.CanLeaveScreen(canLeave);
         partyScreen.gameObject.SetActive(true);
+        Debug.Log("Should be active");
     }
 
     public void MoveSelection()

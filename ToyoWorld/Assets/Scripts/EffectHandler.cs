@@ -25,7 +25,7 @@ public class EffectHandler : MonoBehaviour
 
     public void CastEffect(Move move, Transform target)
     {
-        castObject = move.Base.Effect;
+        castObject = move.Base.EffectPrefab;
         Instantiate(castObject, target.position, Quaternion.identity);
         //Destroy(castObject, 1f);
         //castObject.transform.LookAt(target);

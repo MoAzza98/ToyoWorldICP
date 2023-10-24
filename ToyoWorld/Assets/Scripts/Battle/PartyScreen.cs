@@ -7,6 +7,7 @@ public class PartyScreen : MonoBehaviour
 {
     PartyMemberUI[] memberSlots;
     [SerializeField] TextMeshProUGUI messageText;
+    [SerializeField] GameObject backButton;
 
     // Start is called before the first frame update
     public void Init()
@@ -33,5 +34,17 @@ public class PartyScreen : MonoBehaviour
     public void SetMessageText(string message) 
     {
         messageText.text = message;
+    }
+
+    public void CanLeaveScreen(bool canLeave)
+    {
+        if(canLeave)
+        {
+            backButton.SetActive(true);
+        }
+        else
+        {
+            backButton.SetActive(false);
+        }
     }
 }
