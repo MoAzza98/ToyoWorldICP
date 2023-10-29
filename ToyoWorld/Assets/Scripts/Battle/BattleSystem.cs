@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.Burst;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static Unity.VisualScripting.Member;
 
 public enum BattleState
 {
@@ -82,13 +83,26 @@ public class BattleSystem : MonoBehaviour
 
         yield return StartCoroutine(bDialogue.TypeDialog($"A wild {enemyUnit.Toyo.Base.ToyoName} appeared!"));
 
-        PlayerAction();
+        ChooseFirstTurn();
 
+    }
+
+    void ChooseFirstTurn()
+    {
+        if(playerUnit.Toyo.Speed > enemyUnit.Toyo.Speed)
+        {
+            PlayerAction();
+        }
+        else
+        {
+            StartCoroutine(EnemyMove());
+        }
     }
 
     void BattleOver(bool won)
     {
         state = BattleState.BATTLEOVER;
+        playerParty.ToyoPartyList.ForEach(p => p.OnBattleOver());
         StartCoroutine(OnBattleOver(won));
         GameController.instance.EndBattle();
     }
@@ -182,20 +196,19 @@ public class BattleSystem : MonoBehaviour
         move.PP--;
         yield return bDialogue.TypeDialog($"{sourceUnit.Toyo.Base.ToyoName} used {move.Base.MoveName}.");
 
-        if(move.Base.Category == MoveCategory.Status)
+        if (move.Base._MoveDestinaiton == MoveEffectDestination.Self)
         {
-            var effects = move.Base.Effects.Boosts;
-            if (effects != null)
-            {
-                if(move.Base.MoveTarget == MoveTarget.Self)
-                {
-                    sourceUnit.Toyo.ApplyBoost(effects);
-                }
-                else
-                {
-                    targetUnit.Toyo.ApplyBoost(effects);
-                }
-            }
+            effects.CastEffect(move, effects.playerPoint);
+        }
+        else
+        {
+            effects.CastEffect(move, effects.enemyPoint);
+        }
+
+        if (move.Base.Category == MoveCategory.Status)
+        {
+            sourceUnit.unitAnim.SetTrigger("Casted");
+            yield return RunMoveEffects(move, sourceUnit.Toyo, targetUnit.Toyo);
         }
         else
         {
@@ -206,31 +219,6 @@ public class BattleSystem : MonoBehaviour
             yield return ShowDamageDetails(damageDetails);
         }
 
-        if(sourceUnit.IsPlayerUnit)
-        {
-            if(move.Base._MoveDestinaiton == MoveDestination.Self)
-            {
-                effects.CastEffect(move, effects.playerPoint);
-            }
-            else
-            {
-                effects.CastEffect(move, effects.enemyPoint);
-            }
-        }
-        else
-        {
-            if (move.Base._MoveDestinaiton == MoveDestination.Self)
-            {
-                effects.CastEffect(move, effects.enemyPoint);
-            }
-            else
-            {
-                effects.CastEffect(move, effects.playerPoint);
-            }
-        }
-
-
-
         if (targetUnit.Toyo.HP <= 0)
         {
             targetUnit.unitAnim.SetTrigger("Fainted");
@@ -240,6 +228,24 @@ public class BattleSystem : MonoBehaviour
             yield return new WaitForSeconds(1f);
 
             CheckForBattleOver(targetUnit);
+        }
+    }
+
+    IEnumerator RunMoveEffects(Move move, Toyo source, Toyo target)
+    {
+        var effects = move.Base.Effects;
+        if (effects != null)
+        {
+            if (move.Base.MoveTarget == MoveTarget.Self)
+            {
+                source.ApplyBoost(effects.Boosts);
+            }
+            else
+            {
+                target.ApplyBoost(effects.Boosts);
+            }
+            yield return ShowStatusChanges(source);
+            yield return ShowStatusChanges(target);
         }
     }
 
@@ -255,6 +261,15 @@ public class BattleSystem : MonoBehaviour
         }
 
         yield return new WaitForSeconds(3f);
+    }
+
+    IEnumerator ShowStatusChanges(Toyo toyo)
+    {
+        while(toyo.StatusChanges.Count > 0)
+        {
+            var message = toyo.StatusChanges.Dequeue();
+            yield return bDialogue.TypeDialog(message);
+        }
     }
 
     public void SendToyo(Toyo selectedToyo)
@@ -281,8 +296,10 @@ public class BattleSystem : MonoBehaviour
 
     public IEnumerator SwitchToyo(Toyo toyo)
     {
-        if(playerUnit.Toyo.HP < 0)
+        bool currentToyoFainted = true;
+        if(playerUnit.Toyo.HP > 0)
         {
+            currentToyoFainted = false;
             yield return bDialogue.TypeDialog($"Come back, {playerUnit.Toyo.Base.ToyoName}!");
             //play animation here
             yield return new WaitForSeconds(2f);
@@ -296,8 +313,14 @@ public class BattleSystem : MonoBehaviour
 
         yield return bDialogue.TypeDialog($"Go! {toyo.Base.ToyoName}!");
 
-        StartCoroutine(EnemyMove());
-
+        if (currentToyoFainted)
+        {
+            ChooseFirstTurn();
+        }
+        else
+        {
+            StartCoroutine(EnemyMove());
+        }
     }
 
     public void OpenPartyScreen(bool canLeave)

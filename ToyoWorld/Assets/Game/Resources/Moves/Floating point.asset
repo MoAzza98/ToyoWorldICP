@@ -23,5 +23,5 @@ MonoBehaviour:
   effects:
     boosts: []
   effectPrefab: {fileID: 868468853075218060, guid: 8f6ea338d639c4f499fbab3cb68914ea, type: 3}
-  _moveDestnation: 1
-  _moveTarget: 0
+  _moveDestination: 1
+  _moveTarget: 1

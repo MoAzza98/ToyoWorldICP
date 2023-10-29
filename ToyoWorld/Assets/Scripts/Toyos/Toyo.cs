@@ -14,6 +14,7 @@ public class Toyo
     public List<Move> Moves { get; set; }
     public Dictionary<Stat, int> Stats { get; private set; }
     public Dictionary<Stat, int> StatBoosts { get; private set; }
+    public Queue<string> StatusChanges { get; private set; } = new Queue<string>();
 
     public ToyoBase Base 
     { 
@@ -43,16 +44,7 @@ public class Toyo
         }
         CalculateStats();
         HP = MaxHP;
-
-        StatBoosts = new Dictionary<Stat, int>()
-        {
-            {Stat.Attack, 0},
-            {Stat.Defence, 0},
-            {Stat.SpAttack, 0},
-            {Stat.SpDef, 0},
-            {Stat.Speed, 0},
-
-        };
+        ResetStatBoosts();
     }
 
     void CalculateStats()
@@ -65,6 +57,19 @@ public class Toyo
         Stats.Add(Stat.Speed, Mathf.FloorToInt((Base.Speed * Level) / 100f) + 5);
 
         MaxHP =  Mathf.FloorToInt((Base.MaxHP * Level) / 100f) + 10;
+    }
+
+    void ResetStatBoosts()
+    {
+        StatBoosts = new Dictionary<Stat, int>()
+        {
+            {Stat.Attack, 0},
+            {Stat.Defence, 0},
+            {Stat.SpAttack, 0},
+            {Stat.SpDef, 0},
+            {Stat.Speed, 0},
+
+        };
     }
 
     public void ReInitMoves()
@@ -124,7 +129,21 @@ public class Toyo
 
             StatBoosts[stat] = Mathf.Clamp(StatBoosts[stat] + boost, -6, 6);
             Debug.Log($"{stat} has been boosted to {StatBoosts[stat]}");
+
+            if (boost >= 0)
+            {
+                StatusChanges.Enqueue($"{Base.name}'s {stat} rose!");
+            }
+            else
+            {
+                StatusChanges.Enqueue($"{Base.name}'s {stat} fell!");
+            }
         }
+    }
+
+    public void OnBattleOver()
+    {
+        ResetStatBoosts();
     }
 
     public int Attack

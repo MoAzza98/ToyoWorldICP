@@ -18,7 +18,7 @@ public class MoveBase : ScriptableObject
     [SerializeField] MoveEffects effects;
 
     [SerializeField] GameObject effectPrefab;
-    [SerializeField] MoveDestination _moveDestination;
+    [SerializeField] MoveEffectDestination _moveDestination;
     [SerializeField] MoveTarget _moveTarget;
 
     public string MoveName
@@ -60,7 +60,7 @@ public class MoveBase : ScriptableObject
         get { return effects; }
     }
 
-    public MoveDestination _MoveDestinaiton
+    public MoveEffectDestination _MoveDestinaiton
     {
         get { return _moveDestination; }
     }
@@ -95,7 +95,7 @@ public class StatBoost
 }
 
 //Determines where the VFX effect is spawned
-public enum MoveDestination
+public enum MoveEffectDestination
 {
     Self,
     Enemy,

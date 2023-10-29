@@ -26,5 +26,5 @@ MonoBehaviour:
     - stat: 2
       boost: 2
   effectPrefab: {fileID: 2569992915501827505, guid: 50ef1cf6736038a4cbe05b1660091ff1, type: 3}
-  _moveDestnation: 0
-  _moveTarget: 1
+  _moveDestination: 0
+  _moveTarget: 0
