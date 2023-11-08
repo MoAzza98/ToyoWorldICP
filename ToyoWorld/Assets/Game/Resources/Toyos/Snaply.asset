@@ -14,23 +14,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   toyoName: Snaply
   description: Snaply test
-  toyoPrefab: {fileID: 2266157265114488493, guid: 2eb3f370fbc1c324abd3d85f109a0e09, type: 3}
+  toyoPrefab: {fileID: 1210038090024910259, guid: 2af4aface4affa44a8ae9f735f47ae8c, type: 3}
   type1: 5
   type2: 0
-  maxHP: 55
-  attack: 55
-  defence: 55
-  spAtk: 55
-  spDef: 55
-  speed: 55
+  maxHP: 65
+  attack: 110
+  defence: 130
+  spAtk: 60
+  spDef: 65
+  speed: 95
   learnableMoves:
-  - moveBase: {fileID: 11400000, guid: bfd4c8a5eefc8d84f808c49e1ff9e58c, type: 2}
+  - moveBase: {fileID: 11400000, guid: e900f1caf317c3147b1045636a153bcc, type: 2}
     level: 1
   - moveBase: {fileID: 11400000, guid: 6a8836890de53b6418b75ca05b662dd6, type: 2}
     level: 1
+  - moveBase: {fileID: 11400000, guid: 1f96ed0f621222344a8d58b7c5fd159e, type: 2}
+    level: 2
   - moveBase: {fileID: 11400000, guid: 15ed93c3682b98741ada70a1b82ded91, type: 2}
-    level: 2
-  - moveBase: {fileID: 11400000, guid: cf0ce3af0050901469020990f64a4be6, type: 2}
-    level: 2
-  - moveBase: {fileID: 11400000, guid: c6489d2ff817351468b1f4245342e257, type: 2}
     level: 4

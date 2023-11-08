@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c4d5ea10f35d49408ef39bd0f085974, type: 3}
+  m_Name: Faerela
+  m_EditorClassIdentifier: 
+  toyoName: Faerela
+  description: 
+  toyoPrefab: {fileID: 2266157265114488493, guid: 2eb3f370fbc1c324abd3d85f109a0e09, type: 3}
+  type1: 10
+  type2: 0
+  maxHP: 95
+  attack: 65
+  defence: 65
+  spAtk: 110
+  spDef: 130
+  speed: 60
+  learnableMoves:
+  - moveBase: {fileID: 11400000, guid: c22f3cd4710df9745a769ac0725c2a52, type: 2}
+    level: 0
+  - moveBase: {fileID: 11400000, guid: ddff326c4157a994d8a65703ad70872a, type: 2}
+    level: 0
+  - moveBase: {fileID: 11400000, guid: b4a9dc05e1ffcdf42bd8148fcedea86d, type: 2}
+    level: 0
+  - moveBase: {fileID: 11400000, guid: 652d5939b02809c4cb42c9d90e79144d, type: 2}
+    level: 0

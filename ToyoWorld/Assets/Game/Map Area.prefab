@@ -27,7 +27,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 929499299132377468}
-  m_LocalRotation: {x: -0, y: -0.07004936, z: -0, w: 0.9975435}
+  m_LocalRotation: {x: 0, y: -0.07005254, z: 0, w: 0.9975434}
   m_LocalPosition: {x: -13.50855, y: 11.93, z: -4.9330373}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -59,8 +59,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 20.111818, y: 0.58778286, z: 10.827016}
-  m_Center: {x: 0, y: 0, z: -3.4707778}
+  m_Size: {x: 2, y: 2, z: 2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &929499299132377464
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -77,9 +77,13 @@ MonoBehaviour:
   - _base: {fileID: 11400000, guid: d31c6f72ff87779479154004af0c3be8, type: 2}
     level: 5
   - _base: {fileID: 11400000, guid: 367b69783d687164c8b3bd6e73c75f0d, type: 2}
-    level: 3
+    level: 4
   - _base: {fileID: 11400000, guid: 66a117fce3f63c44aa83ceac320559b0, type: 2}
     level: 5
+  - _base: {fileID: 11400000, guid: 8a0a3b15aa5c3d741a5b863fa90170a9, type: 2}
+    level: 5
+  - _base: {fileID: 11400000, guid: 3b62de8f0c738a5449b76631eacfa326, type: 2}
+    level: 7
 --- !u!114 &929499299132377467
 MonoBehaviour:
   m_ObjectHideFlags: 0

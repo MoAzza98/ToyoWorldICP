@@ -10,8 +10,14 @@ public class Toyo
     [SerializeField] int level;
 
     public int HP { get; set; }
-
     public List<Move> Moves { get; set; }
+    public Dictionary<Stat, int> Stats { get; private set; }
+    public Dictionary<Stat, int> StatBoosts { get; private set; }
+    public Condition Status { get; private set; }
+    public Queue<string> StatusChanges { get; private set; } = new Queue<string>();
+    public bool HpChanged { get; set; }
+    public int statusTime { get; set; }
+    public event System.Action OnStatusChanged;
 
     public ToyoBase Base 
     { 
@@ -25,7 +31,6 @@ public class Toyo
 
     public void Init()
     {
-        HP = MaxHP; 
 
         Moves = new List<Move>();
         foreach(var move in Base.LearnableMoves)
@@ -40,6 +45,34 @@ public class Toyo
                 }
             }
         }
+        CalculateStats();
+        HP = MaxHP;
+        ResetStatBoosts();
+    }
+
+    void CalculateStats()
+    {
+        Stats = new Dictionary<Stat, int>();
+        Stats.Add(Stat.Attack, Mathf.FloorToInt((Base.Attack * Level) / 100f) + 5);
+        Stats.Add(Stat.Defence, Mathf.FloorToInt((Base.Defence * Level) / 100f) + 5);
+        Stats.Add(Stat.SpAttack, Mathf.FloorToInt((Base.SpAtk * Level) / 100f) + 5);
+        Stats.Add(Stat.SpDef, Mathf.FloorToInt((Base.SpDef * Level) / 100f) + 5);
+        Stats.Add(Stat.Speed, Mathf.FloorToInt((Base.Speed * Level) / 100f) + 5);
+
+        MaxHP =  Mathf.FloorToInt((Base.MaxHP * Level) / 100f) + 10 + Level;
+    }
+
+    void ResetStatBoosts()
+    {
+        StatBoosts = new Dictionary<Stat, int>()
+        {
+            {Stat.Attack, 0},
+            {Stat.Defence, 0},
+            {Stat.SpAttack, 0},
+            {Stat.SpDef, 0},
+            {Stat.Speed, 0},
+
+        };
     }
 
     public void ReInitMoves()
@@ -69,34 +102,81 @@ public class Toyo
         }
     }*/
 
+    int GetStat(Stat stat)
+    {
+        int statVal = Stats[stat];
+
+        //Todo: apply statboosts
+
+        int boost = StatBoosts[stat];
+        var boostValue = new float[] { 1f, 1.5f, 2f, 2.5f, 3f, 3.5f, 4f };
+
+        if (boost >= 0)
+        {
+            statVal = Mathf.FloorToInt(statVal * boostValue[boost]);
+        }
+        else
+        {
+            statVal = Mathf.FloorToInt(statVal / boostValue[-boost]);
+        }
+
+        return statVal;
+    }
+
+    public void ApplyBoost(List<StatBoost> statBoosts)
+    {
+        foreach (var statBoost in statBoosts)
+        {
+            var stat = statBoost.stat;
+            var boost = statBoost.boost;
+
+            StatBoosts[stat] = Mathf.Clamp(StatBoosts[stat] + boost, -6, 6);
+            Debug.Log($"{stat} has been boosted to {StatBoosts[stat]}");
+
+            if (boost >= 0)
+            {
+                StatusChanges.Enqueue($"{Base.name}'s {stat} rose!");
+            }
+            else
+            {
+                StatusChanges.Enqueue($"{Base.name}'s {stat} fell!");
+            }
+        }
+    }
+
+    public void OnBattleOver()
+    {
+        ResetStatBoosts();
+    }
+
     public int Attack
     {
-        get { return Mathf.FloorToInt((Base.Attack * Level) / 100f) + 5; }
+        get { return GetStat(Stat.Attack); }
     }
 
     public int Defence
     {
-        get { return Mathf.FloorToInt((Base.Attack * Level) / 100f) + 5; }
+        get { return GetStat(Stat.Defence); }
     }
 
     public int SpAtk
     {
-        get { return Mathf.FloorToInt((Base.Attack * Level) / 100f) + 5; }
+        get { return GetStat(Stat.SpAttack); }
     }
 
     public int SpDef
     {
-        get { return Mathf.FloorToInt((Base.Attack * Level) / 100f) + 5; }
+        get { return GetStat(Stat.SpDef); }
     }
 
     public int Speed
     {
-        get { return Mathf.FloorToInt((Base.Attack * Level) / 100f) + 5; }
+        get { return GetStat(Stat.Speed); }
     }
 
     public int MaxHP
     {
-        get { return Mathf.FloorToInt((Base.Attack * Level) / 100f) + 10; }
+        get; private set;
     }
 
     public DamageDetails TakeDamage(Move move, Toyo attacker)
@@ -116,22 +196,57 @@ public class Toyo
             Fainted = false,
         };
 
-        float attack = (move.Base.IsSpecial) ? attacker.SpAtk : attacker.Attack;
-        float defence = (move.Base.IsSpecial) ? attacker.SpDef : attacker.Defence;
+        float attack = (move.Base.Category == MoveCategory.Special) ? attacker.SpAtk : attacker.Attack;
+        float defence = (move.Base.Category == MoveCategory.Special) ? attacker.SpDef : attacker.Defence;
 
         float modifiers = Random.Range(0.85f, 1f) * type * critical;
         float a = (2 * attacker.Level + 10) / 250f;
         float d = a * move.Base.Power * ((float)attack / defence) + 2;
         int damage = Mathf.FloorToInt(d * modifiers);
 
-        HP -= damage;
-        if(HP <= 0)
-        {
-            HP = 0;
-            damageDetails.Fainted = true;
-        }
+        UpdateHP(damage);
 
         return damageDetails;
+    }
+
+    public void OnAfterTurn()
+    {
+        Status?.OnAfterTurn?.Invoke(this);
+    }
+
+    public bool OnBeforeMove()
+    {
+        if(Status?.OnBeforeMove != null)
+        {
+            return Status.OnBeforeMove(this);
+        }
+        return true;
+    }
+
+    public void SetStatus(ConditionID conditionId)
+    {
+        if(Status != null)
+        {
+            return;
+        }
+
+        Status = ConditionsDB.Conditions[conditionId];
+        Status?.OnStart?.Invoke(this);
+        StatusChanges.Enqueue($"{Base.ToyoName} {Status.StartMessage}");
+        Debug.Log($"{Base.ToyoName} {Status.StartMessage}");
+        OnStatusChanged?.Invoke();
+    }
+
+    public void CureStatus() 
+    {
+        Status = null;
+        OnStatusChanged?.Invoke();
+    }
+
+    public void UpdateHP(int damage)
+    {
+        HP = Mathf.Clamp(HP - damage, 0, MaxHP);
+        HpChanged = true;
     }
 
     public Move GetRandomMove()

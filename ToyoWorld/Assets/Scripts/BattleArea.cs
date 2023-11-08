@@ -10,7 +10,7 @@ public class BattleArea : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        controller = FindAnyObjectByType<GameController>();
+        //controller = FindAnyObjectByType<GameController>();
     }
 
     // Update is called once per frame
@@ -50,11 +50,11 @@ public class BattleArea : MonoBehaviour
         float isBattle = Random.Range(0, 100);
 
         Debug.Log(isBattle);
-        if(isBattle > 10)
+        if(isBattle > 35)
         {
             
             Debug.Log("battle triggered");
-            controller.CallBattleStartMethod();
+            GameController.instance.CallBattleStartMethod(GameController.instance.mapArea.GetRandomWildToyo());
         }
 
     }

@@ -9,9 +9,12 @@ public class InteractableItem : MonoBehaviour
     public NPC npcTalker;
     private HealToyos healer;
     [SerializeField] public NPCLines npcLines;
+    [SerializeField] private Toyo toyo;
+
 
     public bool isNPC;
     public bool isInteractable;
+    public bool isTrainer;
     public bool isHealer;
     // Start is called before the first frame update
     void Start()
@@ -39,6 +42,10 @@ public class InteractableItem : MonoBehaviour
         if(isHealer)
         {
             healer.HealParty();
+        }
+        if (isTrainer)
+        {
+            GameController.instance.CallBattleStartMethod(toyo);
         }
     }
 

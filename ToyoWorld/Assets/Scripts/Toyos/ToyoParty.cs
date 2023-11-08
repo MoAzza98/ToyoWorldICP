@@ -32,5 +32,6 @@ public class ToyoParty : MonoBehaviour
     public Toyo GetHealthyToyo()
     {
         return toyoParty.Where(x => x.HP > 0).FirstOrDefault();
+
     }
 }

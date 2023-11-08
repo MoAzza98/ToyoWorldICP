@@ -14,10 +14,12 @@ public class MoveBase : ScriptableObject
     [SerializeField] int power;
     [SerializeField] int accuracy;
     [SerializeField] int pp;
-    [SerializeField] bool isSpecial;
+    [SerializeField] MoveCategory category;
+    [SerializeField] MoveEffects effects;
 
-    [SerializeField] GameObject effect;
-    [SerializeField] MoveDestination _moveDestnation;
+    [SerializeField] GameObject effectPrefab;
+    [SerializeField] MoveEffectDestination _moveDestination;
+    [SerializeField] MoveTarget _moveTarget;
 
     public string MoveName
     {
@@ -48,25 +50,74 @@ public class MoveBase : ScriptableObject
         get { return pp; }
     }
 
-    public bool IsSpecial
+    public GameObject EffectPrefab
     {
-        get { return isSpecial; }
+        get { return effectPrefab; }
     }
 
-    public GameObject Effect
+    public MoveEffects Effects
     {
-        get { return effect; }
+        get { return effects; }
     }
 
-    public MoveDestination _MoveDestinaiton
+    public MoveEffectDestination _MoveDestinaiton
     {
-        get { return _moveDestnation; }
+        get { return _moveDestination; }
+    }
+
+    public MoveCategory Category
+    {
+        get { return category; }
+    }
+
+    public MoveTarget MoveTarget 
+    { 
+        get { return _moveTarget; } 
     }
 }
 
-public enum MoveDestination
+[System.Serializable]
+public class MoveEffects
+{
+    [SerializeField] List<StatBoost> boosts;
+    [SerializeField] ConditionID status;
+
+    public List<StatBoost> Boosts
+    {
+        get { return boosts; }
+    }
+
+    public ConditionID Status
+    {
+        get { return status; }
+    }
+}
+
+[System.Serializable]
+public class StatBoost
+{
+    public Stat stat;
+    public int boost;
+}
+
+//Determines where the VFX effect is spawned
+public enum MoveEffectDestination
 {
     Self,
     Enemy,
     Projectile
+}
+
+public enum MoveCategory
+{
+    Physical,
+    Special,
+    Status
+}
+
+//Who should a move effect, like stat boosting moves
+public enum MoveTarget
+{
+    Self,
+    Foe
 }

@@ -19,6 +19,9 @@ MonoBehaviour:
   power: 120
   accuracy: 65
   pp: 10
-  isSpecial: 1
-  effect: {fileID: 8087117292999587842, guid: 6cfdeb0ab68dcbd41926a44217e676af, type: 3}
-  _moveDestnation: 1
+  category: 0
+  effects:
+    boosts: []
+  effectPrefab: {fileID: 3852037998298651247, guid: a4ca672ee3a938b48b158da19fb8c4fa, type: 3}
+  _moveDestination: 1
+  _moveTarget: 1

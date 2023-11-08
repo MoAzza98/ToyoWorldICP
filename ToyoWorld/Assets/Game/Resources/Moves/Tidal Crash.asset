@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04eac5d006ef6344f9dbee1c4a7844ed, type: 3}
+  m_Name: Tidal Crash
+  m_EditorClassIdentifier: 
+  moveName: Tidal Crash
+  description: The user summons a tidal wave, washing away the enemy in it's wrath
+  toyoType: 3
+  power: 110
+  accuracy: 80
+  pp: 15
+  category: 1
+  effects:
+    boosts: []
+  effectPrefab: {fileID: 4996195572340486911, guid: 55a4c6ad52325ed45ab74a549e40f93f, type: 3}
+  _moveDestination: 1
+  _moveTarget: 1

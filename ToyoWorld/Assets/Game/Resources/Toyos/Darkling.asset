@@ -15,15 +15,15 @@ MonoBehaviour:
   toyoName: Darkling
   description: This Toyo is infamous for being difficult to tame, despite that fact,
     once tamed it's said to be one of the most loyal out there.
-  toyoPrefab: {fileID: 6275546861854031570, guid: 3d0325a60c59b5349b75ef89bd5d292f, type: 3}
+  toyoPrefab: {fileID: 2156180079196364993, guid: 925d3151938a8f94fb61678f556ba81e, type: 3}
   type1: 13
   type2: 0
-  maxHP: 40
-  attack: 70
-  defence: 40
-  spAtk: 35
-  spDef: 40
-  speed: 60
+  maxHP: 95
+  attack: 65
+  defence: 110
+  spAtk: 60
+  spDef: 130
+  speed: 65
   learnableMoves:
   - moveBase: {fileID: 11400000, guid: cf0ce3af0050901469020990f64a4be6, type: 2}
     level: 1

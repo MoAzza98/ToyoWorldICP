@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c4d5ea10f35d49408ef39bd0f085974, type: 3}
+  m_Name: Cosmalite
+  m_EditorClassIdentifier: 
+  toyoName: Cosmalite
+  description: 
+  toyoPrefab: {fileID: 2611149553095981223, guid: add7e67fb68b0d54a9d9893bd0356223, type: 3}
+  type1: 7
+  type2: 0
+  maxHP: 60
+  attack: 45
+  defence: 45
+  spAtk: 130
+  spDef: 125
+  speed: 70
+  learnableMoves:
+  - moveBase: {fileID: 11400000, guid: 5cc6630486e1d9c47b6471a92a9794ab, type: 2}
+    level: 1
+  - moveBase: {fileID: 11400000, guid: 967672abc5cbbec4c87505feaf23b910, type: 2}
+    level: 2
+  - moveBase: {fileID: 11400000, guid: e900f1caf317c3147b1045636a153bcc, type: 2}
+    level: 3
+  - moveBase: {fileID: 11400000, guid: cf0ce3af0050901469020990f64a4be6, type: 2}
+    level: 4

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System;
 
 public enum GameState { FreeRoam, Battle }
 
@@ -9,16 +10,17 @@ public class GameController : MonoBehaviour
 {
     public static GameController instance;
 
-    [SerializeField] PlayerSpawner spawner;
     public SceneDataSaver sceneDataSaver;
     public SceneDataLoader sceneDataLoader;
     public Transform spawnPoint;
     public int toyosDefeated = 0;
     public bool lostBattle;
+    public bool enteredScene;
     public bool setName = false;
 
     private void Awake()
     {
+        ConditionsDB.Init();
         if (instance == null)
         {
             instance = this;
@@ -38,7 +40,7 @@ public class GameController : MonoBehaviour
     public PartyReference playerParty;
     public ToyoParty currentToyoParty;
     public ToyoParty storedToyoParty;
-    [SerializeField] Toyo wildToyo;
+    [SerializeField] public Toyo wildToyo;
     [SerializeField] ToyoParty rewardToyo;
 
     public ToyoParty gcParty;
@@ -72,9 +74,15 @@ public class GameController : MonoBehaviour
         {       
             if (player == null)
             {
-                player = FindAnyObjectByType<ThirdPersonMovement>().gameObject;
-                currentToyoParty = player.GetComponent<ToyoParty>();
-                UpdateControllerParty(currentToyoParty);
+                try
+                {
+                    player = FindAnyObjectByType<ThirdPersonMovement>().gameObject;
+                    currentToyoParty = player.GetComponent<ToyoParty>();
+                    UpdateControllerParty(currentToyoParty);
+                } catch(Exception e)
+                {
+                    Debug.Log(e);
+                }
 
                 if(!partyInitialized)
                 {
@@ -116,7 +124,6 @@ public class GameController : MonoBehaviour
             
             //UpdatePlayerParty(currentToyoParty);
             instance.mapArea = FindAnyObjectByType<MapArea>();
-            spawner = FindAnyObjectByType<PlayerSpawner>();
             state = GameState.FreeRoam;
         }
 
@@ -156,8 +163,9 @@ public class GameController : MonoBehaviour
         //InitController();
     }
 
-    public void CallBattleStartMethod()
+    public void CallBattleStartMethod(Toyo toyo)
     {
+        wildToyo = toyo;
         //UpdatePlayerParty(currentToyoParty);
         sceneDataSaver.SaveSceneData();
         sceneDataLoader.LoadSceneData();

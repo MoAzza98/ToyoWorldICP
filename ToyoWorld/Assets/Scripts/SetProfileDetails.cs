@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class SetProfileDetails : MonoBehaviour
 {
@@ -16,9 +17,14 @@ public class SetProfileDetails : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        levelText.text = GameController.instance.gcParty.GetHealthyToyo().Level.ToString();
-        hpText.text = $"{GameController.instance.gcParty.GetHealthyToyo().HP}/{GameController.instance.gcParty.GetHealthyToyo().MaxHP}";
-        detailsSet = false;
+        try
+        {
+            levelText.text = GameController.instance.gcParty.GetHealthyToyo().Level.ToString();
+            hpText.text = $"{GameController.instance.gcParty.GetHealthyToyo().HP}/{GameController.instance.gcParty.GetHealthyToyo().MaxHP}";
+            detailsSet = false;
+        } catch(Exception e) {
+            Debug.Log(e);
+        }
     }
 
     // Update is called once per frame

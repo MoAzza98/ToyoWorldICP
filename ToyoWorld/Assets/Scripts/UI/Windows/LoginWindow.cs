@@ -17,6 +17,7 @@ public class LoginWindow : Window
     }
 
     public Button logInBtn;
+    public Button guestBtn;
     public Button logOutBtn;
     public TextMeshProUGUI logInStateTxt;
     public TextMeshProUGUI loadingTxt;
@@ -124,6 +125,7 @@ public class LoginWindow : Window
                     UserUtil.IsDataValid<DataTypes.ActionState>() &&
                     UserUtil.IsDataValid<DataTypes.NftCollection>(Env.Nfts.BOOM_COLLECTION_CANISTER_ID);
 
+                logInBtn.gameObject.SetActive(false);
                 logInBtn.gameObject.SetActive(false);
 
                 if (isUserDataLoaded || (initialized.HasValue && initialized.Value))

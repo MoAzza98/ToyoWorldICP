@@ -78,7 +78,7 @@ public class ToyoBase : ScriptableObject
 
     public int SpDef
     {
-        get { return SpDef; }
+        get { return spDef; }
     }
 
     public int Speed
@@ -120,6 +120,15 @@ public enum ToyoType
     Dream,
     Dark,
     Beast
+}
+
+public enum Stat
+{
+    Attack,
+    Defence,
+    SpAttack,
+    SpDef,
+    Speed
 }
 
 public class TypeChart

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class SceneUIManager : MonoBehaviour
 {
+    [SerializeField] GameObject mainmenu;
+    public bool isMainOpen { get; set; }
     bool isMouseLocked = true;
     // Start is called before the first frame update
     void Start()
@@ -19,6 +21,17 @@ public class SceneUIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.Escape) && !isMainOpen)
+        {
+            mainmenu.SetActive(true);
+            isMainOpen = true;
+        }
+        else if(Input.GetKeyDown(KeyCode.Escape) && isMainOpen)
+        {
+            mainmenu.SetActive(false);
+            isMainOpen = false;
+        }
+
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
             if (isMouseLocked)
