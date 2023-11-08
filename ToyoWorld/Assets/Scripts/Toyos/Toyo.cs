@@ -10,11 +10,14 @@ public class Toyo
     [SerializeField] int level;
 
     public int HP { get; set; }
-
     public List<Move> Moves { get; set; }
     public Dictionary<Stat, int> Stats { get; private set; }
     public Dictionary<Stat, int> StatBoosts { get; private set; }
+    public Condition Status { get; private set; }
     public Queue<string> StatusChanges { get; private set; } = new Queue<string>();
+    public bool HpChanged { get; set; }
+    public int statusTime { get; set; }
+    public event System.Action OnStatusChanged;
 
     public ToyoBase Base 
     { 
@@ -56,7 +59,7 @@ public class Toyo
         Stats.Add(Stat.SpDef, Mathf.FloorToInt((Base.SpDef * Level) / 100f) + 5);
         Stats.Add(Stat.Speed, Mathf.FloorToInt((Base.Speed * Level) / 100f) + 5);
 
-        MaxHP =  Mathf.FloorToInt((Base.MaxHP * Level) / 100f) + 10;
+        MaxHP =  Mathf.FloorToInt((Base.MaxHP * Level) / 100f) + 10 + Level;
     }
 
     void ResetStatBoosts()
@@ -201,14 +204,49 @@ public class Toyo
         float d = a * move.Base.Power * ((float)attack / defence) + 2;
         int damage = Mathf.FloorToInt(d * modifiers);
 
-        HP -= damage;
-        if(HP <= 0)
-        {
-            HP = 0;
-            damageDetails.Fainted = true;
-        }
+        UpdateHP(damage);
 
         return damageDetails;
+    }
+
+    public void OnAfterTurn()
+    {
+        Status?.OnAfterTurn?.Invoke(this);
+    }
+
+    public bool OnBeforeMove()
+    {
+        if(Status?.OnBeforeMove != null)
+        {
+            return Status.OnBeforeMove(this);
+        }
+        return true;
+    }
+
+    public void SetStatus(ConditionID conditionId)
+    {
+        if(Status != null)
+        {
+            return;
+        }
+
+        Status = ConditionsDB.Conditions[conditionId];
+        Status?.OnStart?.Invoke(this);
+        StatusChanges.Enqueue($"{Base.ToyoName} {Status.StartMessage}");
+        Debug.Log($"{Base.ToyoName} {Status.StartMessage}");
+        OnStatusChanged?.Invoke();
+    }
+
+    public void CureStatus() 
+    {
+        Status = null;
+        OnStatusChanged?.Invoke();
+    }
+
+    public void UpdateHP(int damage)
+    {
+        HP = Mathf.Clamp(HP - damage, 0, MaxHP);
+        HpChanged = true;
     }
 
     public Move GetRandomMove()

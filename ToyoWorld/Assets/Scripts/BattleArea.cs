@@ -54,7 +54,7 @@ public class BattleArea : MonoBehaviour
         {
             
             Debug.Log("battle triggered");
-            GameController.instance.CallBattleStartMethod();
+            GameController.instance.CallBattleStartMethod(GameController.instance.mapArea.GetRandomWildToyo());
         }
 
     }

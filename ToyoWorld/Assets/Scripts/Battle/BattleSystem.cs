@@ -45,7 +45,7 @@ public class BattleSystem : MonoBehaviour
         GameController.instance.state = GameState.Battle;
         ToyoParty tempParty = new ToyoParty();
         tempParty.ToyoPartyList = GameController.instance.playerParty.partyMembers;
-        StartBattle(GameController.instance.gcParty, GameController.instance.mapArea.GetRandomWildToyo());
+        StartBattle(GameController.instance.gcParty, GameController.instance.wildToyo);
 
     }
 
@@ -193,17 +193,18 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator RunMove(BattleUnit sourceUnit, BattleUnit targetUnit, Move move)
     {
+        bool canRunMove = sourceUnit.Toyo.OnBeforeMove();
+        if (!canRunMove)
+        {
+            yield return ShowStatusChanges(sourceUnit.Toyo);
+            yield break;
+        }
+        yield return ShowStatusChanges(sourceUnit.Toyo);
+
         move.PP--;
         yield return bDialogue.TypeDialog($"{sourceUnit.Toyo.Base.ToyoName} used {move.Base.MoveName}.");
 
-        if (move.Base._MoveDestinaiton == MoveEffectDestination.Self)
-        {
-            effects.CastEffect(move, effects.playerPoint);
-        }
-        else
-        {
-            effects.CastEffect(move, effects.enemyPoint);
-        }
+        SpawnMoveEffect(sourceUnit, targetUnit, move);
 
         if (move.Base.Category == MoveCategory.Status)
         {
@@ -229,11 +230,28 @@ public class BattleSystem : MonoBehaviour
 
             CheckForBattleOver(targetUnit);
         }
+
+        sourceUnit.Toyo.OnAfterTurn();
+        yield return ShowStatusChanges(sourceUnit.Toyo);
+        yield return sourceUnit.Hud.UpdateHP();
+
+        if (sourceUnit.Toyo.HP <= 0)
+        {
+            sourceUnit.unitAnim.SetTrigger("Fainted");
+
+            yield return bDialogue.TypeDialog($"{sourceUnit.Toyo.Base.ToyoName} fainted.");
+
+            yield return new WaitForSeconds(1f);
+
+            CheckForBattleOver(sourceUnit);
+        }
     }
 
     IEnumerator RunMoveEffects(Move move, Toyo source, Toyo target)
     {
         var effects = move.Base.Effects;
+
+        //stat boosting
         if (effects != null)
         {
             if (move.Base.MoveTarget == MoveTarget.Self)
@@ -244,9 +262,15 @@ public class BattleSystem : MonoBehaviour
             {
                 target.ApplyBoost(effects.Boosts);
             }
-            yield return ShowStatusChanges(source);
-            yield return ShowStatusChanges(target);
         }
+
+        //status conditions
+        if(effects.Status != ConditionID.NONE)
+        {
+            target.SetStatus(effects.Status);
+        }
+        yield return ShowStatusChanges(source);
+        yield return ShowStatusChanges(target);
     }
 
     IEnumerator OnBattleOver(bool didWin)
@@ -269,6 +293,32 @@ public class BattleSystem : MonoBehaviour
         {
             var message = toyo.StatusChanges.Dequeue();
             yield return bDialogue.TypeDialog(message);
+        }
+    }
+
+    public void SpawnMoveEffect(BattleUnit sourceUnit, BattleUnit targetUnit, Move move)
+    {
+        if (sourceUnit.IsPlayerUnit)
+        {
+            if(move.Base._MoveDestinaiton == MoveEffectDestination.Self)
+            {
+                effects.CastEffect(move, effects.playerPoint);
+            }
+            else
+            {
+                effects.CastEffect(move, effects.enemyPoint);
+            }
+        }
+        else
+        {
+            if (move.Base._MoveDestinaiton == MoveEffectDestination.Self)
+            {
+                effects.CastEffect(move, effects.enemyPoint);
+            }
+            else
+            {
+                effects.CastEffect(move, effects.playerPoint);
+            }
         }
     }
 
@@ -302,7 +352,7 @@ public class BattleSystem : MonoBehaviour
             currentToyoFainted = false;
             yield return bDialogue.TypeDialog($"Come back, {playerUnit.Toyo.Base.ToyoName}!");
             //play animation here
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(0.5f);
 
         }
 
