@@ -4,12 +4,21 @@ using UnityEngine;
 
 public class SetSpawnPoint : MonoBehaviour
 {
+    Vector3 spawnPos;
     // Start is called before the first frame update
     void Awake()
     {
+        spawnPos = transform.position;
         if(GameController.instance != null)
         {
-            transform.position = GameController.instance.sceneDataLoader.playerPosition;
+            if(GameController.instance.level == 2)
+            {
+                transform.position = GameController.instance.sceneDataLoader.playerPosition;
+            }
+            else
+            {
+                transform.position = spawnPos;
+            }
         }
     }
 

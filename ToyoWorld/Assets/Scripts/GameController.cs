@@ -35,7 +35,6 @@ public class GameController : MonoBehaviour
         gcParty = GetComponent<ToyoParty>();
     }
 
-    [SerializeField] BattleSystem battleSystem;
     public GameObject player;
     public PartyReference playerParty;
     public ToyoParty currentToyoParty;
@@ -45,13 +44,14 @@ public class GameController : MonoBehaviour
 
     public ToyoParty gcParty;
     bool partyInitialized;
-    bool mouseLocked = true;
-
-    public string Username;
 
     [SerializeField] public MapArea mapArea;
 
     public TransitionAnimation transition;
+
+    [HideInInspector]
+    public int lastLevel = 0;
+    public int level = 0;
 
 
     public GameState state = GameState.FreeRoam;
@@ -115,6 +115,23 @@ public class GameController : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        lastLevel = level;
+        level = scene.buildIndex;
+
+        /*
+        if (scene.buildIndex == 2) //scene index 2 is the battle scene
+        {
+            lastLevel = scene.buildIndex;
+
+        }
+        else
+        {
+            lastLevel = 0;
+
+            //currently leaving battle scene always spawns you back in main level, 
+            //need to make so that it put you back in last scene 
+        }*/
+
         transition = FindObjectOfType<TransitionAnimation>();
         //Debug.Log("OnSceneLoaded: " + scene.name);
         Debug.Log(mode);
@@ -157,7 +174,7 @@ public class GameController : MonoBehaviour
     public void SwitchToPlayScene()
     {
         //index 2
-        StartCoroutine(transition.LoadLevel(1));
+        StartCoroutine(transition.LoadLevel(lastLevel));
         transition = FindObjectOfType<TransitionAnimation>();
         //SceneManager.LoadScene("PlayerScene");
         //InitController();

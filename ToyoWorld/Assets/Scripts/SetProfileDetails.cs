@@ -19,6 +19,7 @@ public class SetProfileDetails : MonoBehaviour
     {
         try
         {
+            playerName.text = PlayerPrefs.GetString("Username");
             levelText.text = GameController.instance.gcParty.GetHealthyToyo().Level.ToString();
             hpText.text = $"{GameController.instance.gcParty.GetHealthyToyo().HP}/{GameController.instance.gcParty.GetHealthyToyo().MaxHP}";
             detailsSet = false;

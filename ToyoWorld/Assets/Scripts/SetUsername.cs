@@ -12,7 +12,7 @@ public class SetUsername : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        usernameGUI.text = GameController.instance.Username;
+        usernameGUI.text = PlayerPrefs.GetString("Username");
         gameObject.SetActive(!GameController.instance.setName);
 
     }
@@ -25,8 +25,8 @@ public class SetUsername : MonoBehaviour
 
     public void SetName()
     {
-        GameController.instance.Username = usernameInput.text.ToString();
-        usernameGUI.text = GameController.instance.Username;
+        PlayerPrefs.SetString("Username", usernameInput.text.ToString());
+        usernameGUI.text = PlayerPrefs.GetString("Username");
         GameController.instance.setName = true;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
