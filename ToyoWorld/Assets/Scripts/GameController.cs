@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System;
+using Unity.VisualScripting;
 
 public enum GameState { FreeRoam, Battle }
 
@@ -15,8 +16,7 @@ public class GameController : MonoBehaviour
     public Transform spawnPoint;
     public int toyosDefeated = 0;
     public bool lostBattle;
-    public bool enteredScene;
-    public bool setName = false;
+    [HideInInspector] public bool setName = false;
 
     private void Awake()
     {
@@ -46,12 +46,15 @@ public class GameController : MonoBehaviour
     bool partyInitialized;
 
     [SerializeField] public MapArea mapArea;
+    [SerializeField] public AudioClip bossMusic;
+    public AudioSource levelAudio;
 
     public TransitionAnimation transition;
 
     [HideInInspector]
     public int lastLevel = 0;
     public int level = 0;
+    public int lastWorldScene = 2;
 
 
     public GameState state = GameState.FreeRoam;
@@ -117,24 +120,22 @@ public class GameController : MonoBehaviour
     {
         lastLevel = level;
         level = scene.buildIndex;
-
-        /*
-        if (scene.buildIndex == 2) //scene index 2 is the battle scene
+        try
         {
-            lastLevel = scene.buildIndex;
-
+            levelAudio = FindObjectOfType<AudioSource>();
+        } catch(Exception e)
+        {
+            Debug.Log(e);
         }
-        else
-        {
-            lastLevel = 0;
-
-            //currently leaving battle scene always spawns you back in main level, 
-            //need to make so that it put you back in last scene 
-        }*/
 
         transition = FindObjectOfType<TransitionAnimation>();
-        //Debug.Log("OnSceneLoaded: " + scene.name);
         Debug.Log(mode);
+
+        if(scene.name == "PlayerScene" || scene.name == "Holidays Scene")
+        {
+            lastWorldScene = scene.buildIndex;
+        }
+
         if(scene.name == "PlayerScene")
         {
             Debug.Log("OnSceneLoaded: " + scene.name);
@@ -168,14 +169,21 @@ public class GameController : MonoBehaviour
         //index 1
         StartCoroutine(transition.LoadLevel(2));
         transition = FindObjectOfType<TransitionAnimation>();
-        //SceneManager.LoadScene("MainBattle");
+    }
+
+    public void SwitchToBossBattleScene()
+    {
+        //index 1
+        StartCoroutine(transition.LoadLevel(3));
+        transition = FindObjectOfType<TransitionAnimation>();
     }
 
     public void SwitchToPlayScene()
     {
         //index 2
-        StartCoroutine(transition.LoadLevel(lastLevel));
+        StartCoroutine(transition.LoadLevel(lastWorldScene));
         transition = FindObjectOfType<TransitionAnimation>();
+        Debug.Log($"Swapping to scene {lastWorldScene}, Level var is {level}, Lastlevel is {lastWorldScene}");
         //SceneManager.LoadScene("PlayerScene");
         //InitController();
     }
@@ -183,6 +191,7 @@ public class GameController : MonoBehaviour
     public void CallBattleStartMethod(Toyo toyo)
     {
         wildToyo = toyo;
+        //wildToyo.Init();
         //UpdatePlayerParty(currentToyoParty);
         sceneDataSaver.SaveSceneData();
         sceneDataLoader.LoadSceneData();
@@ -190,9 +199,21 @@ public class GameController : MonoBehaviour
         SwitchToBattleScene();
     }
 
+    public void CallBossBattleStartMethod(Toyo toyo)
+    {
+        wildToyo = toyo;
+        //wildToyo.Init();
+        //UpdatePlayerParty(currentToyoParty);
+        sceneDataSaver.SaveSceneData();
+        sceneDataLoader.LoadSceneData();
+        state = GameState.Battle;
+        SwitchToBossBattleScene();
+    }
+
     public void EndBattle() 
     {
         SwitchToPlayScene();
+        //Debug.Log($"Swapping to scene {lastLevel}");
         sceneDataLoader.LoadSceneData();
         state = GameState.FreeRoam;
     }

@@ -11,7 +11,7 @@ public class SetSpawnPoint : MonoBehaviour
         spawnPos = transform.position;
         if(GameController.instance != null)
         {
-            if(GameController.instance.level == 2)
+            if(GameController.instance.level == 2 || GameController.instance.level == 3)
             {
                 transform.position = GameController.instance.sceneDataLoader.playerPosition;
             }

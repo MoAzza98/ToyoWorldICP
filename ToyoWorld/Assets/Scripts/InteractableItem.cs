@@ -10,6 +10,7 @@ public class InteractableItem : MonoBehaviour
     private HealToyos healer;
     [SerializeField] public NPCLines npcLines;
     [SerializeField] private Toyo toyo;
+    private MapArea area;
 
 
     public bool isNPC;
@@ -19,6 +20,7 @@ public class InteractableItem : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        area = GetComponent<MapArea>();
         npcLines = GetComponent<NPCLines>();
 
         if (isHealer)
@@ -45,7 +47,7 @@ public class InteractableItem : MonoBehaviour
         }
         if (isTrainer)
         {
-            GameController.instance.CallBattleStartMethod(toyo);
+            GameController.instance.CallBossBattleStartMethod(area.GetRandomWildToyo());
         }
     }
 
