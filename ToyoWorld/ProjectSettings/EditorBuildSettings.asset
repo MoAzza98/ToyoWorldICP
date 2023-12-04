@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/MainBattle.unity
     guid: 2cda34965e592d243bfd3d7913a37901
   - enabled: 1
+    path: Assets/Scenes/BossBattle.unity
+    guid: 575d833f975495d49bb3ae4b3bb29353
+  - enabled: 1
     path: Assets/Scenes/Holidays Scene.unity
     guid: 2fc7d2b56fb9d4a4b90cd074b23f5380
   m_configObjects:

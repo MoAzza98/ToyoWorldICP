@@ -5,11 +5,17 @@ using UnityEngine;
 public class SceneUIManager : MonoBehaviour
 {
     [SerializeField] GameObject mainmenu;
+    [SerializeField] GameObject eventNotice;
     public bool isMainOpen { get; set; }
     bool isMouseLocked = true;
     // Start is called before the first frame update
     void Start()
     {
+        if(PlayerPrefs.GetInt("ReadNotice") == 1)
+        {
+            eventNotice.SetActive(false);
+        }
+
         if (GameController.instance.setName)
         {
             Cursor.lockState = CursorLockMode.Locked;
@@ -47,5 +53,10 @@ public class SceneUIManager : MonoBehaviour
                 isMouseLocked = true;
             }
         }
+    }
+
+    public void EventNoticeRead()
+    {
+        PlayerPrefs.SetInt("ReadNotice", 1);
     }
 }

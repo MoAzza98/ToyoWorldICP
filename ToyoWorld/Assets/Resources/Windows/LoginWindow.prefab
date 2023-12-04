@@ -1430,7 +1430,7 @@ MonoBehaviour:
   debugMode: 0
   totalReadTime: 0.00001
   totalUnreadTime: 0.00001
-  currentReadTime: 21.038616
+  currentReadTime: 15.754154
   autoRead: 1
   rememberReadPosition: 1
   autoQuality: 0
@@ -3988,11 +3988,11 @@ MonoBehaviour:
   bottomLeftBounds: {x: 757.18713, y: 281.1882, z: 0}
   bottomRightBounds: {x: 1162.8129, y: 281.1882, z: 0}
   centerBounds: {x: 960, y: 347, z: 0}
-  topLeftTextBounds: {x: 815.8594, y: 355.5, z: 0}
-  topRightTextBounds: {x: 1104.1406, y: 355.5, z: 0}
-  bottomLeftTextBounds: {x: 815.8594, y: 310.5, z: 0}
-  bottomRightTextBounds: {x: 1104.1406, y: 310.5, z: 0}
-  centerTextBounds: {x: 960, y: 333, z: 0}
+  topLeftTextBounds: {x: 815.8594, y: 369.5, z: 0}
+  topRightTextBounds: {x: 1104.1406, y: 369.5, z: 0}
+  bottomLeftTextBounds: {x: 815.8594, y: 324.5, z: 0}
+  bottomRightTextBounds: {x: 1104.1406, y: 324.5, z: 0}
+  centerTextBounds: {x: 960, y: 347, z: 0}
   finalTopLeftTextBounds: {x: 815.8594, y: 369.5, z: 0}
   finalTopRightTextBounds: {x: 1104.1406, y: 369.5, z: 0}
   finalBottomLeftTextBounds: {x: 815.8594, y: 324.5, z: 0}

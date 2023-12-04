@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Paralysis
   m_EditorClassIdentifier: 
   moveName: Paralysis
-  description: Socks the enemy in an attempt to paralyze them.
+  description: Shocks the enemy in an attempt to paralyze them.
   toyoType: 4
   power: 0
   accuracy: 100

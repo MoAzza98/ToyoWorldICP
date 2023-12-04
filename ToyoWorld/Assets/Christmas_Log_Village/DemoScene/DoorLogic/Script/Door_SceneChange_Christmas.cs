@@ -41,7 +41,7 @@ namespace ChristmasLogvillage
 					gameManager.HouseTypeTarget =this.gameObject.GetComponent<Door_SceneChange_Christmas>().HouseType;
 				}
 			}
-			StartCoroutine(PlayOneShot());
+			//StartCoroutine(PlayOneShot());
 		}
 	}
 
@@ -50,7 +50,7 @@ namespace ChristmasLogvillage
 	public IEnumerator PlayOneShot ()
 	{
 		yield return new WaitForSeconds(1);
-		Application.LoadLevel(level_id);
+		SceneManager.LoadScene(level_id);
 	}
 
 

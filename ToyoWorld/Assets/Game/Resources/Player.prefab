@@ -3320,14 +3320,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toyoParty:
-  - _base: {fileID: 11400000, guid: 3b62de8f0c738a5449b76631eacfa326, type: 2}
-    level: 12
-  - _base: {fileID: 11400000, guid: 2d4468d8b44182f4097f9a6351a8081f, type: 2}
-    level: 15
-  - _base: {fileID: 11400000, guid: d31c6f72ff87779479154004af0c3be8, type: 2}
-    level: 14
-  - _base: {fileID: 11400000, guid: 8a0a3b15aa5c3d741a5b863fa90170a9, type: 2}
-    level: 16
   - _base: {fileID: 11400000, guid: 367b69783d687164c8b3bd6e73c75f0d, type: 2}
     level: 9
 --- !u!114 &6693271465997393536

@@ -15,13 +15,14 @@ MonoBehaviour:
   moveName: Jet Spurt
   description: A concentrated jet of water is blasted at the target, causing heavy
     damage.
-  toyoType: 0
+  toyoType: 3
   power: 40
   accuracy: 100
   pp: 20
   category: 1
   effects:
     boosts: []
+    status: 0
   effectPrefab: {fileID: 4996195572340486911, guid: 55a4c6ad52325ed45ab74a549e40f93f, type: 3}
   _moveDestination: 1
   _moveTarget: 1
