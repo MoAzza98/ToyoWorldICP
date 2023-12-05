@@ -120,6 +120,40 @@ public class ConditionsDB
                 }
             }
         },
+
+        //Volatile statuses
+        {
+            ConditionID.confusion,
+            new Condition()
+            {
+                Name = "confusion",
+                StartMessage = "was confused.",
+                OnStart = (Toyo toyo) =>
+                {
+                    //sleep for a random number of turns
+                    toyo.volatileStatusTime = Random.Range(1, 4);
+                    Debug.Log($"Will be confused for {toyo.volatileStatusTime} turns");
+                },
+                OnBeforeMove = (Toyo toyo) =>
+                {
+                    if(toyo.volatileStatusTime <= 0)
+                    {
+                        toyo.CureVolatileStatus();
+                        toyo.StatusChanges.Enqueue($"{toyo.Base.name} snapped out of its confusion!");
+                        return true;
+                    }
+                    toyo.volatileStatusTime--;
+                    if(Random.Range(1, 3) == 1)
+                    {
+                        return true;
+                    }
+                    toyo.StatusChanges.Enqueue($"{toyo.Base.name} is confused.");
+                    toyo.UpdateHP(toyo.MaxHP / 8);
+                    toyo.StatusChanges.Enqueue($"{toyo.Base.name} hurt itself amidst the confusion!");
+                    return false;
+                }
+            }
+        },
     };
 }
 
@@ -132,5 +166,6 @@ public enum ConditionID
     PAR,
     FRZ,
     DSP,
-    TOX
+    TOX,
+    confusion
 }

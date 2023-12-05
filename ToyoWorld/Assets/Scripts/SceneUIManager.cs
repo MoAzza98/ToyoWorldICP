@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,7 +14,14 @@ public class SceneUIManager : MonoBehaviour
     {
         if(PlayerPrefs.GetInt("ReadNotice") == 1)
         {
-            eventNotice.SetActive(false);
+            try
+            {
+                eventNotice.SetActive(false);
+            }
+            catch(Exception e)
+            {
+                Debug.Log(e);
+            }
         }
 
         if (GameController.instance.setName)
