@@ -104,7 +104,6 @@ public class BattleSystem : MonoBehaviour
         state = BattleState.BATTLEOVER;
         playerParty.ToyoPartyList.ForEach(p => p.OnBattleOver());
         StartCoroutine(OnBattleOver(won));
-        GameController.instance.EndBattle();
     }
 
     public void PlayerAction()
@@ -211,6 +210,7 @@ public class BattleSystem : MonoBehaviour
             sourceUnit.unitAnim.SetTrigger("Casted");
             yield return RunMoveEffects(move, sourceUnit.Toyo, targetUnit.Toyo);
         }
+
         else
         {
             var damageDetails = targetUnit.Toyo.TakeDamage(move, sourceUnit.Toyo);
@@ -219,6 +219,14 @@ public class BattleSystem : MonoBehaviour
             yield return targetUnit.Hud.UpdateHP();
             yield return ShowDamageDetails(damageDetails);
         }
+
+        /*
+        var damageDetails = targetUnit.Toyo.TakeDamage(move, sourceUnit.Toyo);
+        targetUnit.unitAnim.SetTrigger("isHurt");
+        sourceUnit.unitAnim.SetTrigger("Attacked");
+        yield return targetUnit.Hud.UpdateHP();
+        yield return ShowDamageDetails(damageDetails);
+        */
 
         if (targetUnit.Toyo.HP <= 0)
         {
@@ -269,6 +277,12 @@ public class BattleSystem : MonoBehaviour
         {
             target.SetStatus(effects.Status);
         }
+
+        //volatile status conditions
+        if (effects.VolatileStatus != ConditionID.NONE)
+        {
+            target.SetVolatileStatus(effects.VolatileStatus);
+        }
         yield return ShowStatusChanges(source);
         yield return ShowStatusChanges(target);
     }
@@ -284,7 +298,8 @@ public class BattleSystem : MonoBehaviour
             yield return bDialogue.TypeDialog($"All your Toyos fainted, you black out!");
         }
 
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1.5f);
+        GameController.instance.EndBattle();
     }
 
     IEnumerator ShowStatusChanges(Toyo toyo)

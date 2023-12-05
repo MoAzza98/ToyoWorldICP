@@ -21,6 +21,7 @@ public class GameController : MonoBehaviour
     private void Awake()
     {
         ConditionsDB.Init();
+
         if (instance == null)
         {
             instance = this;
@@ -134,14 +135,7 @@ public class GameController : MonoBehaviour
         if(scene.name == "PlayerScene" || scene.name == "Holidays Scene")
         {
             lastWorldScene = scene.buildIndex;
-        }
-
-        if(scene.name == "PlayerScene")
-        {
-            Debug.Log("OnSceneLoaded: " + scene.name);
-            
-            //UpdatePlayerParty(currentToyoParty);
-            instance.mapArea = FindAnyObjectByType<MapArea>();
+            instance.mapArea = GameObject.Find("MapAreaSelect").GetComponent<MapArea>();
             state = GameState.FreeRoam;
         }
 
@@ -181,6 +175,7 @@ public class GameController : MonoBehaviour
     public void SwitchToPlayScene()
     {
         //index 2
+        SceneManager.UnloadSceneAsync(level);
         StartCoroutine(transition.LoadLevel(lastWorldScene));
         transition = FindObjectOfType<TransitionAnimation>();
         Debug.Log($"Swapping to scene {lastWorldScene}, Level var is {level}, Lastlevel is {lastWorldScene}");

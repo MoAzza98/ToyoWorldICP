@@ -17,6 +17,10 @@ public class Toyo
     public Queue<string> StatusChanges { get; private set; } = new Queue<string>();
     public bool HpChanged { get; set; }
     public int statusTime { get; set; }
+
+    public Condition volatileStatus { get; private set; }
+    public int volatileStatusTime { get; set; }
+
     public event System.Action OnStatusChanged;
 
     public ToyoBase Base 
@@ -48,6 +52,8 @@ public class Toyo
         CalculateStats();
         HP = MaxHP;
         ResetStatBoosts();
+        Status = null;
+        volatileStatus = null;
     }
 
     void CalculateStats()
@@ -146,6 +152,7 @@ public class Toyo
 
     public void OnBattleOver()
     {
+        volatileStatus = null;
         ResetStatBoosts();
     }
 
@@ -212,15 +219,29 @@ public class Toyo
     public void OnAfterTurn()
     {
         Status?.OnAfterTurn?.Invoke(this);
+        volatileStatus?.OnAfterTurn?.Invoke(this);
     }
 
     public bool OnBeforeMove()
     {
+        bool canPerformMove = true;
         if(Status?.OnBeforeMove != null)
         {
-            return Status.OnBeforeMove(this);
+            if (!Status.OnBeforeMove(this))
+            {
+                canPerformMove = false;
+            }
         }
-        return true;
+
+        if (volatileStatus?.OnBeforeMove != null)
+        {
+            if (!volatileStatus.OnBeforeMove(this))
+            {
+                canPerformMove = false;
+            }
+        }
+
+        return canPerformMove;
     }
 
     public void SetStatus(ConditionID conditionId)
@@ -241,6 +262,24 @@ public class Toyo
     {
         Status = null;
         OnStatusChanged?.Invoke();
+    }
+
+    public void SetVolatileStatus(ConditionID conditionId)
+    {
+        if (volatileStatus != null)
+        {
+            return;
+        }
+
+        volatileStatus = ConditionsDB.Conditions[conditionId];
+        volatileStatus?.OnStart?.Invoke(this);
+        StatusChanges.Enqueue($"{Base.ToyoName} {Status.StartMessage}");
+        Debug.Log($"{Base.ToyoName} {Status.StartMessage}");
+    }
+
+    public void CureVolatileStatus()
+    {
+        volatileStatus = null;
     }
 
     public void UpdateHP(int damage)

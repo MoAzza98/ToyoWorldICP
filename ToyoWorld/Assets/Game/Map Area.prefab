@@ -59,7 +59,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2, y: 2, z: 2}
+  m_Size: {x: 3.3230238, y: 1.3304148, z: 3.224678}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &929499299132377464
 MonoBehaviour:
@@ -75,15 +75,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wildToyos:
   - _base: {fileID: 11400000, guid: d31c6f72ff87779479154004af0c3be8, type: 2}
-    level: 5
+    level: 9
   - _base: {fileID: 11400000, guid: 367b69783d687164c8b3bd6e73c75f0d, type: 2}
-    level: 4
-  - _base: {fileID: 11400000, guid: 66a117fce3f63c44aa83ceac320559b0, type: 2}
-    level: 5
-  - _base: {fileID: 11400000, guid: 8a0a3b15aa5c3d741a5b863fa90170a9, type: 2}
-    level: 5
-  - _base: {fileID: 11400000, guid: 3b62de8f0c738a5449b76631eacfa326, type: 2}
     level: 7
+  - _base: {fileID: 11400000, guid: 66a117fce3f63c44aa83ceac320559b0, type: 2}
+    level: 10
+  - _base: {fileID: 11400000, guid: 8a0a3b15aa5c3d741a5b863fa90170a9, type: 2}
+    level: 11
+  - _base: {fileID: 11400000, guid: 3b62de8f0c738a5449b76631eacfa326, type: 2}
+    level: 14
 --- !u!114 &929499299132377467
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -101,4 +101,4 @@ MonoBehaviour:
   wildToyo:
     _base: {fileID: 0}
     level: 0
-  mapArea: {fileID: 0}
+  mapArea: {fileID: 929499299132377464}

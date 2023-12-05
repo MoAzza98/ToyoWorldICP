@@ -22,6 +22,11 @@ public class BattleHUD : MonoBehaviour
     Toyo _toyo;
     Dictionary<ConditionID, Color> statusColours;
 
+    private void Awake()
+    {
+
+    }
+
     public void SetData(Toyo toyo)
     {
         _toyo = toyo;
