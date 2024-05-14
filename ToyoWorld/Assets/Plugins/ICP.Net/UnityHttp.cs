@@ -1,4 +1,3 @@
-using Cysharp.Threading.Tasks;
 using EdjCase.ICP.Agent.Agents.Http;
 using System;
 using System.Net;
@@ -10,7 +9,7 @@ using UnityEngine.Networking;
 
 public class UnityHttpClient : IHttpClient
 {
-    public async Task<HttpResponse> GetAsync(string url)
+    public async Task<HttpResponse> GetAsync(string url, CancellationToken? cancellationToken = null)
     {
         using (UnityWebRequest request = UnityWebRequest.Get(GetUri(url)))
         {
@@ -19,7 +18,7 @@ public class UnityHttpClient : IHttpClient
         }
     }
 
-    public async Task<HttpResponse> PostAsync(string url, byte[] cborBody)
+    public async Task<HttpResponse> PostAsync(string url, byte[] cborBody, CancellationToken? cancellationToken = null)
     {
         using (UnityWebRequest request = new())
         {

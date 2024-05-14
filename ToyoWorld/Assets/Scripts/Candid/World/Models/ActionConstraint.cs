@@ -1,11 +1,6 @@
-using worldId = System.String;
-using groupId = System.String;
-using entityId = System.String;
-using configId = System.String;
-using BlockIndex = System.UInt64;
 using EdjCase.ICP.Candid.Mapping;
-using Candid.World.Models;
 using System.Collections.Generic;
+using Candid.World.Models;
 using EdjCase.ICP.Candid.Models;
 using System;
 
@@ -14,14 +9,22 @@ namespace Candid.World.Models
 	public class ActionConstraint
 	{
 		[CandidName("entityConstraint")]
-		public OptionalValue<List<ActionConstraint.EntityConstraintItemItem>> EntityConstraint { get; set; }
+		public List<EntityConstraint> EntityConstraint { get; set; }
+
+		[CandidName("icrcConstraint")]
+		public List<IcrcTx> IcrcConstraint { get; set; }
+
+		[CandidName("nftConstraint")]
+		public List<NftTx> NftConstraint { get; set; }
 
 		[CandidName("timeConstraint")]
-		public OptionalValue<ActionConstraint.TimeConstraintItem> TimeConstraint { get; set; }
+		public OptionalValue<ActionConstraint.TimeConstraintValue> TimeConstraint { get; set; }
 
-		public ActionConstraint(OptionalValue<List<ActionConstraint.EntityConstraintItemItem>> entityConstraint, OptionalValue<ActionConstraint.TimeConstraintItem> timeConstraint)
+		public ActionConstraint(List<EntityConstraint> entityConstraint, List<IcrcTx> icrcConstraint, List<NftTx> nftConstraint, OptionalValue<ActionConstraint.TimeConstraintValue> timeConstraint)
 		{
 			this.EntityConstraint = entityConstraint;
+			this.IcrcConstraint = icrcConstraint;
+			this.NftConstraint = nftConstraint;
 			this.TimeConstraint = timeConstraint;
 		}
 
@@ -29,132 +32,96 @@ namespace Candid.World.Models
 		{
 		}
 
-		public class EntityConstraintItemItem
+		public class TimeConstraintValue
 		{
-			[CandidName("eid")]
-			public entityId Eid { get; set; }
+			[CandidName("actionExpirationTimestamp")]
+			public OptionalValue<UnboundedUInt> ActionExpirationTimestamp { get; set; }
 
-			[CandidName("fieldName")]
-			public string FieldName { get; set; }
+			[CandidName("actionHistory")]
+			public List<ActionConstraint.TimeConstraintValue.ActionHistoryItem> ActionHistory { get; set; }
 
-			[CandidName("gid")]
-			public groupId Gid { get; set; }
+			[CandidName("actionStartTimestamp")]
+			public OptionalValue<UnboundedUInt> ActionStartTimestamp { get; set; }
 
-			[CandidName("validation")]
-			public ActionConstraint.EntityConstraintItemItem.ValidationInfo Validation { get; set; }
+			[CandidName("actionTimeInterval")]
+			public OptionalValue<ActionConstraint.TimeConstraintValue.ActionTimeIntervalValue> ActionTimeInterval { get; set; }
 
-			[CandidName("wid")]
-			public OptionalValue<worldId> Wid { get; set; }
-
-			public EntityConstraintItemItem(entityId eid, string fieldName, groupId gid, ActionConstraint.EntityConstraintItemItem.ValidationInfo validation, OptionalValue<worldId> wid)
+			public TimeConstraintValue(OptionalValue<UnboundedUInt> actionExpirationTimestamp, List<ActionConstraint.TimeConstraintValue.ActionHistoryItem> actionHistory, OptionalValue<UnboundedUInt> actionStartTimestamp, OptionalValue<ActionConstraint.TimeConstraintValue.ActionTimeIntervalValue> actionTimeInterval)
 			{
-				this.Eid = eid;
-				this.FieldName = fieldName;
-				this.Gid = gid;
-				this.Validation = validation;
-				this.Wid = wid;
+				this.ActionExpirationTimestamp = actionExpirationTimestamp;
+				this.ActionHistory = actionHistory;
+				this.ActionStartTimestamp = actionStartTimestamp;
+				this.ActionTimeInterval = actionTimeInterval;
 			}
 
-			public EntityConstraintItemItem()
+			public TimeConstraintValue()
 			{
 			}
 
-			[Variant(typeof(ActionConstraint.EntityConstraintItemItem.ValidationInfoTag))]
-			public class ValidationInfo
+			[Variant]
+			public class ActionHistoryItem
 			{
-				[VariantTagProperty()]
-				public ActionConstraint.EntityConstraintItemItem.ValidationInfoTag Tag { get; set; }
+				[VariantTagProperty]
+				public ActionConstraint.TimeConstraintValue.ActionHistoryItemTag Tag { get; set; }
 
-				[VariantValueProperty()]
-				public System.Object? Value { get; set; }
+				[VariantValueProperty]
+				public object? Value { get; set; }
 
-				public ValidationInfo(ActionConstraint.EntityConstraintItemItem.ValidationInfoTag tag, object? value)
+				public ActionHistoryItem(ActionConstraint.TimeConstraintValue.ActionHistoryItemTag tag, object? value)
 				{
 					this.Tag = tag;
 					this.Value = value;
 				}
 
-				protected ValidationInfo()
+				protected ActionHistoryItem()
 				{
 				}
 
-				public static ActionConstraint.EntityConstraintItemItem.ValidationInfo EqualToNumber(double info)
+				public static ActionConstraint.TimeConstraintValue.ActionHistoryItem MintNft(MintNft info)
 				{
-					return new ActionConstraint.EntityConstraintItemItem.ValidationInfo(ActionConstraint.EntityConstraintItemItem.ValidationInfoTag.EqualToNumber, info);
+					return new ActionConstraint.TimeConstraintValue.ActionHistoryItem(ActionConstraint.TimeConstraintValue.ActionHistoryItemTag.MintNft, info);
 				}
 
-				public static ActionConstraint.EntityConstraintItemItem.ValidationInfo EqualToString(string info)
+				public static ActionConstraint.TimeConstraintValue.ActionHistoryItem TransferIcrc(TransferIcrc info)
 				{
-					return new ActionConstraint.EntityConstraintItemItem.ValidationInfo(ActionConstraint.EntityConstraintItemItem.ValidationInfoTag.EqualToString, info);
+					return new ActionConstraint.TimeConstraintValue.ActionHistoryItem(ActionConstraint.TimeConstraintValue.ActionHistoryItemTag.TransferIcrc, info);
 				}
 
-				public static ActionConstraint.EntityConstraintItemItem.ValidationInfo GreaterThanEqualToNumber(double info)
+				public static ActionConstraint.TimeConstraintValue.ActionHistoryItem UpdateAction(UpdateAction info)
 				{
-					return new ActionConstraint.EntityConstraintItemItem.ValidationInfo(ActionConstraint.EntityConstraintItemItem.ValidationInfoTag.GreaterThanEqualToNumber, info);
+					return new ActionConstraint.TimeConstraintValue.ActionHistoryItem(ActionConstraint.TimeConstraintValue.ActionHistoryItemTag.UpdateAction, info);
 				}
 
-				public static ActionConstraint.EntityConstraintItemItem.ValidationInfo GreaterThanNowTimestamp()
+				public static ActionConstraint.TimeConstraintValue.ActionHistoryItem UpdateEntity(UpdateEntity info)
 				{
-					return new ActionConstraint.EntityConstraintItemItem.ValidationInfo(ActionConstraint.EntityConstraintItemItem.ValidationInfoTag.GreaterThanNowTimestamp, null);
+					return new ActionConstraint.TimeConstraintValue.ActionHistoryItem(ActionConstraint.TimeConstraintValue.ActionHistoryItemTag.UpdateEntity, info);
 				}
 
-				public static ActionConstraint.EntityConstraintItemItem.ValidationInfo GreaterThanNumber(double info)
+				public MintNft AsMintNft()
 				{
-					return new ActionConstraint.EntityConstraintItemItem.ValidationInfo(ActionConstraint.EntityConstraintItemItem.ValidationInfoTag.GreaterThanNumber, info);
+					this.ValidateTag(ActionConstraint.TimeConstraintValue.ActionHistoryItemTag.MintNft);
+					return (MintNft)this.Value!;
 				}
 
-				public static ActionConstraint.EntityConstraintItemItem.ValidationInfo LessThanEqualToNumber(double info)
+				public TransferIcrc AsTransferIcrc()
 				{
-					return new ActionConstraint.EntityConstraintItemItem.ValidationInfo(ActionConstraint.EntityConstraintItemItem.ValidationInfoTag.LessThanEqualToNumber, info);
+					this.ValidateTag(ActionConstraint.TimeConstraintValue.ActionHistoryItemTag.TransferIcrc);
+					return (TransferIcrc)this.Value!;
 				}
 
-				public static ActionConstraint.EntityConstraintItemItem.ValidationInfo LessThanNowTimestamp()
+				public UpdateAction AsUpdateAction()
 				{
-					return new ActionConstraint.EntityConstraintItemItem.ValidationInfo(ActionConstraint.EntityConstraintItemItem.ValidationInfoTag.LessThanNowTimestamp, null);
+					this.ValidateTag(ActionConstraint.TimeConstraintValue.ActionHistoryItemTag.UpdateAction);
+					return (UpdateAction)this.Value!;
 				}
 
-				public static ActionConstraint.EntityConstraintItemItem.ValidationInfo LessThanNumber(double info)
+				public UpdateEntity AsUpdateEntity()
 				{
-					return new ActionConstraint.EntityConstraintItemItem.ValidationInfo(ActionConstraint.EntityConstraintItemItem.ValidationInfoTag.LessThanNumber, info);
+					this.ValidateTag(ActionConstraint.TimeConstraintValue.ActionHistoryItemTag.UpdateEntity);
+					return (UpdateEntity)this.Value!;
 				}
 
-				public double AsEqualToNumber()
-				{
-					this.ValidateTag(ActionConstraint.EntityConstraintItemItem.ValidationInfoTag.EqualToNumber);
-					return (double)this.Value!;
-				}
-
-				public string AsEqualToString()
-				{
-					this.ValidateTag(ActionConstraint.EntityConstraintItemItem.ValidationInfoTag.EqualToString);
-					return (string)this.Value!;
-				}
-
-				public double AsGreaterThanEqualToNumber()
-				{
-					this.ValidateTag(ActionConstraint.EntityConstraintItemItem.ValidationInfoTag.GreaterThanEqualToNumber);
-					return (double)this.Value!;
-				}
-
-				public double AsGreaterThanNumber()
-				{
-					this.ValidateTag(ActionConstraint.EntityConstraintItemItem.ValidationInfoTag.GreaterThanNumber);
-					return (double)this.Value!;
-				}
-
-				public double AsLessThanEqualToNumber()
-				{
-					this.ValidateTag(ActionConstraint.EntityConstraintItemItem.ValidationInfoTag.LessThanEqualToNumber);
-					return (double)this.Value!;
-				}
-
-				public double AsLessThanNumber()
-				{
-					this.ValidateTag(ActionConstraint.EntityConstraintItemItem.ValidationInfoTag.LessThanNumber);
-					return (double)this.Value!;
-				}
-
-				private void ValidateTag(ActionConstraint.EntityConstraintItemItem.ValidationInfoTag tag)
+				private void ValidateTag(ActionConstraint.TimeConstraintValue.ActionHistoryItemTag tag)
 				{
 					if (!this.Tag.Equals(tag))
 					{
@@ -163,49 +130,35 @@ namespace Candid.World.Models
 				}
 			}
 
-			public enum ValidationInfoTag
+			public enum ActionHistoryItemTag
 			{
-				[CandidName("equalToNumber")]
-				[VariantOptionType(typeof(double))]
-				EqualToNumber,
-				[CandidName("equalToString")]
-				[VariantOptionType(typeof(string))]
-				EqualToString,
-				[CandidName("greaterThanEqualToNumber")]
-				[VariantOptionType(typeof(double))]
-				GreaterThanEqualToNumber,
-				[CandidName("greaterThanNowTimestamp")]
-				GreaterThanNowTimestamp,
-				[CandidName("greaterThanNumber")]
-				[VariantOptionType(typeof(double))]
-				GreaterThanNumber,
-				[CandidName("lessThanEqualToNumber")]
-				[VariantOptionType(typeof(double))]
-				LessThanEqualToNumber,
-				[CandidName("lessThanNowTimestamp")]
-				LessThanNowTimestamp,
-				[CandidName("lessThanNumber")]
-				[VariantOptionType(typeof(double))]
-				LessThanNumber
-			}
-		}
-
-		public class TimeConstraintItem
-		{
-			[CandidName("actionsPerInterval")]
-			public UnboundedUInt ActionsPerInterval { get; set; }
-
-			[CandidName("intervalDuration")]
-			public UnboundedUInt IntervalDuration { get; set; }
-
-			public TimeConstraintItem(UnboundedUInt actionsPerInterval, UnboundedUInt intervalDuration)
-			{
-				this.ActionsPerInterval = actionsPerInterval;
-				this.IntervalDuration = intervalDuration;
+				[CandidName("mintNft")]
+				MintNft,
+				[CandidName("transferIcrc")]
+				TransferIcrc,
+				[CandidName("updateAction")]
+				UpdateAction,
+				[CandidName("updateEntity")]
+				UpdateEntity
 			}
 
-			public TimeConstraintItem()
+			public class ActionTimeIntervalValue
 			{
+				[CandidName("actionsPerInterval")]
+				public UnboundedUInt ActionsPerInterval { get; set; }
+
+				[CandidName("intervalDuration")]
+				public UnboundedUInt IntervalDuration { get; set; }
+
+				public ActionTimeIntervalValue(UnboundedUInt actionsPerInterval, UnboundedUInt intervalDuration)
+				{
+					this.ActionsPerInterval = actionsPerInterval;
+					this.IntervalDuration = intervalDuration;
+				}
+
+				public ActionTimeIntervalValue()
+				{
+				}
 			}
 		}
 	}

@@ -1,0 +1,189 @@
+fileFormatVersion: 2
+guid: 1baf449d28a01804abcfd3e02e784ce2
+timeCreated: 1532418487
+licenseType: Store
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: Hero
+    100002: Hero:Head
+    100004: Hero:HeadTop_End
+    100006: Hero:Hips
+    100008: Hero:LeftArm
+    100010: Hero:LeftFoot
+    100012: Hero:LeftForeArm
+    100014: Hero:LeftHand
+    100016: Hero:LeftHandIndex1
+    100018: Hero:LeftHandIndex2
+    100020: Hero:LeftHandIndex3
+    100022: Hero:LeftHandThumb1
+    100024: Hero:LeftHandThumb2
+    100026: Hero:LeftHandThumb3
+    100028: Hero:LeftLeg
+    100030: Hero:LeftShoulder
+    100032: Hero:LeftToeBase
+    100034: Hero:LeftUpLeg
+    100036: Hero:Neck
+    100038: Hero:RightArm
+    100040: Hero:RightFoot
+    100042: Hero:RightForeArm
+    100044: Hero:RightHand
+    100046: Hero:RightHandIndex1
+    100048: Hero:RightHandIndex2
+    100050: Hero:RightHandIndex3
+    100052: Hero:RightHandThumb1
+    100054: Hero:RightHandThumb2
+    100056: Hero:RightHandThumb3
+    100058: Hero:RightLeg
+    100060: Hero:RightShoulder
+    100062: Hero:RightToeBase
+    100064: Hero:RightUpLeg
+    100066: Hero:Spine
+    100068: Hero:Spine1
+    100070: Hero:Spine2
+    100072: Hero_eyes
+    100074: Hero_jaw
+    100076: //RootNode
+    100078: scabbard
+    100080: Shield
+    100082: Sword
+    400000: Hero
+    400002: Hero:Head
+    400004: Hero:HeadTop_End
+    400006: Hero:Hips
+    400008: Hero:LeftArm
+    400010: Hero:LeftFoot
+    400012: Hero:LeftForeArm
+    400014: Hero:LeftHand
+    400016: Hero:LeftHandIndex1
+    400018: Hero:LeftHandIndex2
+    400020: Hero:LeftHandIndex3
+    400022: Hero:LeftHandThumb1
+    400024: Hero:LeftHandThumb2
+    400026: Hero:LeftHandThumb3
+    400028: Hero:LeftLeg
+    400030: Hero:LeftShoulder
+    400032: Hero:LeftToeBase
+    400034: Hero:LeftUpLeg
+    400036: Hero:Neck
+    400038: Hero:RightArm
+    400040: Hero:RightFoot
+    400042: Hero:RightForeArm
+    400044: Hero:RightHand
+    400046: Hero:RightHandIndex1
+    400048: Hero:RightHandIndex2
+    400050: Hero:RightHandIndex3
+    400052: Hero:RightHandThumb1
+    400054: Hero:RightHandThumb2
+    400056: Hero:RightHandThumb3
+    400058: Hero:RightLeg
+    400060: Hero:RightShoulder
+    400062: Hero:RightToeBase
+    400064: Hero:RightUpLeg
+    400066: Hero:Spine
+    400068: Hero:Spine1
+    400070: Hero:Spine2
+    400072: Hero_eyes
+    400074: Hero_jaw
+    400076: //RootNode
+    400078: scabbard
+    400080: Shield
+    400082: Sword
+    2100000: Hero
+    2100002: Eyes
+    2100004: Weapons
+    2300000: Hero_eyes
+    2300002: scabbard
+    2300004: Shield
+    2300006: Sword
+    3300000: Hero_eyes
+    3300002: scabbard
+    3300004: Shield
+    3300006: Sword
+    4300000: Hero
+    4300002: Hero_eyes
+    4300004: Shield
+    4300006: Sword
+    4300008: scabbard
+    9500000: //RootNode
+    13700000: Hero
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 1
+    materialSearch: 2
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 0
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,104 +1,132 @@
-using Boom.Utility;
-using Boom.Values;
-using System.Linq;
-using UnityEngine;
-
-public static class TokenUtil
+namespace Boom
 {
-    public static double GetTokenAmountAsDecimal(string canisterId)
-    {
-        var currentBaseUnitAmount = UserUtil.GetPropertyFromType<DataTypes.Token, ulong>(canisterId, e => e.baseUnitAmount, 0);
-        var decimals = UserUtil.GetPropertyFromType<DataTypes.TokenMetadata, byte>(canisterId, e => e.decimals, 0);
+    using Boom.Utility;
+    using Boom.Values;
+    using System.Linq;
+    using UnityEngine;
 
-        //RETURN IN DECIMAL
-        return CandidUtil.ConvertToDecimal(currentBaseUnitAmount, decimals);
-    }
-    public static double GetTokenAmountAsBaseUnit(string canisterId)
+    public static class TokenUtil
     {
-        var currentBaseUnitAmount = UserUtil.GetPropertyFromType<DataTypes.Token, ulong>(canisterId, e => e.baseUnitAmount, 0);
-
-        return currentBaseUnitAmount;
-    }
-
-    public static void IncrementTokenByDecimal(params (string canisterId, double decimalAmount)[] amountToAdd)
-    {
-        IncrementTokenByBaseUnit(amountToAdd.Map<(string canisterId, double decimalAmount), (string canisterId, ulong baseUnitAmount) > (e =>
+        public static ulong ConvertToBaseUnit(this double value, byte decimals)//Zero
         {
+            var baseUnitCount = decimals == 0 ? 0 : (ulong)Mathf.Pow(10, decimals);
 
-            var decimalCount = UserUtil.GetPropertyFromType<DataTypes.TokenMetadata, byte>(e.canisterId, k => k.decimals);
-            if (decimalCount.IsErr)
-            {
-                Debug.LogWarning("Something went wrong");
-                return (e.canisterId,0);
-            }
 
-            return (e.canisterId, e.decimalAmount.ConvertToBaseUnit(decimalCount.AsOk()));
-        }).ToArray());
-    }
-    public static void IncrementTokenByBaseUnit(params (string canisterId, ulong baseUnitAmount)[] amountToAdd)
-    {
-        var tokensResult = UserUtil.GetDataOfType<DataTypes.Token>();
-
-        if (tokensResult.IsErr)
+            return (ulong)(baseUnitCount * value);
+        }
+        public static double ConvertToDecimal(this ulong value, byte decimals)//Zero
         {
-            Debug.LogWarning("Token Data is not yet ready");
-            return;
+            var baseUnitCount = decimals == 0 ? 0 : (ulong)Mathf.Pow(10, decimals);
+
+
+            return value / (double)baseUnitCount;
         }
 
-        var tokens = tokensResult.AsOk().data.elements;
-
-        foreach (var item in amountToAdd)
+        public static double GetTokenAmountAsDecimal(string uid, string canisterId)
         {
-            if(tokens.TryGetValue(item.canisterId, out var token))
+            var currentBaseUnitAmount = UserUtil.GetPropertyFromType<DataTypes.Token, ulong>(uid, canisterId, e => e.baseUnitAmount, 0);
+
+            if (ConfigUtil.TryGetTokenConfig(canisterId, out var tokenConfig) == false)
             {
-                token.baseUnitAmount += item.baseUnitAmount;
+                ("Failure to find config of tokenId: " + canisterId).Error();
+                return 0;
             }
-            else
-            {
-                tokens.Add(item.canisterId, new DataTypes.Token(item.canisterId, item.baseUnitAmount));
-            }
+
+            //RETURN IN DECIMAL
+            return ConvertToDecimal(currentBaseUnitAmount, tokenConfig.decimals);
+        }
+        public static double GetTokenAmountAsBaseUnit(string uid, string canisterId)
+        {
+            var currentBaseUnitAmount = UserUtil.GetPropertyFromType<DataTypes.Token, ulong>(uid, canisterId, e => e.baseUnitAmount, 0);
+
+            return currentBaseUnitAmount;
         }
 
-        UserUtil.UpdateData(new DataTypes.Token[0]);
-    }
-    public static void DecrementTokenByBaseUnit(params (string canisterId, ulong baseUnitAmount)[] amountToRemove)
-    {
-        var tokensResult = UserUtil.GetDataOfType<DataTypes.Token>();
-
-        if (tokensResult.IsErr)
+        public static void IncrementTokenByDecimal(string uid, params (string canisterId, double decimalAmount)[] amountToAdd)
         {
-            Debug.LogWarning("Token Data is not yet ready");
-            return;
-        }
-
-        var tokens = tokensResult.AsOk().data.elements;
-
-        foreach (var item in amountToRemove)
-        {
-            if (tokens.TryGetValue(item.canisterId, out var token))
+            try
             {
-                token.baseUnitAmount -= item.baseUnitAmount;
+                IncrementTokenByBaseUnit(uid, amountToAdd.Map<(string canisterId, double decimalAmount), (string canisterId, ulong baseUnitAmount)>(e =>
+                {
+                    if (ConfigUtil.TryGetTokenConfig(e.canisterId, out var tokenConfig) == false)
+                    {
+                        throw new System.Exception($"Isse finding token config of canisterId: {e.canisterId}");
+                    }
+
+                    return (e.canisterId, e.decimalAmount.ConvertToBaseUnit(tokenConfig.decimals));
+                }).ToArray());
+            }
+            catch (System.Exception ex)
+            {
+                ex.Message.Error();
             }
         }
+        public static void IncrementTokenByBaseUnit(string uid, params (string canisterId, ulong baseUnitAmount)[] amountToAdd)
+        {
+            var tokensResult = UserUtil.GetData<DataTypes.Token>(uid);
 
-        UserUtil.UpdateData(new DataTypes.Token[0]);
-    }
+            if (tokensResult.IsErr)
+            {
+                "Token Data is not yet ready".Warning();
+                return;
+            }
 
-    /// <summary>
-    /// This is for lassy people who wants to fetch a Token along with its Config by its tokenCanisterId
-    /// </summary>
-    /// <param name="canisterId">Canister Id of the Token</param>
-    /// <returns></returns>
-    public static UResult<(DataTypes.Token token, DataTypes.TokenMetadata configs), string> GetTokenDetails(string canisterId)
-    {
-        var tokenResult = UserUtil.GetElementOfType<DataTypes.Token>(canisterId);
+            var tokens = tokensResult.AsOk().elements;
 
-        if (tokenResult.IsErr) return new(tokenResult.AsErr());
+            foreach (var item in amountToAdd)
+            {
+                if (tokens.TryGetValue(item.canisterId, out var token))
+                {
+                    token.baseUnitAmount += item.baseUnitAmount;
+                }
+                else
+                {
+                    tokens.Add(item.canisterId, new DataTypes.Token(item.canisterId, item.baseUnitAmount));
+                }
+            }
 
-        var metadataResult = UserUtil.GetElementOfType<DataTypes.TokenMetadata>(canisterId);
+            UserUtil.UpdateData(uid, new DataTypes.Token[0]);
+        }
+        public static void DecrementTokenByBaseUnit(string uid, params (string canisterId, ulong baseUnitAmount)[] amountToRemove)
+        {
+            var tokensResult = UserUtil.GetData<DataTypes.Token>(uid);
 
-        if (metadataResult.IsErr) return new(metadataResult.AsErr());
+            if (tokensResult.IsErr)
+            {
+                "Token Data is not yet ready".Warning();
+                return;
+            }
 
-        return new((tokenResult.AsOk(), metadataResult.AsOk()));
+            var tokens = tokensResult.AsOk().elements;
+
+            foreach (var item in amountToRemove)
+            {
+                if (tokens.TryGetValue(item.canisterId, out var token))
+                {
+                    token.baseUnitAmount -= item.baseUnitAmount;
+                }
+            }
+
+            UserUtil.UpdateData(uid, new DataTypes.Token[0]);
+        }
+
+        /// <summary>
+        /// This is for lassy people who wants to fetch a Token along with its Config by its tokenCanisterId
+        /// </summary>
+        /// <param name="canisterId">Canister Id of the Token</param>
+        /// <returns></returns>
+        public static UResult<(DataTypes.Token token, MainDataTypes.AllTokenConfigs.TokenConfig configs), string> GetTokenDetails(string uid, string canisterId)
+        {
+            var tokenResult = UserUtil.GetElementOfType<DataTypes.Token>(uid, canisterId);
+
+            if (tokenResult.IsErr) return new(tokenResult.AsErr());
+
+            if (ConfigUtil.TryGetTokenConfig(canisterId, out var tokenConfig) == false)
+            {
+                return new($"Issue finding token configs of canisterId: {canisterId}");
+            }
+
+            return new((tokenResult.AsOk(), tokenConfig));
+        }
     }
 }
