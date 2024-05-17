@@ -8,6 +8,7 @@ public class Pokeball : MonoBehaviour
     [SerializeField] GameObject spawnEffect;
 
     public Toyo ToyoToSpawn { get; set; }
+    public ToyoParty ToyoParty { get; set; }
 
     Transform cam;
     Rigidbody rigidbody;
@@ -96,7 +97,7 @@ public class Pokeball : MonoBehaviour
             ToyoToSpawn.Model.transform.forward = (wildPokemon != null)? -dirToPlayerPokemon : dirToCam;
 
             if (wildPokemon != null)
-                BattleState.i.StartState(ToyoToSpawn, wildPokemon.Toyo);
+                BattleState.i.StartState(ToyoParty, ToyoToSpawn, wildPokemon.Toyo);
         }
 
         Destroy(gameObject);

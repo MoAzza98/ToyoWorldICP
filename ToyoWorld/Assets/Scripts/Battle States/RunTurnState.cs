@@ -13,9 +13,15 @@ public class RunTurnState : State<BattleState>
     }
 
     BattleState bs;
+    Toyo playerToyo;
+    Toyo enemyToyo;
+
     public override void Enter(BattleState owner)
     {
         bs = owner;
+
+        playerToyo = bs.PlayerToyo;
+        enemyToyo = bs.EnemyToyo;
 
         StartCoroutine(RunTurns());
     }
@@ -37,6 +43,8 @@ public class RunTurnState : State<BattleState>
             foreach (var action in sortedActions)
             {
                 yield return RunMove(action.Source, action.Target, action.Move);
+
+                if (bs.IsBattleOver) yield break;
             }
         }
 
@@ -52,6 +60,88 @@ public class RunTurnState : State<BattleState>
         // Take damage
         target.TakeDamage(move, source);
         yield return target.BattleHUD.HPBar.WaitForUpdate();
+
+        if (target.Hp <= 0)
+        {
+            yield return HandleToyoFainted(target);
+        }
+    }
+
+    IEnumerator HandleToyoFainted(Toyo faintedToyo)
+    {
+        yield return DialogueState.i.ShowDialogue($"{faintedToyo.Base.Name} Fainted");
+        // faintedToyo.PlayFaintAnimation();
+        faintedToyo.Model.SetActive(false);
+        yield return new WaitForSeconds(0.5f);
+
+        if (faintedToyo == enemyToyo)
+        {
+            bool battlWon = true;
+            //if (isTrainerBattle)
+            //    battlWon = trainerParty.GetHealthyPokemon() == null;
+
+            //if (battlWon)
+            //    AudioManager.i.PlayMusic(bs.BattleVictoryMusic);
+
+            // Exp Gain
+            int expYield = faintedToyo.Base.ExpYield;
+            int enemyLevel = faintedToyo.Level;
+            float trainerBonus = 1; /*(isTrainerBattle) ? 1.5f : 1f;*/
+
+            int expGain = Mathf.FloorToInt((expYield * enemyLevel * trainerBonus) / 7);
+            playerToyo.Exp += expGain;
+            yield return DialogueState.i.ShowDialogue($"{playerToyo.Base.Name} gained {expGain} exp");
+            // yield return playerUnit.Hud.SetExpSmooth();
+
+            // Check Level Up
+            while (playerToyo.CheckForLevelUp())
+            {
+                // playerUnit.Hud.SetLevel();
+                yield return DialogueState.i.ShowDialogue($"{playerToyo.Base.Name} grew to level {playerToyo.Level}");
+
+                // yield return playerUnit.Hud.SetExpSmooth(true);
+            }
+
+            //yield return new WaitForSeconds(1f);
+        }
+
+        yield return CheckForBattleOver(faintedToyo);
+    }
+
+    IEnumerator CheckForBattleOver(Toyo faintedToyo)
+    {
+        if (faintedToyo == playerToyo)
+        {
+            var nextPokemon = bs.PlayerParty.GetHealthyToyo();
+            if (nextPokemon != null)
+            {
+                //yield return GameController.i.StateMachine.PushAndWait(PartyState.i);
+                //yield return bs.SwitchPokemon(PartyState.i.SelectedPokemon);
+            }
+            else
+                bs.BattleOver(false);
+        }
+        else
+        {
+            playerToyo.Model.SetActive(false);
+            bs.BattleOver(true);
+            //if (!isTrainerBattle)
+            //{
+            //    bs.BattleOver(true);
+            //}
+            //else
+            //{
+            //    var nextPokemon = trainerParty.GetHealthyPokemon();
+            //    if (nextPokemon != null)
+            //    {
+            //        // use next pokemon in trainer party
+            //    }
+            //    else
+            //        bs.BattleOver(true);
+            //}
+        }
+
+        yield break;
     }
 }
 

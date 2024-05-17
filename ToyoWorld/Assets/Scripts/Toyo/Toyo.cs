@@ -11,7 +11,10 @@ public class Toyo
     [SerializeField] int level;
 
     public int Hp { get; set; }
+    public int Exp { get; set; }
     public List<Move> Moves { get; set; }
+
+    public Dictionary<Stat, int> Stats { get; private set; }
 
     public GameObject Model { get; set; }
     public BattleHUD BattleHUD { get; set; }
@@ -20,8 +23,6 @@ public class Toyo
 
     public void Init()
     {
-        Hp = MaxHp;
-
         // Generate the moves based on the level
         Moves = new List<Move>();
         foreach (var move in _base.LearnableMoves.OrderByDescending(m => m.Level))
@@ -32,6 +33,9 @@ public class Toyo
             if (Moves.Count == 4)
                 break;
         }
+
+        CalculateStats();
+        Hp = MaxHp;
     }
 
     public void ShowHUD()
@@ -40,12 +44,44 @@ public class Toyo
         BattleHUD.SetData(this);
     }
 
-    public int Attack => Mathf.FloorToInt((_base.Attack * level) / 100) + 5;
-    public int Defense => Mathf.FloorToInt((_base.Defense * level) / 100) + 5;
-    public int SpAttack => Mathf.FloorToInt((_base.SpAttack * level) / 100) + 5;
-    public int SpDefense => Mathf.FloorToInt((_base.SpDefense * level) / 100) + 5;
-    public int Speed => Mathf.FloorToInt((_base.Speed * level) / 100) + 5;
-    public int MaxHp => Mathf.FloorToInt((_base.MaxHp * level) / 100) + 10;
+    void CalculateStats()
+    {
+        Stats = new Dictionary<Stat, int>();
+        Stats.Add(Stat.Attack, Mathf.FloorToInt((Base.Attack * Level) / 100f) + 5);
+        Stats.Add(Stat.Defense, Mathf.FloorToInt((Base.Defense * Level) / 100f) + 5);
+        Stats.Add(Stat.SpAttack, Mathf.FloorToInt((Base.SpAttack * Level) / 100f) + 5);
+        Stats.Add(Stat.SpDefense, Mathf.FloorToInt((Base.SpDefense * Level) / 100f) + 5);
+        Stats.Add(Stat.Speed, Mathf.FloorToInt((Base.Speed * Level) / 100f) + 5);
+
+        int oldMaxHP = MaxHp;
+        MaxHp = Mathf.FloorToInt((Base.MaxHp * Level) / 100f) + 10 + Level;
+
+        if (oldMaxHP != 0)
+            Hp += MaxHp - oldMaxHP;
+    }
+
+    int GetStat(Stat stat)
+    {
+        int statVal = Stats[stat];
+
+        // Apply stat boost
+        //int boost = StatBoosts[stat];
+        //var boostValues = new float[] { 1f, 1.5f, 2f, 2.5f, 3f, 3.5f, 4f };
+
+        //if (boost >= 0)
+        //    statVal = Mathf.FloorToInt(statVal * boostValues[boost]);
+        //else
+        //    statVal = Mathf.FloorToInt(statVal / boostValues[-boost]);
+
+        return statVal;
+    }
+
+    public int Attack => GetStat(Stat.Attack);
+    public int Defense => GetStat(Stat.Defense);
+    public int SpAttack => GetStat(Stat.SpAttack);
+    public int SpDefense => GetStat(Stat.SpDefense);
+    public int Speed => GetStat(Stat.Speed);
+    public int MaxHp { get; private set; }
 
     public void TakeDamage(Move move, Toyo attacker)
     {
@@ -71,6 +107,31 @@ public class Toyo
         return Moves[UnityEngine.Random.Range(0, Moves.Count)];
     }
 
+    public bool CheckForLevelUp()
+    {
+        if (Exp > Base.GetExpForLevel(level + 1))
+        {
+            ++level;
+            CalculateStats();
+            return true;
+        }
+
+        return false;
+    }
+
     public ToyoBase Base => _base;
     public int Level => level;
+}
+
+public enum Stat
+{
+    Attack,
+    Defense,
+    SpAttack,
+    SpDefense,
+    Speed,
+
+    // These 2 are not actual stats, they're used to boost the moveAccuracy
+    Accuracy,
+    Evasion
 }

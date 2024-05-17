@@ -71,17 +71,18 @@ public class PlayerController : MonoBehaviour
 
         if (CanThrowPokeball)
         {
-            if (Input.GetButtonDown("Throw"))
-            {
-                Aim();
-            }
-            else if (Input.GetButtonUp("Throw") && isAiming)
+            if (isAiming && Input.GetButtonDown("Throw"))
             {
                 isAiming = false;
                 animator.SetBool("isAiming", isAiming);
 
                 StartCoroutine(DoAction("Throw", () => aimCamera.SetActive(false)));
             }
+            else if (Input.GetButtonDown("Throw"))
+            {
+                Aim();
+            }
+            
         }
 
         float moveAmount = Mathf.Clamp01(Mathf.Abs(h) + Mathf.Abs(v));
@@ -163,6 +164,7 @@ public class PlayerController : MonoBehaviour
         else
             targetPos = rayOrgin + camera.transform.forward * throwRange;
 
+        pokeballObj.ToyoParty = playerParty;
         pokeballObj.ToyoToSpawn = playerParty.Toyos[0];
         pokeballObj.LaunchToTarget(targetPos);
     }

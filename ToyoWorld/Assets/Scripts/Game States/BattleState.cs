@@ -1,6 +1,7 @@
 using GDEUtils.StateMachine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public enum BattleActions { Move, SwitchToyo, UseItem, Run }
@@ -11,6 +12,9 @@ public class BattleState : State<GameController>
 
     public Toyo PlayerToyo { get; private set; }
     public Toyo EnemyToyo { get; private set; }
+    public ToyoParty PlayerParty { get; private set; }
+
+    public bool IsBattleOver { get; private set; }
 
     public int SelectedMove { get; set; }
     public BattleActions SelectedAction { get; set; }
@@ -24,10 +28,12 @@ public class BattleState : State<GameController>
         StateMachine = new StateMachine<BattleState>(this);
     }
 
-    public void StartState(Toyo playerToyo, Toyo wildToyo)
+    public void StartState(ToyoParty playerParty, Toyo playerToyo, Toyo wildToyo)
     {
+        PlayerParty = playerParty;
         PlayerToyo = playerToyo;
         EnemyToyo = wildToyo;
+        IsBattleOver = false;
 
         GameController.i.StateMachine.Push(this);
     }
@@ -59,6 +65,15 @@ public class BattleState : State<GameController>
 
         PlayerToyo.ShowHUD();
         EnemyToyo.ShowHUD();
+    }
+
+    public void BattleOver(bool won)
+    {
+        IsBattleOver = true;
+        GameController.i.StateMachine.Pop();
+
+        //PlayerParty.Pokemons.ForEach(p => p.OnBattleOver());
+        //OnBattleOver(won);
     }
 
     public override void Execute()
