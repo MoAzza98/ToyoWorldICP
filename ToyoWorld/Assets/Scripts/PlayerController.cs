@@ -37,6 +37,8 @@ public class PlayerController : MonoBehaviour
     public static PlayerController i { get; private set; }
     private void Awake()
     {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         camera = Camera.main;
         camTransform = Camera.main.transform;
         animator = GetComponent<Animator>();
