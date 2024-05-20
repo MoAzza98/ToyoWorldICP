@@ -91,17 +91,19 @@ public class RunTurnState : State<BattleState>
             int expGain = Mathf.FloorToInt((expYield * enemyLevel * trainerBonus) / 7);
             playerToyo.Exp += expGain;
             yield return DialogueState.i.ShowDialogue($"{playerToyo.Base.Name} gained {expGain} exp");
-            // yield return playerUnit.Hud.SetExpSmooth();
+            yield return playerToyo.BattleHUD.SetExpSmooth();
 
             // Check Level Up
-            while (playerToyo.CheckForLevelUp())
+            while (playerToyo.CheckAndHandleLevelUp())
             {
                 // playerUnit.Hud.SetLevel();
                 yield return DialogueState.i.ShowDialogue($"{playerToyo.Base.Name} grew to level {playerToyo.Level}");
 
-                // yield return playerUnit.Hud.SetExpSmooth(true);
+                playerToyo.BattleHUD.SetExp(0);     // Level changed so start from zero
+                yield return playerToyo.BattleHUD.SetExpSmooth();
             }
 
+            playerToyo.BattleHUD.DisableHPBar();
             //yield return new WaitForSeconds(1f);
         }
 

@@ -20,6 +20,7 @@ public class Toyo
     public BattleHUD BattleHUD { get; set; }
 
     public event Action OnHPChanged;
+    public event Action OnLevelChanged;
 
     public void Init()
     {
@@ -107,16 +108,26 @@ public class Toyo
         return Moves[UnityEngine.Random.Range(0, Moves.Count)];
     }
 
-    public bool CheckForLevelUp()
+    public bool CheckAndHandleLevelUp()
     {
         if (Exp > Base.GetExpForLevel(level + 1))
         {
             ++level;
+            OnLevelChanged?.Invoke();
             CalculateStats();
             return true;
         }
 
         return false;
+    }
+
+    public float GetNormalizedExp()
+    {
+        int currLevelExp = Base.GetExpForLevel(Level);
+        int nextLevelExp = Base.GetExpForLevel(Level + 1);
+
+        float normalizedExp = (float)(Exp - currLevelExp) / (nextLevelExp - currLevelExp);
+        return Mathf.Clamp01(normalizedExp);
     }
 
     public ToyoBase Base => _base;
