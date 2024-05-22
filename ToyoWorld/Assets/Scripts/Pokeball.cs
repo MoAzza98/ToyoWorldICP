@@ -66,16 +66,18 @@ public class Pokeball : MonoBehaviour
         Vector3 spawnPos = transform.position;
         Vector3 dirToPlayerPokemon = Vector3.zero;
 
-        var wildPokemon = collider.GetComponent<WildToyo>();
-        if (wildPokemon != null)
+        var wildToyo = collider.GetComponent<WildToyo>();
+        if (wildToyo != null)
         {
-            var dirToCam = (cam.position - wildPokemon.transform.position).normalized;
+            wildToyo.SetBusyState();
+
+            var dirToCam = (cam.position - wildToyo.transform.position).normalized;
             dirToCam.y = 0;
 
             dirToPlayerPokemon = Quaternion.Euler(0, 30, 0) * dirToCam;
 
-            spawnPos = wildPokemon.transform.position + dirToPlayerPokemon * 6f;
-            wildPokemon.transform.forward = dirToPlayerPokemon;
+            spawnPos = wildToyo.transform.position + dirToPlayerPokemon * 6f;
+            wildToyo.transform.forward = dirToPlayerPokemon;
         }
 
         var rayOrigin = spawnPos + Vector3.up;
@@ -89,14 +91,17 @@ public class Pokeball : MonoBehaviour
 
             yield return new WaitForSeconds(0.2f);
 
-            ToyoToSpawn.SetModel(Instantiate(ToyoToSpawn.Base.Model, hit.point, Quaternion.identity));
+            if (ToyoToSpawn.Model == null)
+                ToyoToSpawn.SetModel(Instantiate(ToyoToSpawn.Base.Model, hit.point, Quaternion.identity));
 
             ToyoToSpawn.Model.SetActive(true);
             ToyoToSpawn.Model.transform.position = hit.point;
-            ToyoToSpawn.Model.transform.forward = (wildPokemon != null)? -dirToPlayerPokemon : dirToCam;
+            ToyoToSpawn.Model.transform.forward = (wildToyo != null)? -dirToPlayerPokemon : dirToCam;
 
-            if (wildPokemon != null)
-                BattleState.i.StartState(ToyoParty, ToyoToSpawn, wildPokemon.Toyo);
+            if (wildToyo != null)
+            {
+                BattleState.i.StartState(ToyoParty, ToyoToSpawn, wildToyo.Toyo);
+            }
         }
 
         Destroy(gameObject);

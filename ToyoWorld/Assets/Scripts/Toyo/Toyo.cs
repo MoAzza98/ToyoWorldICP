@@ -46,6 +46,7 @@ public class Toyo
         
         Model = model;
         Animator = Model.GetComponent<Animator>();
+        Animator.applyRootMotion = true;
     }
 
     public void ShowHUD()

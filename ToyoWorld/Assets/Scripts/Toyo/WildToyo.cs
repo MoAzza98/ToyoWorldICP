@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public enum AIToyoState { Idle, Wander, Chase }
+public enum AIToyoState { Idle, Wander, Chase, Busy }
 
 public class WildToyo : MonoBehaviour
 {
@@ -50,7 +50,7 @@ public class WildToyo : MonoBehaviour
         }
         else if (state == AIToyoState.Wander)
         {
-            Debug.DrawLine(transform.position + Vector3.up * 0.5f, wanderTarget, Color.red);
+            //Debug.DrawLine(transform.position + Vector3.up * 0.5f, wanderTarget, Color.red);
 
             if (navAgent.remainingDistance <= 1f)
             {
@@ -60,6 +60,10 @@ public class WildToyo : MonoBehaviour
         else if (state == AIToyoState.Chase)
         {
             navAgent.SetDestination(PlayerController.i.transform.position);
+        }
+        else if (state == AIToyoState.Busy)
+        {
+
         }
 
         animator.SetFloat("speed", navAgent.velocity.magnitude / navAgent.speed, 0.2f, Time.deltaTime);
@@ -83,5 +87,11 @@ public class WildToyo : MonoBehaviour
         //wanderTarget = navHit.position;
 
         navAgent.SetDestination(wanderTarget);
+    }
+
+    public void SetBusyState()
+    {
+        state = AIToyoState.Busy;
+        navAgent.ResetPath();
     }
 }
