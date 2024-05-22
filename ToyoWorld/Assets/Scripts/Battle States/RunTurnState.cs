@@ -53,13 +53,16 @@ public class RunTurnState : State<BattleState>
 
     IEnumerator RunMove(Toyo source, Toyo target, Move move)
     {
+        source.PlayAnimation("attack");
+
         yield return DialogueState.i.ShowDialogue($"{source.Base.Name} used {move.Base.Name}");
 
         // Play animation, vfx, sfx of the move
 
         // Take damage
-        target.TakeDamage(move, source);
+        var damageDetails = target.TakeDamage(move, source);
         yield return target.BattleHUD.HPBar.WaitForUpdate();
+        yield return ShowDamageDetails(damageDetails);
 
         if (target.Hp <= 0)
         {
@@ -103,7 +106,7 @@ public class RunTurnState : State<BattleState>
                 yield return playerToyo.BattleHUD.SetExpSmooth();
             }
 
-            playerToyo.BattleHUD.DisableHPBar();
+            playerToyo.BattleHUD.DisableExpBar();
             //yield return new WaitForSeconds(1f);
         }
 
@@ -121,10 +124,15 @@ public class RunTurnState : State<BattleState>
                 //yield return bs.SwitchPokemon(PartyState.i.SelectedPokemon);
             }
             else
+            {
+                yield return new WaitForSeconds(0.5f);
+                playerToyo.Model.SetActive(false);
                 bs.BattleOver(false);
+            }
         }
         else
         {
+            yield return new WaitForSeconds(0.5f);
             playerToyo.Model.SetActive(false);
             bs.BattleOver(true);
             //if (!isTrainerBattle)
@@ -144,6 +152,19 @@ public class RunTurnState : State<BattleState>
         }
 
         yield break;
+    }
+
+    IEnumerator ShowDamageDetails(DamageDetails damageDetails)
+    {
+        if (damageDetails.Critical > 1f)
+            yield return DialogueState.i.ShowDialogue("A critical hit!");
+
+        if (damageDetails.TypeEffectiveness == 0)
+            yield return DialogueState.i.ShowDialogue("It doesn't have any effect!");
+        else if (damageDetails.TypeEffectiveness > 1f)
+            yield return DialogueState.i.ShowDialogue("It's super effective!");
+        else if (damageDetails.TypeEffectiveness < 1f)
+            yield return DialogueState.i.ShowDialogue("It's not very effective!");
     }
 }
 

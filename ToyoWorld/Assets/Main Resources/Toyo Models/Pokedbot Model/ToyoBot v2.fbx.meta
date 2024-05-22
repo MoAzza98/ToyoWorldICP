@@ -29,14 +29,130 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: idle
+      takeName: idle
+      internalID: -5252816984213320552
+      firstFrame: 0
+      lastFrame: 39
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Walk
+      takeName: Walk
+      internalID: 2667949614841947897
+      firstFrame: 0
+      lastFrame: 39
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: attack
+      takeName: attack
+      internalID: -6239216113759591374
+      firstFrame: 0
+      lastFrame: 39
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Run
+      takeName: Run
+      internalID: 5522812681064789136
+      firstFrame: 0
+      lastFrame: 22
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 0
   meshes:
     lODScreenPercentages: []
@@ -85,7 +201,382 @@ ModelImporter:
   humanDescription:
     serializedVersion: 3
     human: []
-    skeleton: []
+    skeleton:
+    - name: ToyoBot v2(Clone)
+      parentName: 
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Torso
+      parentName: ToyoBot v2(Clone)
+      position: {x: -0.00000917603, y: 2.732456, z: -0.11195783}
+      rotation: {x: 6.123234e-17, y: 1, z: -6.123234e-17, w: 6.123234e-17}
+      scale: {x: 1, y: 1, z: 1}
+    - name: bone
+      parentName: Torso
+      position: {x: -0.4124908, y: 2.1620615, z: 0.11195783}
+      rotation: {x: 3.6994998e-17, y: 3.6994988e-17, z: 0.30208704, w: 0.9532804}
+      scale: {x: 1, y: 1, z: 1}
+    - name: cuboid_12
+      parentName: bone
+      position: {x: -0, y: 0.4375, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: cuboid_13
+      parentName: bone
+      position: {x: 0.825, y: 0.4375, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: bone14
+      parentName: Torso
+      position: {x: 0.4875092, y: 1.4136461, z: -0.38554114}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: sphere_14
+      parentName: bone14
+      position: {x: -0.0062499996, y: 0.019783067, z: -0.11973274}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: cuboid_21
+      parentName: bone14
+      position: {x: 0.074999996, y: -0.07251639, z: -0.3140018}
+      rotation: {x: -0.065403126, y: 0, z: -0, w: 0.99785894}
+      scale: {x: 1, y: 1, z: 1}
+    - name: cuboid_22
+      parentName: bone14
+      position: {x: -0.074999996, y: -0.009891533, z: -0.22138363}
+      rotation: {x: -0.065403126, y: 0, z: -0, w: 0.99785894}
+      scale: {x: 1, y: 1, z: 1}
+    - name: bone2
+      parentName: Torso
+      position: {x: -0.7459739, y: 1.899772, z: -0.039100878}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: bone3
+      parentName: bone2
+      position: {x: 0.32723308, y: -0.41972795, z: -0.10759307}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: sphere
+      parentName: bone3
+      position: {x: -0.0625, y: -0.046614952, z: -0.35857993}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: cuboid_8
+      parentName: bone3
+      position: {x: 0.0062499996, y: -0.07628955, z: -0.46023083}
+      rotation: {x: -0.065403126, y: 0, z: -0, w: 0.99785894}
+      scale: {x: 1, y: 1, z: 1}
+    - name: cuboid_9
+      parentName: bone3
+      position: {x: -0.14375, y: -0.1389144, z: -0.552849}
+      rotation: {x: -0.065403126, y: 0, z: -0, w: 0.99785894}
+      scale: {x: 1, y: 1, z: 1}
+    - name: left_arm
+      parentName: Torso
+      position: {x: 1.4062592, y: 1.1606178, z: -0.0063851723}
+      rotation: {x: -0.15211278, y: -0.027184593, z: 0.056388527, w: 0.9863788}
+      scale: {x: 1, y: 1, z: 1}
+    - name: bone8
+      parentName: left_arm
+      position: {x: 0.010419749, y: -1.4971561, z: -0.12687074}
+      rotation: {x: 0.2137441, y: 0.03952487, z: -0.011149059, w: 0.9760261}
+      scale: {x: 1, y: 1, z: 1}
+    - name: sphere_10
+      parentName: bone8
+      position: {x: -0.020830251, y: -0.06522995, z: -0.013963742}
+      rotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: sphere_11
+      parentName: bone8
+      position: {x: -0.025419747, y: -0.89512604, z: -0.012286258}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: sphere_12
+      parentName: bone8
+      position: {x: -0.025419747, y: -0.89512604, z: -0.012286258}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: cylinder_18
+      parentName: bone8
+      position: {x: -0.04791975, y: -1.5895475, z: -0.0031047156}
+      rotation: {x: 0.60353416, y: 0.26575312, z: 0.73571765, w: 0.1544066}
+      scale: {x: 1, y: 1, z: 1}
+    - name: sphere_9
+      parentName: left_arm
+      position: {x: 0.16562499, y: -0.10643656, z: 0.0014680071}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: cylinder_17
+      parentName: left_arm
+      position: {x: -4.440892e-16, y: -0.9206862, z: -0.012846343}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Right_arm
+      parentName: Torso
+      position: {x: -1.4062408, y: 1.1606178, z: -0.0063851723}
+      rotation: {x: -0.15211278, y: 0.027184593, z: -0.056388527, w: 0.9863788}
+      scale: {x: 1, y: 1, z: 1}
+    - name: bone6
+      parentName: Right_arm
+      position: {x: -0.010419749, y: -1.4971561, z: -0.12687074}
+      rotation: {x: 0.2137441, y: -0.03952487, z: 0.011149059, w: 0.9760261}
+      scale: {x: 1, y: 1, z: 1}
+    - name: sphere_2
+      parentName: bone6
+      position: {x: 0.020830251, y: -0.06522995, z: -0.013963742}
+      rotation: {x: -0, y: -0.7071068, z: 0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: sphere_3
+      parentName: bone6
+      position: {x: 0.025419747, y: -0.89512604, z: -0.012286258}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: sphere_4
+      parentName: bone6
+      position: {x: 0.025419747, y: -0.89512604, z: -0.012286258}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: cylinder_2
+      parentName: bone6
+      position: {x: 0.04791975, y: -1.5895475, z: -0.0031047156}
+      rotation: {x: -0.60353416, y: 0.26575312, z: 0.73571765, w: -0.1544066}
+      scale: {x: 1, y: 1, z: 1}
+    - name: sphere_1
+      parentName: Right_arm
+      position: {x: -0.009374999, y: -0.10643656, z: 0.0014680071}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: cylinder_1
+      parentName: Right_arm
+      position: {x: -0, y: -0.9206862, z: -0.012846343}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: cylinder
+      parentName: Torso
+      position: {x: 0.00000917603, y: 0.3349779, z: 0.07133385}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: cuboid_11
+      parentName: Torso
+      position: {x: -0.00008258427, y: 1.2054955, z: -0.26117942}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: cuboid_14
+      parentName: Torso
+      position: {x: 1.0659757, y: 1.9725976, z: 0.10570783}
+      rotation: {x: 0, y: -0, z: -0.38268346, w: 0.92387956}
+      scale: {x: 1, y: 1, z: 1}
+    - name: cuboid_15
+      parentName: Torso
+      position: {x: 0.00000917603, y: 1.3451519, z: 1.0281116}
+      rotation: {x: 0.69151306, y: -0, z: -0, w: 0.72236395}
+      scale: {x: 1, y: 1, z: 1}
+    - name: cuboid_16
+      parentName: Torso
+      position: {x: -1.0659574, y: 1.9725976, z: 0.10570783}
+      rotation: {x: 0, y: 0, z: 0.38268346, w: 0.92387956}
+      scale: {x: 1, y: 1, z: 1}
+    - name: cuboid_17
+      parentName: Torso
+      position: {x: -1.0659574, y: 1.9725976, z: 0.10570783}
+      rotation: {x: 0, y: 0, z: 0.38268346, w: 0.92387956}
+      scale: {x: 1, y: 1, z: 1}
+    - name: cuboid_18
+      parentName: Torso
+      position: {x: 1.0659757, y: 1.9725976, z: 0.10570783}
+      rotation: {x: 0, y: -0, z: -0.38268346, w: 0.92387956}
+      scale: {x: 1, y: 1, z: 1}
+    - name: cuboid_19
+      parentName: Torso
+      position: {x: -0.06874082, y: 0.9701536, z: -0.6443991}
+      rotation: {x: -0.065403126, y: 0, z: -0, w: 0.99785894}
+      scale: {x: 1, y: 1, z: 1}
+    - name: cuboid_20
+      parentName: Torso
+      position: {x: 0.06875917, y: 0.9701536, z: -0.6443991}
+      rotation: {x: -0.065403126, y: 0, z: -0, w: 0.99785894}
+      scale: {x: 1, y: 1, z: 1}
+    - name: bone9
+      parentName: ToyoBot v2(Clone)
+      position: {x: -0.75, y: 2.7628613, z: -0.0023927747}
+      rotation: {x: 6.123234e-17, y: 1, z: -6.123234e-17, w: 6.123234e-17}
+      scale: {x: 1, y: 1, z: 1}
+    - name: bone11
+      parentName: bone9
+      position: {x: -0.025936438, y: -1.2288692, z: -0.038279492}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: cylinder_4
+      parentName: bone11
+      position: {x: 0.7759364, y: -0.38988075, z: -0.011499538}
+      rotation: {x: 0, y: -0, z: -0.7071068, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: cylinder_5
+      parentName: bone11
+      position: {x: 0.7759364, y: -0.9922269, z: -0.19314016}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: sphere_6
+      parentName: bone11
+      position: {x: 0.7759364, y: -0.9922269, z: -0.19314016}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: cylinder_6
+      parentName: bone11
+      position: {x: 0.7759364, y: -0.9922269, z: -0.19314016}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: cylinder_7
+      parentName: bone11
+      position: {x: 0.7759364, y: -0.9922269, z: -0.19314016}
+      rotation: {x: 0.6532815, y: -0.27059805, z: 0.27059805, w: 0.6532815}
+      scale: {x: 1, y: 1, z: 1}
+    - name: cuboid
+      parentName: bone11
+      position: {x: 0.7759364, y: -0.9922269, z: -0.19314016}
+      rotation: {x: 0, y: 0.38268346, z: -0, w: 0.92387956}
+      scale: {x: 1, y: 1, z: 1}
+    - name: cuboid_1
+      parentName: bone11
+      position: {x: 0.7759364, y: -0.9922269, z: -0.19314016}
+      rotation: {x: 3.6478584e-20, y: 0.6259235, z: 4.5451374e-20, w: 0.7798845}
+      scale: {x: 1, y: 1, z: 1}
+    - name: cylinder_8
+      parentName: bone11
+      position: {x: 0.7759364, y: -0.9922269, z: -0.19314016}
+      rotation: {x: 0.702904, y: -0.07698051, z: 0.07698051, w: 0.702904}
+      scale: {x: 1, y: 1, z: 1}
+    - name: cuboid_2
+      parentName: bone11
+      position: {x: 0.7759364, y: -0.9922269, z: -0.19314016}
+      rotation: {x: 0, y: -0.25881907, z: -0, w: 0.9659259}
+      scale: {x: 1, y: 1, z: 1}
+    - name: cylinder_9
+      parentName: bone11
+      position: {x: 0.7759364, y: -0.9922269, z: -0.19314016}
+      rotation: {x: 0.61237246, y: 0.35355338, z: -0.35355338, w: 0.61237246}
+      scale: {x: 1, y: 1, z: 1}
+    - name: cuboid_3
+      parentName: bone11
+      position: {x: 0.7759364, y: -0.9922269, z: -0.19314016}
+      rotation: {x: 3.0233907e-20, y: -0.51877326, z: -4.9823938e-20, w: 0.85491186}
+      scale: {x: 1, y: 1, z: 1}
+    - name: cylinder_10
+      parentName: bone11
+      position: {x: 0.7759364, y: -0.9922269, z: -0.19314016}
+      rotation: {x: 0.68684256, y: 0.1680693, z: -0.1680693, w: 0.68684256}
+      scale: {x: 1, y: 1, z: 1}
+    - name: sphere_5
+      parentName: bone9
+      position: {x: 0.75, y: -1.61875, z: -0.04977903}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: cylinder_3
+      parentName: bone9
+      position: {x: 0.75, y: -1.61875, z: -0.04977903}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: bone10
+      parentName: ToyoBot v2(Clone)
+      position: {x: 0.788161, y: 2.8550398, z: -0.019711547}
+      rotation: {x: 6.123234e-17, y: 1, z: -6.123234e-17, w: 6.123234e-17}
+      scale: {x: 1, y: 1, z: 1}
+    - name: bone12
+      parentName: bone10
+      position: {x: 0.06826412, y: -1.3226997, z: -0.033592675}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: sphere_7
+      parentName: bone12
+      position: {x: -0.85642517, y: -0.990575, z: -0.18050821}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: cylinder_12
+      parentName: bone12
+      position: {x: -0.85642517, y: -0.990575, z: -0.18050821}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: cylinder_13
+      parentName: bone12
+      position: {x: -0.85642517, y: -0.990575, z: -0.18050821}
+      rotation: {x: 0.6532815, y: 0.27059805, z: -0.27059805, w: 0.6532815}
+      scale: {x: 1, y: 1, z: 1}
+    - name: cuboid_4
+      parentName: bone12
+      position: {x: -0.85642517, y: -0.990575, z: -0.18050821}
+      rotation: {x: 0, y: -0.38268346, z: -0, w: 0.92387956}
+      scale: {x: 1, y: 1, z: 1}
+    - name: cuboid_5
+      parentName: bone12
+      position: {x: -0.85642517, y: -0.990575, z: -0.18050821}
+      rotation: {x: 3.6478584e-20, y: -0.6259235, z: -4.5451374e-20, w: 0.7798845}
+      scale: {x: 1, y: 1, z: 1}
+    - name: cylinder_14
+      parentName: bone12
+      position: {x: -0.85642517, y: -0.990575, z: -0.18050821}
+      rotation: {x: 0.702904, y: 0.07698051, z: -0.07698051, w: 0.702904}
+      scale: {x: 1, y: 1, z: 1}
+    - name: cuboid_6
+      parentName: bone12
+      position: {x: -0.85642517, y: -0.990575, z: -0.18050821}
+      rotation: {x: 0, y: 0.25881907, z: -0, w: 0.9659259}
+      scale: {x: 1, y: 1, z: 1}
+    - name: cylinder_15
+      parentName: bone12
+      position: {x: -0.85642517, y: -0.990575, z: -0.18050821}
+      rotation: {x: 0.61237246, y: -0.35355338, z: 0.35355338, w: 0.61237246}
+      scale: {x: 1, y: 1, z: 1}
+    - name: cuboid_7
+      parentName: bone12
+      position: {x: -0.85642517, y: -0.990575, z: -0.18050821}
+      rotation: {x: 3.0233907e-20, y: 0.51877326, z: 4.9823938e-20, w: 0.85491186}
+      scale: {x: 1, y: 1, z: 1}
+    - name: cylinder_16
+      parentName: bone12
+      position: {x: -0.85642517, y: -0.990575, z: -0.18050821}
+      rotation: {x: 0.68684256, y: -0.1680693, z: 0.1680693, w: 0.68684256}
+      scale: {x: 1, y: 1, z: 1}
+    - name: sphere_8
+      parentName: bone12
+      position: {x: -0.85642517, y: -0.990575, z: -0.18050821}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: cylinder_19
+      parentName: bone12
+      position: {x: -0.11028036, y: -0.16734025, z: 0.040804222}
+      rotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: cylinder_11
+      parentName: bone10
+      position: {x: -0.788161, y: -1.7109286, z: -0.032460257}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: sphere_13
+      parentName: bone10
+      position: {x: -0.038161013, y: -0.7136923, z: 0.014600742}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: cuboid_10
+      parentName: bone10
+      position: {x: -0.050661013, y: -0.901915, z: -0.3435697}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: cuboid_23
+      parentName: bone10
+      position: {x: -0.050661013, y: -0.901915, z: 0.38299277}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: cuboid_24
+      parentName: bone10
+      position: {x: -1.088161, y: -0.901915, z: 0.0079927975}
+      rotation: {x: -0, y: -0.7071068, z: 0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: cuboid_25
+      parentName: bone10
+      position: {x: 0.32433897, y: -0.901915, z: 0.031430297}
+      rotation: {x: -0, y: -0.7071068, z: 0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
     armTwist: 0.5
     foreArmTwist: 0.5
     upperLegTwist: 0.5

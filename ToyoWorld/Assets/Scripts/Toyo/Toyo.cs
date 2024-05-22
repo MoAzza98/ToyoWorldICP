@@ -18,6 +18,7 @@ public class Toyo
 
     public GameObject Model { get; set; }
     public BattleHUD BattleHUD { get; set; }
+    public Animator Animator { get; private set; }
 
     public event Action OnHPChanged;
     public event Action OnLevelChanged;
@@ -37,6 +38,14 @@ public class Toyo
 
         CalculateStats();
         Hp = MaxHp;
+    }
+
+    public void SetModel(GameObject model)
+    {
+        if (Model != null) return;
+        
+        Model = model;
+        Animator = Model.GetComponent<Animator>();
     }
 
     public void ShowHUD()
@@ -84,17 +93,36 @@ public class Toyo
     public int Speed => GetStat(Stat.Speed);
     public int MaxHp { get; private set; }
 
-    public void TakeDamage(Move move, Toyo attacker)
+    public DamageDetails TakeDamage(Move move, Toyo attacker)
     {
+        float critical = 1f;
+        if (UnityEngine.Random.value * 100f <= 6.25f)
+            critical = 2f;
+
+        float type = TypeChart.GetEffectiveness(move.Base.Type, this.Base.Type1) * TypeChart.GetEffectiveness(move.Base.Type, this.Base.Type2);
+
         float attack = move.Base.Category == MoveCategory.Physical ? attacker.Attack : attacker.SpAttack;
         float defense = move.Base.Category == MoveCategory.Physical ? Defense : SpDefense;
 
-        float modifiers = UnityEngine.Random.Range(0.85f, 1f);
+        float modifiers = UnityEngine.Random.Range(0.85f, 1f) * type;
         float a = (2 * attacker.Level + 10) / 250f;
         float d = a * move.Base.Power * ((float)attack / defense) + 2;
         int damage = Mathf.FloorToInt(d * modifiers);
 
         DecreaseHP(damage);
+
+        var damageDetails = new DamageDetails()
+        {
+            TypeEffectiveness = type,
+            Critical = critical
+        };
+
+        return damageDetails;
+    }
+
+    public void PlayAnimation(string animName)
+    {
+        Animator.CrossFade(animName, 0.2f);
     }
 
     void DecreaseHP(int damage)
@@ -132,6 +160,12 @@ public class Toyo
 
     public ToyoBase Base => _base;
     public int Level => level;
+}
+
+public class DamageDetails
+{
+    public float Critical { get; set; }
+    public float TypeEffectiveness { get; set; }
 }
 
 public enum Stat

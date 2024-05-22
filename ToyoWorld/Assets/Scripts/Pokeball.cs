@@ -89,8 +89,7 @@ public class Pokeball : MonoBehaviour
 
             yield return new WaitForSeconds(0.2f);
 
-            if (ToyoToSpawn.Model == null)
-                ToyoToSpawn.Model = Instantiate(ToyoToSpawn.Base.Model, hit.point, Quaternion.identity);
+            ToyoToSpawn.SetModel(Instantiate(ToyoToSpawn.Base.Model, hit.point, Quaternion.identity));
 
             ToyoToSpawn.Model.SetActive(true);
             ToyoToSpawn.Model.transform.position = hit.point;

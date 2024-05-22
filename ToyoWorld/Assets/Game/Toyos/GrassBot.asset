@@ -15,15 +15,15 @@ MonoBehaviour:
   name: Grass Bot
   description: 
   model: {fileID: 4366493973497506435, guid: 57210e7eb04c17242b8182f09fc40bf5, type: 3}
-  type1: 5
-  type2: 8
+  type1: 4
+  type2: 0
   maxHp: 45
   attack: 45
   defense: 49
   spAttack: 65
   spDefense: 65
   speed: 45
-  expYield: 1000
+  expYield: 100
   growthRate: 0
   learnableMoves:
   - moveBase: {fileID: 11400000, guid: 50e3a76c523f37a44b1c52e33658c86c, type: 2}

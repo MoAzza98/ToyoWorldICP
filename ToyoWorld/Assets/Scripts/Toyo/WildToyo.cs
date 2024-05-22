@@ -9,6 +9,6 @@ public class WildToyo : MonoBehaviour
     private void Start()
     {
         Toyo.Init();
-        Toyo.Model = gameObject;
+        Toyo.SetModel(gameObject);
     }
 }

@@ -53,6 +53,9 @@ public class ToyoBase : ScriptableObject
     public int SpDefense => spDefense;
     public int Speed => speed;
 
+    public ToyoType Type1 => type1;
+    public ToyoType Type2 => type2;
+
     public int ExpYield => expYield;
 
     public List<LearnableMove> LearnableMoves => learnableMoves;
@@ -69,18 +72,18 @@ public enum ToyoType
     Normal,
     Fire,
     Water,
-    Electric,
     Grass,
-    Ice,
-    Fighting,
-    Poison,
-    Ground,
-    Flying,
-    Psychic,
-    Bug,
-    Rock,
-    Ghost,
-    Dragon
+    Thunder,
+    Beast,
+    Space,
+    Dragon,
+    Earth,
+    Air,
+    Digi,
+    Fairy,
+    Time,
+    Dark,
+    Ice
 }
 
 [System.Serializable]
@@ -91,4 +94,39 @@ public class LearnableMove
 
     public MoveBase MoveBase => moveBase;
     public int Level => level;
+}
+
+public class TypeChart
+{
+    static float[][] chart =
+    {
+         //                      Nor   Fir   Wat   Gra   Thu   Bea   Spa   Dra   Ear   Air   Dig   Fai   Tim   Dar   Ice   Dre
+        /*Normal*/  new float[] {1f,   1f,   1f,   1f,   1f,   0.5f, 1f,   1f,   1f,   1f,   1f,   1f,   1f,   1f,   1f,   0f},
+        /*Fire*/    new float[] {1f,   0.5f, 0.5f, 2f,   1f,   1f,   1f,   1f,   1f,   2f,   1f,   1f,   1f,   1f,   2f,   1f},
+        /*Water*/   new float[] {1f,   2f,   0.5f, 0.5f, 0.5f, 1f,   1f,   1f,   2f,   1f,   2f,   1f,   1f,   1f,   0.5f, 1f},
+        /*Grass*/   new float[] {1f,   0.5f, 2f,   0.5f, 1f,   1f,   1f,   1f,   2f,   1f,   1f,   2f,   1f,   1f,   0.5f, 1f},
+        /*Thunder*/ new float[] {1f,   1f,   2f,   0.5f, 1f,   1f,   1f,   0.5f, 0f,   1f,   2f,   1f,   1f,   1f,   2f,   1f},
+        /*Beast*/   new float[] {2f,   0.5f, 1f,   1f,   1f,   2f,   1f,   0.5f, 1f,   1f,   1f,   1f,   2f,   1f,   1f,   1f},
+        /*Space*/   new float[] {2f,   1f,   1f,   1f,   1f,   1f,   0f,   2f,   1f,   1f,   1f,   2f,   2f,   0.5f, 1f,   0.5f},
+        /*Dragon*/  new float[] {1f,   1f,   1f,   1f,   0.5f, 2f,   1f,   2f,   1f,   2f,   1f,   2f,   1f,   1f,   1f,   2f},
+        /*Earth*/   new float[] {1f,   2f,   0.5f, 0.5f, 2f,   1f,   1f,   1f,   1f,   0.5f, 2f,   1f,   1f,   1f,   1f,   0f},
+        /*Air*/     new float[] {1f,   0.5f, 1f,   2f,   1f,   2f,   1f,   0.5f, 2f,   1f,   1f,   1f,   1f,   1f,   1f,   1f},
+        /*Digi*/    new float[] {2f,   0.5f, 1f,   1f,   1f,   1f,   1f,   1f,   1f,   1f,   1f,   2f,   1f,   1f,   1f,   1f},
+        /*Fairy*/   new float[] {1f,   1f,   1f,   1f,   1f,   2f,   2f,   1f,   2f,   1f,   0f,   1f,   1f,   2f,   1f,   1f},
+        /*Time*/    new float[] {1f,   1f,   1f,   1f,   1f,   1f,   2f,   1f,   1f,   1f,   1f,   1f,   1f,   1f,   1f,   1f},
+        /*Dark*/    new float[] {1f,   1f,   1f,   1f,   1f,   2f,   2f,   1f,   1f,   1f,   1f,   0.5f, 1f,   1f,   1f,   2f},
+        /*Ice*/     new float[] {1f,   1f,   2f,   1f,   1f,   1f,   1f,   2f,   1f,   1f,   1f,   1f,   1f,   1f,   0.5f, 1f},
+        /*Dream*/   new float[] {1f,   1f,   1f,   1f,   1f,   1f,   1f,   1f,   1f,   1f,   1f,   1f,   2f,   0.5f, 1f,   1f}
+    };
+
+    public static float GetEffectiveness(ToyoType attackType, ToyoType defendType)
+    {
+        if (attackType == ToyoType.None || defendType == ToyoType.None)
+            return 1f;
+
+        int row = (int)attackType - 1;
+        int col = (int)defendType - 1;
+
+        return chart[row][col];
+    }
 }
