@@ -20,5 +20,11 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Holidays Scene.unity
     guid: 2fc7d2b56fb9d4a4b90cd074b23f5380
+  - enabled: 1
+    path: Assets/Main Resources/Biomes/Biome Scenes/desert scene.unity
+    guid: cc20de7a8c55bb345a34754b0dbbeb18
+  - enabled: 1
+    path: Assets/Main Resources/Biomes/Biome Scenes/forest scene.unity
+    guid: 063aec8562f76584d8b7d7edd61f9074
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 19df28f54e992784bbdd9e1d259566a3, type: 2}

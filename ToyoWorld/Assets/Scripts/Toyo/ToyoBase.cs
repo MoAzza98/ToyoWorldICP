@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [CreateAssetMenu(menuName = "Pokemon/Create a new pokemon")]
 public class ToyoBase : ScriptableObject
@@ -11,6 +12,7 @@ public class ToyoBase : ScriptableObject
     [SerializeField] string description;
 
     [SerializeField] GameObject model;
+    [SerializeField] Sprite sprite;
 
     [SerializeField] ToyoType type1;
     [SerializeField] ToyoType type2;
@@ -45,6 +47,7 @@ public class ToyoBase : ScriptableObject
     public string Name => name;
     public string Description => description;
     public GameObject Model => model;
+    public Sprite Sprite => sprite;
 
     public int MaxHp => maxHp;
     public int Attack => attack;

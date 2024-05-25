@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Pokeball : MonoBehaviour
 {
-    [SerializeField] LayerMask terrainLayer;
     [SerializeField] GameObject spawnEffect;
 
     public Toyo ToyoToSpawn { get; set; }
@@ -81,7 +80,7 @@ public class Pokeball : MonoBehaviour
         }
 
         var rayOrigin = spawnPos + Vector3.up;
-        if (Physics.Raycast(rayOrigin, Vector3.down, out RaycastHit hit, 10f, terrainLayer))
+        if (Physics.Raycast(rayOrigin, Vector3.down, out RaycastHit hit, 10f, GameLayers.i.GroundLayer))
         {
             var dirToCam = (cam.position - hit.point).normalized;
             dirToCam.y = 0;
@@ -91,11 +90,7 @@ public class Pokeball : MonoBehaviour
 
             yield return new WaitForSeconds(0.2f);
 
-            if (ToyoToSpawn.Model == null)
-                ToyoToSpawn.SetModel(Instantiate(ToyoToSpawn.Base.Model, hit.point, Quaternion.identity));
-
-            ToyoToSpawn.Model.SetActive(true);
-            ToyoToSpawn.Model.transform.position = hit.point;
+            ToyoParty.SpawnModel(ToyoToSpawn, hit.point);
             ToyoToSpawn.Model.transform.forward = (wildToyo != null)? -dirToPlayerPokemon : dirToCam;
 
             if (wildToyo != null)

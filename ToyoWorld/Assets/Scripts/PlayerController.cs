@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
     Animator animator;
     CharacterController characterController;
     ToyoParty playerParty;
+    PartyWidget partyWidget;
     public static PlayerController i { get; private set; }
     private void Awake()
     {
@@ -44,6 +45,9 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         characterController = GetComponent<CharacterController>();
         playerParty = GetComponent<ToyoParty>();
+
+        partyWidget = FindObjectOfType<PartyWidget>();
+
         i = this;
     }
 
@@ -165,7 +169,7 @@ public class PlayerController : MonoBehaviour
             targetPos = rayOrgin + camera.transform.forward * throwRange;
 
         pokeballObj.ToyoParty = playerParty;
-        pokeballObj.ToyoToSpawn = playerParty.Toyos[0];
+        pokeballObj.ToyoToSpawn = partyWidget.SelectedToyo;
         pokeballObj.LaunchToTarget(targetPos);
     }
 

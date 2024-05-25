@@ -10,14 +10,15 @@ public class BattleState : State<GameController>
 {
     [SerializeField] BattleHUD battleHudPrefab;
 
-    public Toyo PlayerToyo { get; private set; }
-    public Toyo EnemyToyo { get; private set; }
+    public Toyo PlayerToyo { get; set; }
+    public Toyo EnemyToyo { get; set; }
     public ToyoParty PlayerParty { get; private set; }
 
     public bool IsBattleOver { get; private set; }
 
     public int SelectedMove { get; set; }
     public BattleActions SelectedAction { get; set; }
+    public Toyo SelectedToyo { get; set; }
 
     public StateMachine<BattleState> StateMachine { get; private set; }
 
@@ -55,7 +56,7 @@ public class BattleState : State<GameController>
         StateMachine.ChangeState(ActionSelectionState.i);
     }
 
-    void ShowBattleHUDs()
+    public void ShowBattleHUDs()
     {
         if (PlayerToyo.BattleHUD == null)
             PlayerToyo.BattleHUD = Instantiate(battleHudPrefab, PlayerToyo.Model.transform);

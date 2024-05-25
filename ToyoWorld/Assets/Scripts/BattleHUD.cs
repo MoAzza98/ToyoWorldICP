@@ -13,12 +13,6 @@ public class BattleHUD : MonoBehaviour
     Toyo _toyo;
     public void SetData(Toyo toyo)
     {
-        if (_toyo != null)
-        {
-            _toyo.OnHPChanged -= SetHP;
-            _toyo.OnLevelChanged -= SetLevel;
-        }
-
         _toyo = toyo;
 
         nameTxt.text = toyo.Base.Name;
@@ -30,6 +24,12 @@ public class BattleHUD : MonoBehaviour
 
         toyo.OnHPChanged += SetHP;
         toyo.OnLevelChanged += SetLevel;
+    }
+
+    private void OnDisable()
+    {
+        _toyo.OnHPChanged -= SetHP;
+        _toyo.OnLevelChanged -= SetLevel;
     }
 
     void SetHP()

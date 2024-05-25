@@ -15,6 +15,7 @@ MonoBehaviour:
   name: Dragon Bot
   description: 
   model: {fileID: 5004312888396468222, guid: 50e3ff481f0739b49b5092e60409cd74, type: 3}
+  sprite: {fileID: 21300000, guid: d819d29c71518d340b52028b17af51c2, type: 3}
   type1: 2
   type2: 0
   maxHp: 39

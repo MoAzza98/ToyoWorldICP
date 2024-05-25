@@ -47,6 +47,16 @@ public class RunTurnState : State<BattleState>
                 if (bs.IsBattleOver) yield break;
             }
         }
+        else if (bs.SelectedAction == BattleActions.SwitchToyo)
+        {
+            yield return SwitchToyo(bs.SelectedToyo);
+
+            enemyAction.Target = bs.PlayerToyo;     // Player toyo will change after switching
+            yield return RunMove(enemyAction.Source, enemyAction.Target, enemyAction.Move);
+        }
+
+
+        if (bs.IsBattleOver) yield break;
 
         bs.StateMachine.ChangeState(ActionSelectionState.i);
     }
@@ -68,6 +78,23 @@ public class RunTurnState : State<BattleState>
         {
             yield return HandleToyoFainted(target);
         }
+    }
+
+    public IEnumerator SwitchToyo(Toyo newToyo)
+    {
+        if (playerToyo.Hp > 0)
+        {
+            yield return DialogueState.i.ShowDialogue($"Come back {playerToyo.Base.Name}");
+        }
+        playerToyo.Model.SetActive(false);
+
+        ToyoParty.SpawnModel(newToyo, playerToyo.Model.transform.position, playerToyo.Model.transform.rotation);
+        playerToyo = newToyo;
+        bs.PlayerToyo = playerToyo;
+
+        bs.ShowBattleHUDs();
+        
+        yield return DialogueState.i.ShowDialogue($"Go {newToyo.Base.Name}!");
     }
 
     IEnumerator HandleToyoFainted(Toyo faintedToyo)
