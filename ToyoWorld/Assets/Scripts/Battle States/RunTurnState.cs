@@ -88,13 +88,13 @@ public class RunTurnState : State<BattleState>
         }
         playerToyo.Model.SetActive(false);
 
+        yield return DialogueState.i.ShowDialogue($"Go {newToyo.Base.Name}!");
+
         ToyoParty.SpawnModel(newToyo, playerToyo.Model.transform.position, playerToyo.Model.transform.rotation);
         playerToyo = newToyo;
         bs.PlayerToyo = playerToyo;
 
         bs.ShowBattleHUDs();
-        
-        yield return DialogueState.i.ShowDialogue($"Go {newToyo.Base.Name}!");
     }
 
     IEnumerator HandleToyoFainted(Toyo faintedToyo)
