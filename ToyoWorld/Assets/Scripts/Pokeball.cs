@@ -44,6 +44,8 @@ public class Pokeball : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (rigidbody.isKinematic) return;
+
         if (collision.gameObject.tag != "Player")
         {
             rigidbody.isKinematic = true;
@@ -53,6 +55,8 @@ public class Pokeball : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (rigidbody.isKinematic) return;
+
         if (other.gameObject.tag != "Player")
         {
             rigidbody.isKinematic = true;

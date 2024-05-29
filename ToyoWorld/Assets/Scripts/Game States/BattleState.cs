@@ -64,7 +64,7 @@ public class BattleState : State<GameController>
         if (EnemyToyo.BattleHUD == null)
             EnemyToyo.BattleHUD = Instantiate(battleHudPrefab, EnemyToyo.Model.transform);
 
-        PlayerToyo.ShowHUD();
+        PlayerToyo.ShowHUD(true);
         EnemyToyo.ShowHUD();
     }
 
