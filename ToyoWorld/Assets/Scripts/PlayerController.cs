@@ -29,9 +29,11 @@ public class PlayerController : MonoBehaviour
 
     float aimAngle = 0f;
 
+    public Vector3 HandOffset { get; set; }
+
     Transform camTransform;
     Camera camera;
-    Animator animator;
+    public Animator animator;
     CharacterController characterController;
     ToyoParty playerParty;
     PartyWidget partyWidget;
@@ -42,11 +44,12 @@ public class PlayerController : MonoBehaviour
         Cursor.visible = false;
         camera = Camera.main;
         camTransform = Camera.main.transform;
-        animator = GetComponent<Animator>();
+        
         characterController = GetComponent<CharacterController>();
         playerParty = GetComponent<ToyoParty>();
 
         partyWidget = FindObjectOfType<PartyWidget>();
+        animator = GetComponent<Animator>();
 
         i = this;
     }
@@ -156,6 +159,7 @@ public class PlayerController : MonoBehaviour
         aimCamera.SetActive(true);
 
         pokeballObj = Instantiate(pokeballPrefab, animator.GetBoneTransform(HumanBodyBones.RightHand));
+        pokeballObj.transform.localPosition = HandOffset;
     }
 
     Vector3 targetPos;

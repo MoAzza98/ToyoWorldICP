@@ -54,6 +54,11 @@ public class BattleHUD : MonoBehaviour
         yield return expBar.SetProgressSmooth(_toyo.GetNormalizedExp());
     }
 
+    public void EnableExpBar()
+    {
+        expBar.gameObject.SetActive(true);
+    }
+
     public void DisableExpBar()
     {
         expBar.gameObject.SetActive(false);

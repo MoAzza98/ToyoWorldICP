@@ -23,6 +23,14 @@ public class Toyo
     public event Action OnHPChanged;
     public event Action OnLevelChanged;
 
+    public Toyo(ToyoBase pBase, int pLevel)
+    {
+        _base = pBase;
+        level = pLevel;
+
+        Init();
+    }
+
     public void Init()
     {
         // Generate the moves based on the level
@@ -49,10 +57,13 @@ public class Toyo
         Animator.applyRootMotion = true;
     }
 
-    public void ShowHUD()
+    public void ShowHUD(bool showExpBar=false)
     {
         BattleHUD.gameObject.SetActive(true);
         BattleHUD.SetData(this);
+
+        if (showExpBar)
+            BattleHUD.EnableExpBar();
     }
 
     void CalculateStats()

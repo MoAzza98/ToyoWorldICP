@@ -1152,6 +1152,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1389029757472248590}
   - component: {fileID: -8729718182833348427}
+  - component: {fileID: 1083582837688076931}
   m_Layer: 0
   m_Name: Fire Bot
   m_TagString: Untagged
@@ -1197,6 +1198,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!135 &1083582837688076931
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1733045386838591924}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 3.15
+  m_Center: {x: 0, y: 2.7, z: 0}
 --- !u!1 &1785112657983320678
 GameObject:
   m_ObjectHideFlags: 0

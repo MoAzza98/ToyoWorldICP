@@ -3,37 +3,40 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+
 public enum AIToyoState { Idle, Wander, Chase, Busy }
+
+
 
 public class WildToyo : MonoBehaviour
 {
-    [field: SerializeField] public Toyo Toyo { get; private set; }
+    [field: SerializeField] public Toyo Toyo { get; set; }
 
     [SerializeField] Vector2 idleTimeRange = new Vector2(2, 6);
     [SerializeField] Vector2 wanderRange = new Vector2(3, 8);
-    [SerializeField] LayerMask groundLayer;
 
     float idleTimer = 0f;
     Vector3 wanderTarget;
 
     AIToyoState state;
 
-
     NavMeshAgent navAgent;
     Animator animator;
-    private void Awake()
-    {
-        navAgent = GetComponent<NavMeshAgent>();
-        navAgent.updatePosition = true;
-        navAgent.updateRotation = true;
 
-        animator = GetComponent<Animator>();
+    public void SetData(Toyo toyo, Vector2 idleTimeRange, Vector2 wanderRange)
+    {
+        Toyo = toyo;
+        this.idleTimeRange = idleTimeRange;
+        this.wanderRange = wanderRange;
     }
 
     private void Start()
     {
         Toyo.Init();
         Toyo.SetModel(gameObject);
+
+        navAgent = GetComponentInChildren<NavMeshAgent>();
+        animator = GetComponentInChildren<Animator>();
 
         StartWanderState();
     }
@@ -67,6 +70,8 @@ public class WildToyo : MonoBehaviour
         }
 
         animator.SetFloat("speed", navAgent.velocity.magnitude / navAgent.speed, 0.2f, Time.deltaTime);
+
+        //transform.position = navAgent.transform.position;
     }
 
     void StartIdleState()
@@ -79,7 +84,7 @@ public class WildToyo : MonoBehaviour
     {
         state = AIToyoState.Wander;
 
-        var randomDir = new Vector3(Random.Range(wanderRange.x, wanderRange.y) * (Random.Range(0, 2) == 0? 1 : -1), 0f, 
+        var randomDir = new Vector3(Random.Range(wanderRange.x, wanderRange.y) * (Random.Range(0, 2) == 0 ? 1 : -1), 0f,
             Random.Range(wanderRange.x, wanderRange.y) * (Random.Range(0, 2) == 0 ? 1 : -1));
 
         wanderTarget = transform.position + randomDir;

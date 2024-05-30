@@ -29,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5138836318887020722}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.074, z: 0.037}
+  m_LocalPosition: {x: 0, y: -0.05, z: 0}
   m_LocalScale: {x: 0.099999964, y: 0.09999998, z: 0.099999964}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -127,8 +127,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 004bdb7743d441a4a8ef2c95f79c511e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  terrainLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  spawnEffect: {fileID: 4833960558831668538, guid: 8937df6d5eedc004aa0f047a9190465a,
-    type: 3}
+  spawnEffect: {fileID: 4833960558831668538, guid: 8937df6d5eedc004aa0f047a9190465a, type: 3}

@@ -133,7 +133,7 @@ public class RunTurnState : State<BattleState>
                 yield return playerToyo.BattleHUD.SetExpSmooth();
             }
 
-            playerToyo.BattleHUD.DisableExpBar();
+            //playerToyo.BattleHUD.DisableExpBar();
             //yield return new WaitForSeconds(1f);
         }
 
