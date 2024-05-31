@@ -50,6 +50,8 @@ public class BattleState : State<GameController>
 
     IEnumerator StartWildBattle()
     {
+        BoomServices.i.UserLostMatch().Forget();
+
         ShowBattleHUDs();
         yield return DialogueState.i.ShowDialogue($"{EnemyToyo.Base.Name} is keeping it's guard up...");
 
@@ -72,6 +74,9 @@ public class BattleState : State<GameController>
     {
         IsBattleOver = true;
         GameController.i.StateMachine.Pop();
+        
+        if (won)
+            BoomServices.i.UserWonMatch().Forget();
 
         //PlayerParty.Pokemons.ForEach(p => p.OnBattleOver());
         //OnBattleOver(won);

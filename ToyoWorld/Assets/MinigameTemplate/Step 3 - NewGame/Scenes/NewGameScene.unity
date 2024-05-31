@@ -483,6 +483,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loginCanvas: {fileID: 156162267}
   gameplayCanvas: {fileID: 235301791}
+  mainMenuSceneId: 5
   isLoggedIn: 0
 --- !u!1 &461515593
 GameObject:

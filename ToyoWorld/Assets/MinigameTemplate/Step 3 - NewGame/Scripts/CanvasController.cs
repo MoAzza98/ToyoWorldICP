@@ -2,11 +2,13 @@ namespace MinigameTemplate
 {
     using Boom;
     using UnityEngine;
+    using UnityEngine.SceneManagement;
 
     public class CanvasController : MonoBehaviour
     {
         [SerializeField] GameObject loginCanvas;
         [SerializeField] GameObject gameplayCanvas;
+        [SerializeField] int mainMenuSceneId = 0;
 
         [SerializeField, ShowOnly] bool isLoggedIn;
 
@@ -38,9 +40,12 @@ namespace MinigameTemplate
         {
             if (data.state == MainDataTypes.LoginData.State.LoggedIn)
             {
-                loginCanvas.SetActive(false);
-                gameplayCanvas.SetActive(true);
+                //loginCanvas.SetActive(false);
+                //gameplayCanvas.SetActive(true);
+
                 isLoggedIn = true;
+
+                SceneManager.LoadScene(mainMenuSceneId);
             }
             else isLoggedIn = false;
         }

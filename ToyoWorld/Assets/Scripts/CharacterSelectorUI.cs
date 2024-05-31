@@ -8,6 +8,7 @@ public class CharacterSelectorUI : MonoBehaviour
 {
     [SerializeField] Button boyButton;
     [SerializeField] Button girlButton;
+    [SerializeField] int sceneIdToLoad = 6;
 
     private void Start()
     {
@@ -18,6 +19,6 @@ public class CharacterSelectorUI : MonoBehaviour
     void StartGame(int gender)
     {
         PlayerPrefs.SetInt("PlayerGender", gender);
-        SceneManager.LoadScene(5);
+        SceneManager.LoadScene(sceneIdToLoad);
     }
 }
