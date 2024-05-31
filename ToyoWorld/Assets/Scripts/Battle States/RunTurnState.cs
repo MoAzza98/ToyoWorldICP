@@ -68,6 +68,19 @@ public class RunTurnState : State<BattleState>
         yield return DialogueState.i.ShowDialogue($"{source.Base.Name} used {move.Base.Name}");
 
         // Play animation, vfx, sfx of the move
+        if (move.Base.VFX != null)
+        {
+            var targetTransform = target.Model.transform;
+            var localOffset = move.Base.VFXOffset;
+            var posOffset = targetTransform.forward * localOffset.z + targetTransform.right * localOffset.x + targetTransform.up * localOffset.y;
+
+            var vfxObj = Instantiate(move.Base.VFX);
+            
+            vfxObj.transform.position = target.Collider.bounds.center + posOffset;
+            vfxObj.transform.rotation = Quaternion.LookRotation(-targetTransform.forward);
+
+            StartCoroutine(AsyncUtil.RunAfterTime(10, () => Destroy(vfxObj)));
+        }
 
         // Take damage
         var damageDetails = target.TakeDamage(move, source);
