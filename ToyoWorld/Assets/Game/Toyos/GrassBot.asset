@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Grass Bot
   description: 
-  model: {fileID: 4366493973497506435, guid: 57210e7eb04c17242b8182f09fc40bf5, type: 3}
-  sprite: {fileID: 21300000, guid: 0f37bf3cf5680a64d863b5f155b2a597, type: 3}
+  model: {fileID: 5256328835639114060, guid: 9a8f201ae649c5e4090187e5a3f036bd, type: 3}
+  sprite: {fileID: 21300000, guid: 548aa23d6aee2e149bb0e8d781fd4192, type: 3}
   type1: 4
   type2: 0
   maxHp: 45

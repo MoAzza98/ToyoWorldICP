@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Razor Leaf
   description: 
-  type: 5
+  type: 4
   category: 0
   power: 55
   accuracy: 95
   maxPP: 35
-  vfx: {fileID: 0}
+  vfx: {fileID: 2045510879269876026, guid: fd8fe28affd009540acef1ed81439341, type: 3}
   vfxOffset: {x: 0, y: 0, z: 1}

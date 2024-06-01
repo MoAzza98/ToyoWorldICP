@@ -1645,7 +1645,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a942e03b39600e41a1b161e958048f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_stiffnessForce: 0.4
+  m_stiffnessForce: 4
   m_gravityPower: 0
   m_gravityDir: {x: -0, y: -1, z: 0}
   m_dragForce: 0.4
@@ -1726,7 +1726,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a942e03b39600e41a1b161e958048f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_stiffnessForce: 0.67083335
+  m_stiffnessForce: 4
   m_gravityPower: 0
   m_gravityDir: {x: -0, y: -1, z: 0}
   m_dragForce: 0.4
@@ -3954,7 +3954,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a942e03b39600e41a1b161e958048f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_stiffnessForce: 0.4
+  m_stiffnessForce: 4
   m_gravityPower: 0
   m_gravityDir: {x: -0, y: -1, z: 0}
   m_dragForce: 0.4
@@ -6893,7 +6893,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a942e03b39600e41a1b161e958048f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_stiffnessForce: 0.8
+  m_stiffnessForce: 4
   m_gravityPower: 0
   m_gravityDir: {x: -0, y: -1, z: 0}
   m_dragForce: 0.4
@@ -6943,7 +6943,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a942e03b39600e41a1b161e958048f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_stiffnessForce: 0.7
+  m_stiffnessForce: 4
   m_gravityPower: 0
   m_gravityDir: {x: -0, y: -1, z: 0}
   m_dragForce: 0.4
@@ -7730,7 +7730,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a942e03b39600e41a1b161e958048f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_stiffnessForce: 0.702522
+  m_stiffnessForce: 4
   m_gravityPower: 0
   m_gravityDir: {x: -0, y: -1, z: 0}
   m_dragForce: 0.4
@@ -9148,7 +9148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a942e03b39600e41a1b161e958048f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_stiffnessForce: 0.7
+  m_stiffnessForce: 4
   m_gravityPower: 0
   m_gravityDir: {x: -0, y: -1, z: 0}
   m_dragForce: 0.4
@@ -9815,7 +9815,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a942e03b39600e41a1b161e958048f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_stiffnessForce: 0.4
+  m_stiffnessForce: 4
   m_gravityPower: 0
   m_gravityDir: {x: -0, y: -1, z: 0}
   m_dragForce: 0.4
@@ -10152,7 +10152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a942e03b39600e41a1b161e958048f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_stiffnessForce: 0.7041662
+  m_stiffnessForce: 4
   m_gravityPower: 0
   m_gravityDir: {x: -0, y: -1, z: 0}
   m_dragForce: 0.4
@@ -14156,7 +14156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a942e03b39600e41a1b161e958048f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_stiffnessForce: 0.70416665
+  m_stiffnessForce: 4
   m_gravityPower: 0
   m_gravityDir: {x: -0, y: -1, z: 0}
   m_dragForce: 0.4
@@ -17151,7 +17151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a942e03b39600e41a1b161e958048f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_stiffnessForce: 0.65833336
+  m_stiffnessForce: 4
   m_gravityPower: 0
   m_gravityDir: {x: -0, y: -1, z: 0}
   m_dragForce: 0.4
@@ -17509,7 +17509,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a942e03b39600e41a1b161e958048f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_stiffnessForce: 0.6990132
+  m_stiffnessForce: 4
   m_gravityPower: 0
   m_gravityDir: {x: -0, y: -1, z: 0}
   m_dragForce: 0.4
@@ -17591,7 +17591,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a942e03b39600e41a1b161e958048f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_stiffnessForce: 0.7
+  m_stiffnessForce: 4
   m_gravityPower: 0
   m_gravityDir: {x: -0, y: -1, z: 0}
   m_dragForce: 0.4
@@ -18054,7 +18054,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a942e03b39600e41a1b161e958048f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_stiffnessForce: 0.8
+  m_stiffnessForce: 4
   m_gravityPower: 0
   m_gravityDir: {x: -0, y: -1, z: 0}
   m_dragForce: 0.4
@@ -18204,7 +18204,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a942e03b39600e41a1b161e958048f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_stiffnessForce: 0.4
+  m_stiffnessForce: 4
   m_gravityPower: 0
   m_gravityDir: {x: -0, y: -1, z: 0}
   m_dragForce: 0.4
@@ -19201,7 +19201,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a942e03b39600e41a1b161e958048f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_stiffnessForce: 0.76666665
+  m_stiffnessForce: 4
   m_gravityPower: 0
   m_gravityDir: {x: -0, y: -1, z: 0}
   m_dragForce: 0.4
@@ -22443,7 +22443,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a942e03b39600e41a1b161e958048f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_stiffnessForce: 0.8
+  m_stiffnessForce: 4
   m_gravityPower: 0
   m_gravityDir: {x: -0, y: -1, z: 0}
   m_dragForce: 0.4
@@ -26282,7 +26282,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a942e03b39600e41a1b161e958048f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_stiffnessForce: 0.4
+  m_stiffnessForce: 4
   m_gravityPower: 0
   m_gravityDir: {x: -0, y: -1, z: 0}
   m_dragForce: 0.4
@@ -27786,7 +27786,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a942e03b39600e41a1b161e958048f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_stiffnessForce: 0.4
+  m_stiffnessForce: 4
   m_gravityPower: 0
   m_gravityDir: {x: -0, y: -1, z: 0}
   m_dragForce: 0.4
@@ -28639,7 +28639,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a942e03b39600e41a1b161e958048f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_stiffnessForce: 0.4
+  m_stiffnessForce: 4
   m_gravityPower: 0
   m_gravityDir: {x: -0, y: -1, z: 0}
   m_dragForce: 0.4
@@ -29298,7 +29298,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a942e03b39600e41a1b161e958048f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_stiffnessForce: 0.4
+  m_stiffnessForce: 4
   m_gravityPower: 0
   m_gravityDir: {x: -0, y: -1, z: 0}
   m_dragForce: 0.4
@@ -30733,7 +30733,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a942e03b39600e41a1b161e958048f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_stiffnessForce: 0.7083333
+  m_stiffnessForce: 4
   m_gravityPower: 0
   m_gravityDir: {x: -0, y: -1, z: 0}
   m_dragForce: 0.4

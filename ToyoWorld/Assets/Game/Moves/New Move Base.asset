@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a5bc9c95524418848a6f650ca33f5d05, type: 3}
-  m_Name: Vine Whip
+  m_Name: New Move Base
   m_EditorClassIdentifier: 
-  name: Vine Whip
+  name: Water Jet
   description: 
-  type: 4
+  type: 3
   category: 0
-  power: 45
-  accuracy: 100
-  maxPP: 25
-  vfx: {fileID: 7126240431474898829, guid: 99120e29c82f6404e97fdfcb1c249dc1, type: 3}
+  power: 55
+  accuracy: 95
+  maxPP: 15
+  vfx: {fileID: 1702755728668416008, guid: f58b9ab01f457cd4bb206978a0d6557f, type: 3}
   vfxOffset: {x: 0, y: 0, z: 1}

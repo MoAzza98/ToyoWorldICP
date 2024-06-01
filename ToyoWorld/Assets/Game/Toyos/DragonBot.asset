@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Dragon Bot
   description: 
-  model: {fileID: 5004312888396468222, guid: 50e3ff481f0739b49b5092e60409cd74, type: 3}
-  sprite: {fileID: 21300000, guid: d819d29c71518d340b52028b17af51c2, type: 3}
-  type1: 2
+  model: {fileID: 3462239151141861098, guid: b5457d8c538266747ab5d278a4911f08, type: 3}
+  sprite: {fileID: 21300000, guid: d016b3ecbafaaf746894a67f8189cf0c, type: 3}
+  type1: 8
   type2: 0
   maxHp: 39
   attack: 52
