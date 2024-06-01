@@ -10,26 +10,26 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ff9d1195e97f31441a872e1693a49fa7, type: 3}
-  m_Name: WaterBot
+  m_Name: Normal Bot
   m_EditorClassIdentifier: 
-  name: Water Bot
+  name: Normal Bot
   description: 
-  model: {fileID: 9002047414277214047, guid: e5ad7f974e7ce5c4bb25147efe18f842, type: 3}
-  sprite: {fileID: 21300000, guid: ad09cccdda096de4aa65a5a89f1890a0, type: 3}
+  model: {fileID: 1562641952796896261, guid: 1cc0eca891768814a8ba5f29ddaf2208, type: 3}
+  sprite: {fileID: 21300000, guid: 6c399239b6e8d844a9322c3b1cc7ffb3, type: 3}
   type1: 4
   type2: 0
-  maxHp: 79
-  attack: 83
-  defense: 100
-  spAttack: 85
-  spDefense: 105
-  speed: 75
+  maxHp: 160
+  attack: 110
+  defense: 65
+  spAttack: 65
+  spDefense: 110
+  speed: 30
   expYield: 100
   growthRate: 0
   learnableMoves:
   - moveBase: {fileID: 11400000, guid: 50e3a76c523f37a44b1c52e33658c86c, type: 2}
     level: 1
-  - moveBase: {fileID: 11400000, guid: a622ba066b7c5e04896e02e927de3661, type: 2}
+  - moveBase: {fileID: 11400000, guid: afce50355f854494684eac6d574e2b1c, type: 2}
     level: 3
   - moveBase: {fileID: 11400000, guid: 59cb7828f154dfa478c3222155fe8550, type: 2}
     level: 12

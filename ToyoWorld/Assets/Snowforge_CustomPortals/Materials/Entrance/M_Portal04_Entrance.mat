@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: M_Portal04_Entrance
-  m_Shader: {fileID: -6465566751694194690, guid: 3e72a028fdcc4ca4c86d7142e4e632e8, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: b6fe7246dc0a99b48b19b0e67c8a1fda, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -20,8 +20,24 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _CustomTexture:
+        m_Texture: {fileID: 2800000, guid: cb413ca49d3627f4296ecf1c96adc1ea, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_33382cc93dc64c49925f5b3f84fffafb_Texture_1:
+        m_Texture: {fileID: 2800000, guid: 29867eeba1d1d5e4e9b5b3b6832680a0, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_e3297286babe41688c1e053f617adf52_Texture_1:
         m_Texture: {fileID: 2800000, guid: f0db6eb49451f0a44a589265a10af34f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture:
+        m_Texture: {fileID: 2800000, guid: fa1e84e21280a6f4787c91ff1a8c7750, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Trail_Texture:
+        m_Texture: {fileID: 2800000, guid: 800da4488d04afe4cb2c69bc38b6167d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -38,13 +54,33 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - Vector1_7e4b42ea7d394b6fb368b267ced476ce: 0
+    - Vector1_814800c317174ad4908dd45b33f85bbb: 0.8
+    - Vector1_a189118e81a6489087e3dd8ef73ad928: 0.3
+    - Vector1_f649660779a14c49b308d0c9e8f861e1: 0
     - _Alpha: 0
     - _AlphaBorder: 0
+    - _Count: 1
+    - _CustomTextureOffsetX: 0
+    - _CustomTextureOffsetY: 0
+    - _CustomTextureRotation: 0
+    - _CustomTextureTillingX: 1
+    - _CustomTextureTillingY: 1
+    - _CustomTextureTwirlStrength: 0
+    - _Density: 50
+    - _Dissolve: 0
+    - _Effect: 1
+    - _Index: 1
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Scale: 30
+    - _Sides: 8
     - _Speed: 0.8
+    - _TEXTURETYPE: 1
+    - _Trail_Scale: 1
+    - _Trail_Speed: 0.4
     - _TwirlStrength: 10
+    - _Visibility: 1
     - _bEffect: 1
     m_Colors:
     - _Color: {r: 0.2588235, g: 0, b: 1, a: 0}

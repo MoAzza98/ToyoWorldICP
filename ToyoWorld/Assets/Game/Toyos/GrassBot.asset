@@ -18,12 +18,12 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 548aa23d6aee2e149bb0e8d781fd4192, type: 3}
   type1: 4
   type2: 0
-  maxHp: 45
-  attack: 45
-  defense: 49
-  spAttack: 65
-  spDefense: 65
-  speed: 45
+  maxHp: 95
+  attack: 109
+  defense: 105
+  spAttack: 75
+  spDefense: 85
+  speed: 56
   expYield: 500
   growthRate: 0
   learnableMoves:
