@@ -17,6 +17,9 @@ public class MoveBase : ScriptableObject
     [SerializeField] int accuracy;
     [SerializeField] int maxPP;
 
+    [SerializeField] GameObject vfx;
+    [SerializeField] Vector3 vfxOffset = new Vector3(0, 0, 1);
+
     public string Name => name;
     public string Description => description;
 
@@ -26,6 +29,9 @@ public class MoveBase : ScriptableObject
     public int Power => power;
     public int Accuracy => accuracy;
     public int MaxPP => maxPP;
+
+    public GameObject VFX => vfx;
+    public Vector3 VFXOffset => vfxOffset;
 }
 
 public enum MoveCategory { Physical, Special, Status }

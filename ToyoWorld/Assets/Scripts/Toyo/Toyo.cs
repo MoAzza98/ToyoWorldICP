@@ -19,6 +19,7 @@ public class Toyo
     public GameObject Model { get; set; }
     public BattleHUD BattleHUD { get; set; }
     public Animator Animator { get; private set; }
+    public SphereCollider Collider { get; private set; }
 
     public event Action OnHPChanged;
     public event Action OnLevelChanged;
@@ -55,6 +56,8 @@ public class Toyo
         Model = model;
         Animator = Model.GetComponent<Animator>();
         Animator.applyRootMotion = true;
+
+        Collider = Model.GetComponent<SphereCollider>();
     }
 
     public void ShowHUD(bool showExpBar=false)

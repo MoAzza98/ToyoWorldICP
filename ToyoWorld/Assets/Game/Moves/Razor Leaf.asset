@@ -15,6 +15,9 @@ MonoBehaviour:
   name: Razor Leaf
   description: 
   type: 5
+  category: 0
   power: 55
   accuracy: 95
   maxPP: 35
+  vfx: {fileID: 0}
+  vfxOffset: {x: 0, y: 0, z: 1}

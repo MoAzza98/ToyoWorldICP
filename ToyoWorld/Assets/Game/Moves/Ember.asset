@@ -15,6 +15,9 @@ MonoBehaviour:
   name: Ember
   description: 
   type: 2
+  category: 0
   power: 45
   accuracy: 100
   maxPP: 25
+  vfx: {fileID: 7898358583556127077, guid: e95e72535ed275d40a4e26804e329db6, type: 3}
+  vfxOffset: {x: 0, y: 0, z: 1}

@@ -15,6 +15,9 @@ MonoBehaviour:
   name: Tackle
   description: 
   type: 1
+  category: 0
   power: 40
   accuracy: 100
   maxPP: 35
+  vfx: {fileID: 6353739613531823181, guid: 89aaee91c333aaa408009b4a124a96a2, type: 3}
+  vfxOffset: {x: 0, y: 0, z: 1}

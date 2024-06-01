@@ -15,6 +15,9 @@ MonoBehaviour:
   name: Vine Whip
   description: 
   type: 5
+  category: 0
   power: 45
   accuracy: 100
   maxPP: 25
+  vfx: {fileID: 7126240431474898829, guid: 99120e29c82f6404e97fdfcb1c249dc1, type: 3}
+  vfxOffset: {x: 0, y: 0, z: 1}
