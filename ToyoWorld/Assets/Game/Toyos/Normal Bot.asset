@@ -16,7 +16,7 @@ MonoBehaviour:
   description: 
   model: {fileID: 1562641952796896261, guid: 1cc0eca891768814a8ba5f29ddaf2208, type: 3}
   sprite: {fileID: 21300000, guid: 6c399239b6e8d844a9322c3b1cc7ffb3, type: 3}
-  type1: 4
+  type1: 1
   type2: 0
   maxHp: 160
   attack: 110

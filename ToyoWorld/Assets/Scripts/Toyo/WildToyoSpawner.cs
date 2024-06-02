@@ -11,7 +11,10 @@ public class WildToyoSpawner : MonoBehaviour
     {
         var toyo = MapArea.i.GetRandomWildToyo();
 
-        var model = Instantiate(toyo.Base.Model, transform);
+
+        var model = Instantiate(toyo.Base.Model, transform.position, Quaternion.identity);
+        Debug.Log(model);
+
         var wildToyo = model.AddComponent<WildToyo>();
         wildToyo.SetData(toyo, idleTimeRange, wanderRange);
 
