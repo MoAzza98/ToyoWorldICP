@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5bc9c95524418848a6f650ca33f5d05, type: 3}
   m_Name: Nervous Shock
   m_EditorClassIdentifier: 
-  name: Water Jet
+  name: Nervous Shock
   description: 
   type: 5
   category: 1
   power: 70
   accuracy: 100
   maxPP: 15
-  vfx: {fileID: 3326623571134901291, guid: dbc0dcce824355241b18134252067338, type: 3}
+  vfx: {fileID: 4811060383797844951, guid: 875b84d9d5ee68a44a2de618b8643614, type: 3}
   vfxOffset: {x: 0, y: 0, z: 1}

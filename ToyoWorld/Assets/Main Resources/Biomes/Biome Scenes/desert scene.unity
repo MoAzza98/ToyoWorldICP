@@ -3794,6 +3794,52 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 9606d1e4d1e67924f85554d319358951, type: 3}
   m_PrefabInstance: {fileID: 80426931}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &80528643
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 80528645}
+  - component: {fileID: 80528644}
+  m_Layer: 0
+  m_Name: WildToyoSpawner (5)
+  m_TagString: Untagged
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &80528644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 80528643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c8587fc1a76fc048a54cef5596f1ecb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  idleTimeRange: {x: 2, y: 6}
+  wanderRange: {x: 3, y: 8}
+--- !u!4 &80528645
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 80528643}
+  m_LocalRotation: {x: -0, y: 0.5053035, z: -0, w: 0.86294174}
+  m_LocalPosition: {x: 120.7, y: 0.74, z: 146.7}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 17
+  m_LocalEulerAnglesHint: {x: 0, y: 60.703, z: 0}
 --- !u!1001 &82393314
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6703,6 +6749,52 @@ CapsuleCollider:
   m_Height: 2.2824855
   m_Direction: 1
   m_Center: {x: -0.13313432, y: 1.1082383, z: 0.21661475}
+--- !u!1 &142572753
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 142572755}
+  - component: {fileID: 142572754}
+  m_Layer: 0
+  m_Name: WildToyoSpawner (13)
+  m_TagString: Untagged
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &142572754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 142572753}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c8587fc1a76fc048a54cef5596f1ecb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  idleTimeRange: {x: 2, y: 6}
+  wanderRange: {x: 3, y: 8}
+--- !u!4 &142572755
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 142572753}
+  m_LocalRotation: {x: -0, y: 0.5053035, z: -0, w: 0.86294174}
+  m_LocalPosition: {x: 262.2, y: 6.76, z: 171.2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 25
+  m_LocalEulerAnglesHint: {x: 0, y: 60.703, z: 0}
 --- !u!1 &142861224
 GameObject:
   m_ObjectHideFlags: 0
@@ -11728,6 +11820,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09da25d0acf8756439815c7f6c41b609, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &248251734
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 248251736}
+  - component: {fileID: 248251735}
+  m_Layer: 0
+  m_Name: WildToyoSpawner (9)
+  m_TagString: Untagged
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &248251735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 248251734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c8587fc1a76fc048a54cef5596f1ecb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  idleTimeRange: {x: 2, y: 6}
+  wanderRange: {x: 3, y: 8}
+--- !u!4 &248251736
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 248251734}
+  m_LocalRotation: {x: -0, y: 0.5053035, z: -0, w: 0.86294174}
+  m_LocalPosition: {x: 65.8, y: 0.74, z: 154.4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 21
+  m_LocalEulerAnglesHint: {x: 0, y: 60.703, z: 0}
 --- !u!1001 &248824618
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12986,6 +13124,52 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: af1f598f5d3af6a4a8a33d5ad6ee09f8, type: 3}
   m_PrefabInstance: {fileID: 281233222}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &281349610
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 281349612}
+  - component: {fileID: 281349611}
+  m_Layer: 0
+  m_Name: WildToyoSpawner (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &281349611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 281349610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c8587fc1a76fc048a54cef5596f1ecb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  idleTimeRange: {x: 2, y: 6}
+  wanderRange: {x: 3, y: 8}
+--- !u!4 &281349612
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 281349610}
+  m_LocalRotation: {x: -0, y: 0.5053035, z: -0, w: 0.86294174}
+  m_LocalPosition: {x: 151.55, y: 0.74, z: 167.65}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: 60.703, z: 0}
 --- !u!1001 &282146263
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19062,6 +19246,52 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: eb75b8e35401b064fa5c1f7787749dc7, type: 3}
   m_PrefabInstance: {fileID: 396166698}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &396869720
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 396869722}
+  - component: {fileID: 396869721}
+  m_Layer: 0
+  m_Name: WildToyoSpawner (12)
+  m_TagString: Untagged
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &396869721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 396869720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c8587fc1a76fc048a54cef5596f1ecb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  idleTimeRange: {x: 2, y: 6}
+  wanderRange: {x: 3, y: 8}
+--- !u!4 &396869722
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 396869720}
+  m_LocalRotation: {x: -0, y: 0.5053035, z: -0, w: 0.86294174}
+  m_LocalPosition: {x: 127.9, y: 0.74, z: 137.6}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 24
+  m_LocalEulerAnglesHint: {x: 0, y: 60.703, z: 0}
 --- !u!1 &396967210 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: eb75b8e35401b064fa5c1f7787749dc7, type: 3}
@@ -28040,6 +28270,52 @@ Transform:
   m_Father: {fileID: 1693127529}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &578036913
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 578036915}
+  - component: {fileID: 578036914}
+  m_Layer: 0
+  m_Name: WildToyoSpawner (11)
+  m_TagString: Untagged
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &578036914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 578036913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c8587fc1a76fc048a54cef5596f1ecb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  idleTimeRange: {x: 2, y: 6}
+  wanderRange: {x: 3, y: 8}
+--- !u!4 &578036915
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 578036913}
+  m_LocalRotation: {x: -0, y: 0.5053035, z: -0, w: 0.86294174}
+  m_LocalPosition: {x: 90.8, y: 0.74, z: 128.1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 23
+  m_LocalEulerAnglesHint: {x: 0, y: 60.703, z: 0}
 --- !u!1 &578175475 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: fa284651717b35a4e91a3e82507501de, type: 3}
@@ -29027,6 +29303,52 @@ Transform:
   m_Father: {fileID: 1249632284}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &605181986
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 605181988}
+  - component: {fileID: 605181987}
+  m_Layer: 0
+  m_Name: WildToyoSpawner (7)
+  m_TagString: Untagged
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &605181987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 605181986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c8587fc1a76fc048a54cef5596f1ecb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  idleTimeRange: {x: 2, y: 6}
+  wanderRange: {x: 3, y: 8}
+--- !u!4 &605181988
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 605181986}
+  m_LocalRotation: {x: -0, y: 0.5053035, z: -0, w: 0.86294174}
+  m_LocalPosition: {x: 92.4, y: 0.74, z: 187.7}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 19
+  m_LocalEulerAnglesHint: {x: 0, y: 60.703, z: 0}
 --- !u!1 &606368820 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 32d22a375e744c84cb78bc56d734bf30, type: 3}
@@ -31715,6 +32037,52 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 8e4f39c0cd26d9d42802ac17de95f4e5, type: 3}
   m_PrefabInstance: {fileID: 647669737}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &648057428
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 648057430}
+  - component: {fileID: 648057429}
+  m_Layer: 0
+  m_Name: WildToyoSpawner (4)
+  m_TagString: Untagged
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &648057429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 648057428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c8587fc1a76fc048a54cef5596f1ecb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  idleTimeRange: {x: 2, y: 6}
+  wanderRange: {x: 3, y: 8}
+--- !u!4 &648057430
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 648057428}
+  m_LocalRotation: {x: -0, y: 0.5053035, z: -0, w: 0.86294174}
+  m_LocalPosition: {x: 132.18, y: 0.74, z: 163.19}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 16
+  m_LocalEulerAnglesHint: {x: 0, y: 60.703, z: 0}
 --- !u!1001 &650931647
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -32122,6 +32490,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09da25d0acf8756439815c7f6c41b609, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &658547159
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 658547161}
+  - component: {fileID: 658547160}
+  m_Layer: 0
+  m_Name: WildToyoSpawner (8)
+  m_TagString: Untagged
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &658547160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 658547159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c8587fc1a76fc048a54cef5596f1ecb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  idleTimeRange: {x: 2, y: 6}
+  wanderRange: {x: 3, y: 8}
+--- !u!4 &658547161
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 658547159}
+  m_LocalRotation: {x: -0, y: 0.5053035, z: -0, w: 0.86294174}
+  m_LocalPosition: {x: 86.2, y: 0.74, z: 170.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 20
+  m_LocalEulerAnglesHint: {x: 0, y: 60.703, z: 0}
 --- !u!1 &658928982 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: eb75b8e35401b064fa5c1f7787749dc7, type: 3}
@@ -32816,11 +33230,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1892150446082458338, guid: 69b4dc28f9e0112419844163f0990b82, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.12578455
+      value: 0.12578453
       objectReference: {fileID: 0}
     - target: {fileID: 1892150446082458338, guid: 69b4dc28f9e0112419844163f0990b82, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.062957674
+      value: -0.06295767
       objectReference: {fileID: 0}
     - target: {fileID: 1892150446772606897, guid: 69b4dc28f9e0112419844163f0990b82, type: 3}
       propertyPath: m_LocalPosition.x
@@ -32840,11 +33254,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1892150446772606897, guid: 69b4dc28f9e0112419844163f0990b82, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.44420728
+      value: 0.44420734
       objectReference: {fileID: 0}
     - target: {fileID: 1892150446772606897, guid: 69b4dc28f9e0112419844163f0990b82, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.05488683
+      value: -0.054886844
       objectReference: {fileID: 0}
     - target: {fileID: 1892150446935412252, guid: 69b4dc28f9e0112419844163f0990b82, type: 3}
       propertyPath: m_LocalRotation.w
@@ -32864,15 +33278,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1892150446946078475, guid: 69b4dc28f9e0112419844163f0990b82, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.10965965
+      value: 0.10965966
       objectReference: {fileID: 0}
     - target: {fileID: 1892150446946078475, guid: 69b4dc28f9e0112419844163f0990b82, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.44420734
+      value: 0.44420737
       objectReference: {fileID: 0}
     - target: {fileID: 1892150446946078475, guid: 69b4dc28f9e0112419844163f0990b82, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.054886833
+      value: -0.054886837
       objectReference: {fileID: 0}
     - target: {fileID: 2483572827001180913, guid: 69b4dc28f9e0112419844163f0990b82, type: 3}
       propertyPath: m_AnchorMax.y
@@ -57391,6 +57805,52 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 9606d1e4d1e67924f85554d319358951, type: 3}
   m_PrefabInstance: {fileID: 1015110948}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1016364957
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1016364959}
+  - component: {fileID: 1016364958}
+  m_Layer: 0
+  m_Name: WildToyoSpawner (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1016364958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1016364957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c8587fc1a76fc048a54cef5596f1ecb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  idleTimeRange: {x: 2, y: 6}
+  wanderRange: {x: 3, y: 8}
+--- !u!4 &1016364959
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1016364957}
+  m_LocalRotation: {x: -0, y: 0.5053035, z: -0, w: 0.86294174}
+  m_LocalPosition: {x: 185.21, y: 0.74, z: 182.78}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 60.703, z: 0}
 --- !u!1001 &1017708487
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -84583,6 +85043,52 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 9606d1e4d1e67924f85554d319358951, type: 3}
   m_PrefabInstance: {fileID: 1578258051}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1578261889
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1578261891}
+  - component: {fileID: 1578261890}
+  m_Layer: 0
+  m_Name: WildToyoSpawner (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1578261890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1578261889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c8587fc1a76fc048a54cef5596f1ecb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  idleTimeRange: {x: 2, y: 6}
+  wanderRange: {x: 3, y: 8}
+--- !u!4 &1578261891
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1578261889}
+  m_LocalRotation: {x: -0, y: 0.5053035, z: -0, w: 0.86294174}
+  m_LocalPosition: {x: 168.19, y: 0.74, z: 179.12}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 60.703, z: 0}
 --- !u!1 &1578937960
 GameObject:
   m_ObjectHideFlags: 0
@@ -93802,6 +94308,52 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 580c391bf5bbc1a4592518d3d841411b, type: 3}
   m_PrefabInstance: {fileID: 1782663122}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1782881192
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1782881194}
+  - component: {fileID: 1782881193}
+  m_Layer: 0
+  m_Name: WildToyoSpawner (6)
+  m_TagString: Untagged
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1782881193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1782881192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c8587fc1a76fc048a54cef5596f1ecb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  idleTimeRange: {x: 2, y: 6}
+  wanderRange: {x: 3, y: 8}
+--- !u!4 &1782881194
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1782881192}
+  m_LocalRotation: {x: -0, y: 0.5053035, z: -0, w: 0.86294174}
+  m_LocalPosition: {x: 117.4, y: 0.74, z: 174.1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 18
+  m_LocalEulerAnglesHint: {x: 0, y: 60.703, z: 0}
 --- !u!1 &1784444952 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 2ef1951a948418a49ac886d8da85a4bd, type: 3}
@@ -112064,6 +112616,52 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: af1f598f5d3af6a4a8a33d5ad6ee09f8, type: 3}
   m_PrefabInstance: {fileID: 2096761792}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2099668951
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2099668953}
+  - component: {fileID: 2099668952}
+  m_Layer: 0
+  m_Name: WildToyoSpawner (10)
+  m_TagString: Untagged
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2099668952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2099668951}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c8587fc1a76fc048a54cef5596f1ecb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  idleTimeRange: {x: 2, y: 6}
+  wanderRange: {x: 3, y: 8}
+--- !u!4 &2099668953
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2099668951}
+  m_LocalRotation: {x: -0, y: 0.5053035, z: -0, w: 0.86294174}
+  m_LocalPosition: {x: 87.7, y: 0.74, z: 144.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 22
+  m_LocalEulerAnglesHint: {x: 0, y: 60.703, z: 0}
 --- !u!1 &2101827192 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: eb75b8e35401b064fa5c1f7787749dc7, type: 3}
