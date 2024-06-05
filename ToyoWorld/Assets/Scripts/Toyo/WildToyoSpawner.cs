@@ -13,7 +13,7 @@ public class WildToyoSpawner : MonoBehaviour
 
 
         var model = Instantiate(toyo.Base.Model, transform.position, Quaternion.identity);
-        Debug.Log(model);
+        //Debug.Log(model);
 
         var wildToyo = model.AddComponent<WildToyo>();
         wildToyo.SetData(toyo, idleTimeRange, wanderRange);

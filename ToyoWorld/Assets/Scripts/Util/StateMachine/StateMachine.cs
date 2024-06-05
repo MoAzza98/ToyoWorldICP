@@ -24,6 +24,8 @@ namespace GDEUtils.StateMachine
 
         public void Push(State<T> newState, bool exitCurrState=false)
         {
+            CurrentState?.OnLostFocus();
+
             if (exitCurrState)
                 CurrentState?.Exit();
 
@@ -40,6 +42,8 @@ namespace GDEUtils.StateMachine
 
             if (enterPrevState)
                 CurrentState?.Enter(owner);
+
+            CurrentState?.OnGainedFocus();
         }
 
         public void ChangeState(State<T> newState)

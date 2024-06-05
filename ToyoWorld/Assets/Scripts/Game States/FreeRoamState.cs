@@ -2,10 +2,13 @@ using GDEUtils.StateMachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FreeRoamState : State<GameController>
 {
     [SerializeField] PlayerController player;
+    [SerializeField] PartyWidget partyWidget;
+    [SerializeField] Button moveSwitchButton;
 
     public static FreeRoamState i { get; private set; }
     private void Awake()
@@ -19,19 +22,40 @@ public class FreeRoamState : State<GameController>
         gc = owner;
 
         player.SetControl(true);
+        partyWidget.gameObject.SetActive(true);
+
+        moveSwitchButton.onClick.AddListener(GoToMoveSwitchState);
     }
 
     public override void Execute()
     {
 
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetKeyDown(KeyCode.T))
         {
-            StartCoroutine(DialogueState.i.ShowDialogue("The dialogue system is working fine!", exitCurrState: true));
+            gc.StateMachine.Push(MoveSwitchingState.i);
         }
     }
 
     public override void Exit()
     {
         player.SetControl(false);
+
+        moveSwitchButton.onClick.RemoveAllListeners();
+    }
+
+    public override void OnGainedFocus()
+    {
+        moveSwitchButton.gameObject.SetActive(true);
+    }
+
+    public override void OnLostFocus()
+    {
+        moveSwitchButton.gameObject.SetActive(false);
+    }
+
+    void GoToMoveSwitchState()
+    {
+        if (gc.StateMachine.CurrentState == this)
+            gc.StateMachine.Push(MoveSwitchingState.i);
     }
 }

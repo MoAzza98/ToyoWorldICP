@@ -11,6 +11,9 @@ namespace GDEUtils.StateMachine
         public virtual void Execute() { }
 
         public virtual void Exit() { }
+
+        public virtual void OnGainedFocus() { }
+        public virtual void OnLostFocus() { }
     }
 
 }

@@ -1,3 +1,4 @@
+using Cinemachine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] float throwRange = 15f;
 
+    [SerializeField] CinemachineFreeLook thirdPersonCam;
     [SerializeField] GameObject aimCamera;
     [SerializeField] Transform aimTarget;
 
@@ -40,8 +42,8 @@ public class PlayerController : MonoBehaviour
     public static PlayerController i { get; private set; }
     private void Awake()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        //Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.visible = false;
         camera = Camera.main;
         camTransform = Camera.main.transform;
         
@@ -180,5 +182,10 @@ public class PlayerController : MonoBehaviour
     public void SetControl(bool hasControl)
     {
         this.hasControl = hasControl;
+    }
+
+    public void FreezeCamera(bool freeze)
+    {
+        thirdPersonCam.gameObject.SetActive(!freeze);
     }
 }

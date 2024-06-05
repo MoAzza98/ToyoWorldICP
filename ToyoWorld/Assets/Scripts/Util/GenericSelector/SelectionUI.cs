@@ -1,11 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class SelectionUI<T> : MonoBehaviour where T : ISelectableItem
 {
-    List<T> items;
+    List<T> _items;
+    List<T> allItems;
     int selectedItem = 0;
 
     float selectionTimer = 0f;
@@ -15,7 +17,14 @@ public class SelectionUI<T> : MonoBehaviour where T : ISelectableItem
 
     public void SetItems(List<T> items)
     {
-        this.items = items;
+        this._items = items.Where(i => !i.Disabled).ToList();
+        allItems = items;
+
+        //allItems.ForEach(i => i.);
+
+        for (int i = 0; i < _items.Count; i++)
+            _items[i].Init(i, OnItemClicked, OnItemHovered);
+
         UpdateSelectionInUI();
     }
 
@@ -27,7 +36,7 @@ public class SelectionUI<T> : MonoBehaviour where T : ISelectableItem
 
         HandleListSelection();
 
-        selectedItem = Mathf.Clamp(selectedItem, 0, items.Count - 1);
+        selectedItem = Mathf.Clamp(selectedItem, 0, _items.Count - 1);
 
         if (selectedItem != prevSelection)
             UpdateSelectionInUI();
@@ -52,9 +61,9 @@ public class SelectionUI<T> : MonoBehaviour where T : ISelectableItem
 
     void UpdateSelectionInUI()
     {
-        for (int i = 0; i < items.Count; i++)
+        for (int i = 0; i < _items.Count; i++)
         {
-            items[i].SetSelected(i == selectedItem);
+            _items[i].SetSelected(i == selectedItem);
         }
     }
 
@@ -62,5 +71,23 @@ public class SelectionUI<T> : MonoBehaviour where T : ISelectableItem
     {
         if (selectionTimer > 0)
             selectionTimer = Mathf.Clamp(selectionTimer - Time.deltaTime, 0, selectionTimer);
+    }
+
+    public void OnItemClicked(int index)
+    {
+        if (index >= _items.Count || _items[index].Disabled)
+            return;
+
+        int actualIndex = allItems.IndexOf(_items[index]);
+        OnSelected?.Invoke(actualIndex);
+    }
+
+    public void OnItemHovered(int index)
+    {
+        if (index >= _items.Count || _items[index].Disabled)
+            return;
+
+        selectedItem = index;
+        UpdateSelectionInUI();
     }
 }

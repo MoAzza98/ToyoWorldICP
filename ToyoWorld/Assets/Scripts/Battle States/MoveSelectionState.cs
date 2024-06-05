@@ -23,6 +23,7 @@ public class MoveSelectionState : State<BattleState>
         moveSelectionUI.OnBack += OnBack;
 
         PlayerController.i.SetControl(false);
+        PlayerController.i.FreezeCamera(true);
     }
 
     public override void Execute()
@@ -37,6 +38,7 @@ public class MoveSelectionState : State<BattleState>
         moveSelectionUI.OnBack -= OnBack;
 
         PlayerController.i.SetControl(true);
+        PlayerController.i.FreezeCamera(false);
     }
 
     void OnMoveSelected(int selection)
