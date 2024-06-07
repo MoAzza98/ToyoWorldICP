@@ -42,8 +42,8 @@ public class PlayerController : MonoBehaviour
     public static PlayerController i { get; private set; }
     private void Awake()
     {
-        //Cursor.lockState = CursorLockMode.Locked;
-        //Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         camera = Camera.main;
         camTransform = Camera.main.transform;
         
@@ -58,6 +58,20 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.LeftAlt))
+        {
+            if (Cursor.visible)
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
+        }
+
         if (inAction)
             return;
 
