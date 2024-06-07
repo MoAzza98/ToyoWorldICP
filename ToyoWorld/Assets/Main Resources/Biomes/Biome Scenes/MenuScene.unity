@@ -1225,7 +1225,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boyButton: {fileID: 1148958519}
   girlButton: {fileID: 711967594}
-  sceneIdToLoad: 6
+  sceneIdToLoad: 2
 --- !u!1 &1148958515
 GameObject:
   m_ObjectHideFlags: 0
