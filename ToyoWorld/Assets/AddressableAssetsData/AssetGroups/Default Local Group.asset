@@ -16,7 +16,137 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: 183d8b8f6bcad254984b9b38f67f1c24
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 9a38c79b71a81cc42802f665e238b07e
+    m_Address: Assets/Snowforge_CustomPortals/Textures/Portal01/Portal01_Albedo_4K.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5dbe644c8d6bbfe45a6880b7e8943319
+    m_Address: Assets/Snowforge_CustomPortals/Textures/Portal01/Portal_Normal_4K.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 02cc0cd98b2938a49a8dc8ddeece325c
+    m_Address: Assets/Snowforge_CustomPortals/Textures/Portal01/Portal01_AO_4K.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9542e641e39f9f34d95e9ea705b085c5
+    m_Address: Assets/Snowforge_CustomPortals/Textures/Portal02/Portal02_Albedo_2K.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bf72ded6c721a0d43bfdb5e371d3dee4
+    m_Address: Assets/Snowforge_CustomPortals/Textures/Portal02/Portal02_AO_2K.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 275f82e8ae2b68240ab54060a11dd753
+    m_Address: Assets/Snowforge_CustomPortals/Textures/Portal02/Portal02_Normal_2K.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 29867eeba1d1d5e4e9b5b3b6832680a0
+    m_Address: Assets/Snowforge_CustomPortals/Textures/Portal03/Portal03_EntranceTex.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dd25edfb54ad3844389f111570d09e8d
+    m_Address: Assets/Snowforge_CustomPortals/Textures/Portal03/Portal03_Albedo_2K.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: eb661965f0a2ab34e9b462c2f8c1ee58
+    m_Address: Assets/Snowforge_CustomPortals/Textures/Portal03/Portal03_AO_2K.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9fcd30fd2d7fe67428bcd01cf52969e8
+    m_Address: Assets/Snowforge_CustomPortals/Textures/Portal03/Portal03_Normal_2K.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 59c2536c92b955a4a8e29c96c0e10af7
+    m_Address: Assets/Snowforge_CustomPortals/Textures/Portal04/Portal04_Albedo_2K.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6f4bfb539805d2145ad8c82fbf60c796
+    m_Address: Assets/Snowforge_CustomPortals/Textures/Portal04/Portal04_Normal_2K.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 33f2898774297104681baf359f409605
+    m_Address: Assets/Snowforge_CustomPortals/Textures/Portal04/Portal04_AO_2K.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f0db6eb49451f0a44a589265a10af34f
+    m_Address: Assets/Snowforge_CustomPortals/Textures/Portal04/Portal04_EntranceTex.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6dd01025dc5751e44935c3645c510c89
+    m_Address: Assets/Snowforge_CustomPortals/Textures/Portal05/Portal05_Albedo_4K.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 10156a332475d5d49a4a308b4ace3eef
+    m_Address: Assets/Snowforge_CustomPortals/Textures/Portal05/Portal05_AO_4K.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0a98d8e5b309f2f41ab69a5e05b89165
+    m_Address: Assets/Snowforge_CustomPortals/Textures/Portal05/Portal05_EntranceTex.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c390e907381d3a6499d62afcc75e5b0b
+    m_Address: Assets/Snowforge_CustomPortals/Textures/Portal05/Portal05_Normal_4K.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 57210e7eb04c17242b8182f09fc40bf5
+    m_Address: Assets/Main Resources/Toyo Models/Prefabs/Old_Grass Bot.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9a8f201ae649c5e4090187e5a3f036bd
+    m_Address: Assets/Main Resources/Toyo Models/Prefabs/Grass Bot.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b5457d8c538266747ab5d278a4911f08
+    m_Address: Assets/Main Resources/Toyo Models/Prefabs/Dragon Bot.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 868f103fadb9f1f49bf49d7bcf6facdb
+    m_Address: Assets/Main Resources/Toyo Models/Prefabs/Electric Bot.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e397d2350043c2a49b75733906559916
+    m_Address: Assets/Main Resources/Toyo Models/Prefabs/Fire Bot.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1cc0eca891768814a8ba5f29ddaf2208
+    m_Address: Assets/Main Resources/Toyo Models/Prefabs/Normal Bot.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e5ad7f974e7ce5c4bb25147efe18f842
+    m_Address: Assets/Main Resources/Toyo Models/Prefabs/Water Bot.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 50e3ff481f0739b49b5092e60409cd74
+    m_Address: Assets/Main Resources/Toyo Models/Prefabs/Old Dragon Bot.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: bb038cf1acccd6242b40003dbb0c65d5, type: 2}
   m_SchemaSet:

@@ -1,0 +1,130 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Male ToyoWorld
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 1024
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 1
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 0
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: fe896ac4b39a18f4991e0b7347f1df3d, type: 3}
+    - {fileID: 2800000, guid: 166ecc9516a403c48b762d07a97c5d24, type: 3}
+    - {fileID: 2800000, guid: 88c1797eead472b40be910882a0ce7c8, type: 3}
+    - {fileID: 2800000, guid: 3f2c3449bce102f42a91d374833a464e, type: 3}
+    - {fileID: 2800000, guid: 0e2861a67420779459d95a265d7c469c, type: 3}
+    - {fileID: 2800000, guid: 026727e3c534dc94e8adb41089b0d24b, type: 3}
+    - {fileID: 2800000, guid: 56c9bb7cf7cdd6544ae7f6b92a7143e0, type: 3}
+    - {fileID: 2800000, guid: e96e8876f0435004dab841d3ebde66d8, type: 3}
+    - {fileID: 2800000, guid: e780b54f92b7621418ada9c8900161b5, type: 3}
+    - {fileID: 2800000, guid: bb569afb4e535e342a1470403073128c, type: 3}
+    - {fileID: 2800000, guid: f69887a616fa31947b24339bad90bb32, type: 3}
+    - {fileID: 2800000, guid: ae01231ab77205448bb736dce51eccce, type: 3}
+    - {fileID: 2800000, guid: 61ad3efdf06607f4ba215ff1869f5030, type: 3}
+    - {fileID: 2800000, guid: 7c5be84c64d44ac4d9868464eeb6ea8b, type: 3}
+    - {fileID: 2800000, guid: 0238b6d8d60bd8d4095c0e83c4acfff3, type: 3}
+    - {fileID: 2800000, guid: 7532f059ac7831d449aadae842161e8d, type: 3}
+    - {fileID: 2800000, guid: 67f6239ab9d02974ea6c8016c5786d44, type: 3}
+    - {fileID: 2800000, guid: 231e79f8bbb8f86439d32625af736a07, type: 3}
+    - {fileID: 2800000, guid: 6e67bbd2f4f794748a82dfa63266dd99, type: 3}
+    - {fileID: 2800000, guid: 02a406698f52a2246895fc3bd2b9e931, type: 3}
+    - {fileID: 2800000, guid: 4ccb9b4fa698c4043859532e3afbfedc, type: 3}
+    - {fileID: 2800000, guid: adf819fe3cd9c3d49b5a3fc5739cce17, type: 3}
+    - {fileID: 2800000, guid: 03031d801ba098d4d8e4372e4e9d4f57, type: 3}
+    - {fileID: 2800000, guid: ca1a15e4fa736064c8b632e4d4bc2f78, type: 3}
+    - {fileID: 2800000, guid: 38fa54066bc247842adca83c670bfcdc, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 03031d801ba098d4d8e4372e4e9d4f57, type: 3}
+  - {fileID: 21300000, guid: 6e67bbd2f4f794748a82dfa63266dd99, type: 3}
+  - {fileID: 21300000, guid: 026727e3c534dc94e8adb41089b0d24b, type: 3}
+  - {fileID: 21300000, guid: fe896ac4b39a18f4991e0b7347f1df3d, type: 3}
+  - {fileID: 21300000, guid: ca1a15e4fa736064c8b632e4d4bc2f78, type: 3}
+  - {fileID: 21300000, guid: 166ecc9516a403c48b762d07a97c5d24, type: 3}
+  - {fileID: 21300000, guid: 38fa54066bc247842adca83c670bfcdc, type: 3}
+  - {fileID: 21300000, guid: e96e8876f0435004dab841d3ebde66d8, type: 3}
+  - {fileID: 21300000, guid: 0e2861a67420779459d95a265d7c469c, type: 3}
+  - {fileID: 21300000, guid: f69887a616fa31947b24339bad90bb32, type: 3}
+  - {fileID: 21300000, guid: 0238b6d8d60bd8d4095c0e83c4acfff3, type: 3}
+  - {fileID: 21300000, guid: 231e79f8bbb8f86439d32625af736a07, type: 3}
+  - {fileID: 21300000, guid: 3f2c3449bce102f42a91d374833a464e, type: 3}
+  - {fileID: 21300000, guid: 7532f059ac7831d449aadae842161e8d, type: 3}
+  - {fileID: 21300000, guid: 02a406698f52a2246895fc3bd2b9e931, type: 3}
+  - {fileID: 21300000, guid: ae01231ab77205448bb736dce51eccce, type: 3}
+  - {fileID: 21300000, guid: 67f6239ab9d02974ea6c8016c5786d44, type: 3}
+  - {fileID: 21300000, guid: bb569afb4e535e342a1470403073128c, type: 3}
+  - {fileID: 21300000, guid: 7c5be84c64d44ac4d9868464eeb6ea8b, type: 3}
+  - {fileID: 21300000, guid: 56c9bb7cf7cdd6544ae7f6b92a7143e0, type: 3}
+  - {fileID: 21300000, guid: 61ad3efdf06607f4ba215ff1869f5030, type: 3}
+  - {fileID: 21300000, guid: 88c1797eead472b40be910882a0ce7c8, type: 3}
+  - {fileID: 21300000, guid: adf819fe3cd9c3d49b5a3fc5739cce17, type: 3}
+  - {fileID: 21300000, guid: e780b54f92b7621418ada9c8900161b5, type: 3}
+  - {fileID: 21300000, guid: 4ccb9b4fa698c4043859532e3afbfedc, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - N00_000_Hair_00_nml.normal
+  - _20
+  - _06
+  - _01
+  - Shader_NoneBlack
+  - _02
+  - Shader_NoneNormal.normal
+  - _09
+  - _05.normal
+  - _12
+  - _16
+  - _19
+  - _04
+  - _17
+  - MatcapWarp
+  - _13
+  - _18
+  - _11.normal
+  - _15
+  - _07
+  - _14
+  - _03
+  - N00_000_00_HairBack_00_nml.normal
+  - _10
+  - N00_000_00_Face_00_out.linear
+  m_RenderDataMap: {}
+  m_Tag: Male ToyoWorld
+  m_IsVariant: 0
