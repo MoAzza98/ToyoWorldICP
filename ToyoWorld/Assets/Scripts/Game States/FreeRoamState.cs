@@ -46,6 +46,7 @@ public class FreeRoamState : State<GameController>
     public override void OnGainedFocus()
     {
         moveSwitchButton.gameObject.SetActive(true);
+        partyWidget.gameObject.SetActive(true);
     }
 
     public override void OnLostFocus()
