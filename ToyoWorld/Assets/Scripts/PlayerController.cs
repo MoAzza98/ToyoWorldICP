@@ -42,8 +42,8 @@ public class PlayerController : MonoBehaviour
     public static PlayerController i { get; private set; }
     private void Awake()
     {
-        //Cursor.lockState = CursorLockMode.Locked;
-        //Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         camera = Camera.main;
         camTransform = Camera.main.transform;
         
@@ -65,6 +65,20 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetFloat("moveAmount", 0f, 0.2f, Time.deltaTime);
             return;
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftAlt))
+        {
+            if(Cursor.lockState == CursorLockMode.Locked)
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
         }
 
         float h = Input.GetAxis("Horizontal");
