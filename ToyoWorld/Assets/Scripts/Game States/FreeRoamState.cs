@@ -29,7 +29,6 @@ public class FreeRoamState : State<GameController>
 
     public override void Execute()
     {
-
         if (Input.GetKeyDown(KeyCode.T))
         {
             gc.StateMachine.Push(MoveSwitchingState.i);

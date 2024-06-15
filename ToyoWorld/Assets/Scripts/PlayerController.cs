@@ -69,8 +69,8 @@ public class PlayerController : MonoBehaviour
                 Cursor.visible = true;
 
                 //Freeze player and cam movement
-                freeLookCam.enabled = false;
-                hasControl = false;
+                PlayerController.i.FreezeCamera(true);
+                PlayerController.i.SetControl(false);
             }
             else
             {
@@ -81,6 +81,8 @@ public class PlayerController : MonoBehaviour
                 //Allow cam and player movement
                 hasControl = true;
                 freeLookCam.enabled = true;
+                PlayerController.i.FreezeCamera(false);
+                PlayerController.i.SetControl(true);
             }
         }
 
@@ -126,8 +128,10 @@ public class PlayerController : MonoBehaviour
         var moveDir = Quaternion.Euler(0, camYRotation, 0) * moveInput;
 
         float moveSpeed = isRunning ? runSpeed : walkSpeed;
+        Vector3 velocity = moveDir * moveSpeed;
+        velocity = AdjustVelocityToSlope(velocity);
 
-        characterController.Move(moveDir * moveSpeed * Time.deltaTime);
+        characterController.Move(velocity * Time.deltaTime);
 
         if (isAiming)
         {
@@ -151,6 +155,24 @@ public class PlayerController : MonoBehaviour
             angularSpeed * Time.deltaTime);
 
         animator.SetFloat("moveAmount", moveAmount * moveSpeed / runSpeed, 0.2f, Time.deltaTime);
+    }
+
+    private Vector3 AdjustVelocityToSlope(Vector3 velocity)
+    {
+        var ray = new Ray(transform.position, Vector3.down);
+
+        if(Physics.Raycast(ray, out RaycastHit hitInfo, 0.2f))
+        {
+            var slopeRotation = Quaternion.FromToRotation(Vector3.up, hitInfo.normal);
+            var adjustedVelocity = slopeRotation * velocity;
+
+            if(adjustedVelocity.y < 0)
+            {
+                return adjustedVelocity;
+            }
+        }
+
+        return velocity;
     }
 
     IEnumerator DoAction(string animName, Action onOver = null)
