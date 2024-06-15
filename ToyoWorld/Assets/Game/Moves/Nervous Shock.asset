@@ -15,7 +15,7 @@ MonoBehaviour:
   name: Nervous Shock
   description: 
   type: 5
-  category: 1
+  category: 0
   power: 70
   accuracy: 100
   maxPP: 15

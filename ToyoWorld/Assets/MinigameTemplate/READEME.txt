@@ -8,11 +8,27 @@ PLEASE FOLLOW THE TUTORIAL LINK: https://docs.google.com/document/d/1ew-wYyu2hF7
 
 Dependencies:
 
-BoomDao Version: 0.3.1
+BoomDao Version: 0.3.2
 
 ===================================================================================================================================================
 
 Plethora Template Current Version: 0.0.1
+
+===================================================================================================================================================
+
+> Release Notes 0.0.2
+
+Description:
+
+New release of MinigameTemplates is now supported by Web Iframes
+
+New Features: NONE
+
+Improvements: 
+
+- Boom WebGl template and Loging system upgrade to support hosting games in Web Iframe
+
+Fixes: NONE
 
 ===================================================================================================================================================
 

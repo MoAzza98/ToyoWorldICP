@@ -15,8 +15,8 @@ MonoBehaviour:
   name: Draconic Technique
   description: 
   type: 8
-  category: 0
-  power: 55
+  category: 1
+  power: 80
   accuracy: 95
   maxPP: 15
   vfx: {fileID: 3859912956259880029, guid: b4ca3a06f583f4244982a309472fd3be, type: 3}

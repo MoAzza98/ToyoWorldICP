@@ -19,5 +19,5 @@ MonoBehaviour:
   power: 45
   accuracy: 100
   maxPP: 25
-  vfx: {fileID: 7898358583556127077, guid: e95e72535ed275d40a4e26804e329db6, type: 3}
+  vfx: {fileID: 868468853075218060, guid: 28aa90600df2fd9479eb5ccbc39a3fc1, type: 3}
   vfxOffset: {x: 0, y: 0, z: 1}

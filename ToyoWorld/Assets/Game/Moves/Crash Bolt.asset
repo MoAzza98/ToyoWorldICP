@@ -15,7 +15,7 @@ MonoBehaviour:
   name: Crash Bolt
   description: 
   type: 5
-  category: 0
+  category: 1
   power: 70
   accuracy: 95
   maxPP: 15

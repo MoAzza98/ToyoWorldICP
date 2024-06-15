@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a826ba9b8edac440a04bf58a01d1f94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  autoLoginRequested: 0
   url: https://ifxbl-nyaaa-aaaap-abroa-cai.icp0.io/
 --- !u!114 &2393423864867871020
 MonoBehaviour:
@@ -61,8 +62,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enableBoomLogs: 1
-  <BoomSettings>k__BackingField: {fileID: 11400000, guid: f0f42762aaec5174ba94069fc1ab3afc, type: 2}
-  <WORLD_COLLECTION_CANISTER_ID>k__BackingField: 6uvic-diaaa-aaaap-abgca-cai
+  <BoomSettings>k__BackingField: {fileID: 11400000, guid: f922e6742e5194632aea2d31c472258f, type: 2}
+  <WORLD_COLLECTION_CANISTER_ID>k__BackingField: jfn44-pqaaa-aaaap-ahhra-cai
   <BoomDaoGameType>k__BackingField: 0
   cachedAnonAgent:
     <IsInit>k__BackingField: 0

@@ -44,7 +44,7 @@ public class PartyWidget : MonoBehaviour
         var toyo = playerParty.Toyos[selectedToyo];
 
         nameTxt.text = toyo.Base.Name;
-        lvlTxt.text = "Lv. " + toyo.Level;
+        lvlTxt.text = toyo.Level.ToString();
         centerSlot.sprite = toyo.Base.Sprite;
 
         int nextToyoIndex = GetNextToyoIndex(selectedToyo);

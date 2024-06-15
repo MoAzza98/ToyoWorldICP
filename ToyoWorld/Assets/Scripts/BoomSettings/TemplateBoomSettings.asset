@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9f2f0c392c5d4cdeb7956d13b49ebdd, type: 3}
   m_Name: TemplateBoomSettings
   m_EditorClassIdentifier: 
-  <DeploymentEnv_>k__BackingField: 0
-  WorldId: fp3rf-kqaaa-aaaal-qdmmq-cai
+  <DeploymentEnv_>k__BackingField: 1
+  WorldId: jfn44-pqaaa-aaaap-ahhra-cai
   WorldEnv_: 0
   proGuildsAsDevMode: 1

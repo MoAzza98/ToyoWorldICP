@@ -12,6 +12,7 @@ namespace Boom.Tutorials
     using Boom.Utility;
     using System.Collections.Generic;
     using System.Collections;
+    using System.Globalization;
 
     public class WorldDeployer : MonoBehaviour
     {
@@ -352,7 +353,7 @@ namespace Boom.Tutorials
                     {
                         if(field.FieldName == "quantity")
                         {
-                            if (float.TryParse(field.FieldValue, out var outValue) == false)
+                            if (float.TryParse(field.FieldValue, NumberStyles.Float, CultureInfo.InvariantCulture, out var outValue) == false)
                             {
                                 LogError($"Failure to pare field of name {field.FieldName}, current value \"{field.FieldValue}\"");
                             }
@@ -366,9 +367,9 @@ namespace Boom.Tutorials
                     {
                         if (field.FieldName == "quantity")
                         {
-                            if (float.TryParse(field.FieldValue, out var outValue) == false)
+                            if (float.TryParse(field.FieldValue, NumberStyles.Float, CultureInfo.InvariantCulture, out var outValue) == false)
                             {
-                                LogError($"Failure to pare field of name {field.FieldName}, current value \"{field.FieldValue}\"");
+                                LogError($"Failure parsing field of name {field.FieldName}, current value \"{field.FieldValue}\"");
                             }
                             matchCountWon = (int) outValue;
                         }
@@ -380,9 +381,9 @@ namespace Boom.Tutorials
                     {
                         if (field.FieldName == "quantity")
                         {
-                            if (float.TryParse(field.FieldValue, out var outValue) == false)
+                            if (float.TryParse(field.FieldValue, NumberStyles.Float, CultureInfo.InvariantCulture, out var outValue) == false)
                             {
-                                LogError($"Failure to pare field of name {field.FieldName}, current value \"{field.FieldValue}\"");
+                                LogError($"Failure parsing field of name {field.FieldName}, current value \"{field.FieldValue}\"");
                             }
                             matchCountLost = (int) outValue;
                         }

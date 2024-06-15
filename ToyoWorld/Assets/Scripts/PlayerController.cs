@@ -39,6 +39,8 @@ public class PlayerController : MonoBehaviour
     CharacterController characterController;
     ToyoParty playerParty;
     PartyWidget partyWidget;
+    public CinemachineFreeLook freeLookCam;
+
     public static PlayerController i { get; private set; }
     private void Awake()
     {
@@ -60,15 +62,25 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.LeftAlt))
         {
-            if (Cursor.visible)
+            if (Cursor.lockState == CursorLockMode.Locked)
             {
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
+                //Show cursor
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+
+                //Freeze player and cam movement
+                freeLookCam.enabled = false;
+                hasControl = false;
             }
             else
             {
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
+                //Hide cursor
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+
+                //Allow cam and player movement
+                hasControl = true;
+                freeLookCam.enabled = true;
             }
         }
 
@@ -79,20 +91,6 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetFloat("moveAmount", 0f, 0.2f, Time.deltaTime);
             return;
-        }
-
-        if (Input.GetKeyDown(KeyCode.LeftAlt))
-        {
-            if(Cursor.lockState == CursorLockMode.Locked)
-            {
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
-            }
-            else
-            {
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
-            }
         }
 
         float h = Input.GetAxis("Horizontal");

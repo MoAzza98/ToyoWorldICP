@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5bc9c95524418848a6f650ca33f5d05, type: 3}
+  m_Name: Primal Strike
+  m_EditorClassIdentifier: 
+  name: Primal Strike
+  description: 
+  type: 6
+  category: 0
+  power: 60
+  accuracy: 100
+  maxPP: 25
+  vfx: {fileID: 2748775980906258134, guid: 3ad8f777eafd3804abea8c50bfe3ff7c, type: 3}
+  vfxOffset: {x: 0, y: 0, z: 1}

@@ -1,17 +1,29 @@
 using UnityEngine;
-using System;
-using System.Collections.Generic;
 using Newtonsoft.Json;
 using WebSocketSharp.Server;
 using WebSocketSharp;
 using Boom.Utility;
+using Boom;
+using Boom.Patterns.Broadcasts;
 
 namespace Candid
 {
     public class LoginManager : MonoBehaviour
     {
+        public struct IndetityJson : IBroadcast
+        {
+            public string data;
+
+            public IndetityJson(string data)
+            {
+                this.data = data;
+            }
+        }
+
+        [SerializeField, ShowOnly] bool autoLoginRequested;
+
         public static LoginManager  Instance;
-        private Action<string> createIdentityCallback = null;
+        public bool IsEmbeddedAgent { get; set; }
 
         [SerializeField]
         string url = "https://7p3gx-jaaaa-aaaal-acbda-cai.icp0.io";
@@ -19,22 +31,47 @@ namespace Candid
         void Awake()
         {
             Instance = this;
+
+            IsEmbeddedAgent = BrowserUtils.IsIframe();
+            Debug.Log("Is game embedded? " + IsEmbeddedAgent);
+
+            UserUtil.AddListenerMainDataChange<MainDataTypes.LoginData>(LoginDataChangeHandler, new() { invokeOnRegistration = true });
+        }
+
+        private void OnDestroy()
+        {
+            UserUtil.RemoveListenerMainDataChange<MainDataTypes.LoginData>(LoginDataChangeHandler);
+        }
+
+        private void LoginDataChangeHandler(MainDataTypes.LoginData data)
+        {
+            if (!IsEmbeddedAgent) return;
+
+            if (data.state != MainDataTypes.LoginData.State.Logedout) return;
+
+            if(autoLoginRequested) return;
+
+            autoLoginRequested = true;
+
+            Debug.Log("Auto login requested!");
+
+            BrowserUtils.GameLoaded();
         }
 
         /// <summary>
         /// This is the login flow using localstorage for WebGL
         /// </summary>
-        public void StartLoginFlowWebGl(Action<string> _createIdentityCallback = null)
+        public void StartLoginFlowWebGl()
         {
             Debug.Log("Starting WebGL Login Flow");
-            createIdentityCallback = _createIdentityCallback;
             BrowserUtils.ToggleLoginIframe(true);
         }
 
         public void CreateIdentityWithJson(string identityJson)
         {
-            createIdentityCallback?.Invoke(identityJson);
-            createIdentityCallback = null;
+            Debug.Log("JSON AGENT RECEIVED: " + identityJson);
+
+            Broadcast.Invoke(new IndetityJson(identityJson));
             BrowserUtils.ToggleLoginIframe(false);
             
             CloseSocket();
@@ -59,11 +96,8 @@ namespace Candid
         /// <summary>
         /// This is the login flow using websockets for PC, Mac, iOS, and Android
         /// </summary>
-        public void StartLoginFlow(Action<string> _createIdentityCallback = null)
+        public void StartLoginFlow()
         {
-            Debug.Log("WebGL Login Flow");
-
-            createIdentityCallback = _createIdentityCallback;
             StartSocket();
 
             Application.OpenURL(url);

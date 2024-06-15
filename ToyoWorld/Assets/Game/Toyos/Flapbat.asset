@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff9d1195e97f31441a872e1693a49fa7, type: 3}
+  m_Name: Flapbat
+  m_EditorClassIdentifier: 
+  name: Flapbat
+  description: 
+  model: {fileID: 1162074717683033587, guid: c60aa9f7bac665448b358145d95a6db4, type: 3}
+  sprite: {fileID: 21300000, guid: ad09cccdda096de4aa65a5a89f1890a0, type: 3}
+  type1: 10
+  type2: 0
+  maxHp: 40
+  attack: 45
+  defense: 35
+  spAttack: 30
+  spDefense: 40
+  speed: 55
+  expYield: 10
+  growthRate: 0
+  learnableMoves:
+  - moveBase: {fileID: 11400000, guid: 50e3a76c523f37a44b1c52e33658c86c, type: 2}
+    level: 1
+  - moveBase: {fileID: 11400000, guid: 2a806677067b1c640adab413f87baadc, type: 2}
+    level: 3
+  - moveBase: {fileID: 11400000, guid: 6aad05684ab3fe240bf6de34dccece4f, type: 2}
+    level: 4
+  - moveBase: {fileID: 11400000, guid: afce50355f854494684eac6d574e2b1c, type: 2}
+    level: 5
