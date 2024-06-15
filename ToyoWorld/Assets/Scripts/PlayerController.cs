@@ -139,7 +139,7 @@ public class PlayerController : MonoBehaviour
             targetRotation = Quaternion.Euler(0, rotationY, 0);
 
             // Vertical Aiming - Rotate the Aim Target
-            aimAngle += Input.GetAxis("Mouse Y");
+            aimAngle += -1f * Input.GetAxis("Mouse Y");
             aimAngle = Mathf.Clamp(aimAngle, -40f, 40f);
             aimTarget.localRotation = Quaternion.Euler(aimAngle, 0, 0);
         }

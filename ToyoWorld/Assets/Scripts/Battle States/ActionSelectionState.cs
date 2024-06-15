@@ -24,12 +24,12 @@ public class ActionSelectionState : State<BattleState>
 
     public override void Execute()
     {
-        if (Input.GetButton("Action"))
+        if (Input.GetButtonDown("Action"))
         {
             bs.SelectedAction = BattleActions.Move;
             bs.StateMachine.Push(MoveSelectionState.i, true);
         }
-        else if (Input.GetMouseButton(0))
+        else if (Input.GetMouseButtonDown(0))
         {
             if (partyWidget.SelectedToyo == bs.PlayerToyo)
             {
@@ -46,9 +46,11 @@ public class ActionSelectionState : State<BattleState>
             bs.SelectedToyo = partyWidget.SelectedToyo;
             bs.StateMachine.ChangeState(RunTurnState.i);
         }
-        else if (Input.GetButton("Back"))
+        else if (Input.GetButtonDown("Back"))
         {
             // Run
+            bs.SelectedAction = BattleActions.Run;
+            bs.StateMachine.ChangeState(RunTurnState.i);
         }
     }
 

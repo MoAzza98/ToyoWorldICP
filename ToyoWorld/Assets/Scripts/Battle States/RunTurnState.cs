@@ -42,15 +42,26 @@ public class RunTurnState : State<BattleState>
             var sortedActions = battleActions.OrderByDescending(a => a.Source.Speed);
             foreach (var action in sortedActions)
             {
-                yield return RunMove(action.Source, action.Target, action.Move);
-
-                if (bs.IsBattleOver) yield break;
+                if (action.Source.Hp > 0)
+                {
+                    yield return RunMove(action.Source, action.Target, action.Move);
+                    if (bs.IsBattleOver) yield break;
+                }
             }
         }
-        else if (bs.SelectedAction == BattleActions.SwitchToyo)
+        else 
         {
-            yield return SwitchToyo(bs.SelectedToyo);
+            if (bs.SelectedAction == BattleActions.SwitchToyo)
+            {
+                yield return SwitchToyo(bs.SelectedToyo);
+            }
+            else if (bs.SelectedAction == BattleActions.Run)
+            {
+                yield return TryToEscape();
+                if (bs.IsBattleOver) yield break;
+            }
 
+            // Enemy Move
             enemyAction.Target = bs.PlayerToyo;     // Player toyo will change after switching
             yield return RunMove(enemyAction.Source, enemyAction.Target, enemyAction.Move);
         }
@@ -160,8 +171,8 @@ public class RunTurnState : State<BattleState>
             var nextPokemon = bs.PlayerParty.GetHealthyToyo();
             if (nextPokemon != null)
             {
-                //yield return GameController.i.StateMachine.PushAndWait(PartyState.i);
-                //yield return bs.SwitchPokemon(PartyState.i.SelectedPokemon);
+                yield return bs.StateMachine.PushAndWait(PokemonSelectionState.i);
+                yield return SwitchToyo(PokemonSelectionState.i.SelectedToyo);
             }
             else
             {
@@ -205,6 +216,42 @@ public class RunTurnState : State<BattleState>
             yield return DialogueState.i.ShowDialogue("It's super effective!");
         else if (damageDetails.TypeEffectiveness < 1f)
             yield return DialogueState.i.ShowDialogue("It's not very effective!");
+    }
+
+    IEnumerator TryToEscape()
+    {
+
+        //if (isTrainerBattle)
+        //{
+        //    yield return dialogBox.TypeDialog($"You can't run from trainer battles!");
+        //    yield break;
+        //}
+
+        ++bs.EscapeAttempts;
+
+        int playerSpeed = playerToyo.Speed;
+        int enemySpeed = enemyToyo.Speed;
+
+        if (enemySpeed < playerSpeed)
+        {
+            yield return DialogueState.i.ShowDialogue("Ran away safely!");
+            bs.BattleOver(false);
+        }
+        else
+        {
+            float f = (playerSpeed * 128) / enemySpeed + 30 * bs.EscapeAttempts;
+            f = f % 256;
+
+            if (UnityEngine.Random.Range(0, 256) < f)
+            {
+                yield return DialogueState.i.ShowDialogue("Ran away safely!");
+                bs.BattleOver(false);
+            }
+            else
+            {
+                yield return DialogueState.i.ShowDialogue("Can't escape!");
+            }
+        }
     }
 }
 

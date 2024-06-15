@@ -20,6 +20,8 @@ public class BattleState : State<GameController>
     public BattleActions SelectedAction { get; set; }
     public Toyo SelectedToyo { get; set; }
 
+    public int EscapeAttempts { get; set; }
+
     public StateMachine<BattleState> StateMachine { get; private set; }
 
     public static BattleState i { get; private set; }
@@ -55,6 +57,8 @@ public class BattleState : State<GameController>
         ShowBattleHUDs();
         yield return DialogueState.i.ShowDialogue($"{EnemyToyo.Base.Name} is keeping it's guard up...");
 
+        EscapeAttempts = 0;
+
         StateMachine.ChangeState(ActionSelectionState.i);
     }
 
@@ -73,6 +77,9 @@ public class BattleState : State<GameController>
     public void BattleOver(bool won)
     {
         IsBattleOver = true;
+        PlayerToyo.Model.SetActive(false);
+        //EnemyToyo.Model.SetActive(false);
+
         GameController.i.StateMachine.Pop();
         
         if (won)

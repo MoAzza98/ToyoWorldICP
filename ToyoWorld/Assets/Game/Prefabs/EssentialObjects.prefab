@@ -2078,6 +2078,7 @@ GameObject:
   - component: {fileID: 7876543112406044974}
   - component: {fileID: 4322924299874528970}
   - component: {fileID: 4480232525803153456}
+  - component: {fileID: 4256554945158475373}
   m_Layer: 0
   m_Name: BattleSystem
   m_TagString: Untagged
@@ -2140,6 +2141,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84aa34a2a48ed7d458af3550310e75e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4256554945158475373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1109701748199489529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53cec90aaa217f84aba4fe48f3ee0aef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  partyWidget: {fileID: 5751883223355531875}
 --- !u!1 &1200650892952638051
 GameObject:
   m_ObjectHideFlags: 0
@@ -3262,8 +3276,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1892150446772606908}
-  m_LocalRotation: {x: -0.03136371, y: -0.5590688, z: -0.021170322, w: 0.8282573}
-  m_LocalPosition: {x: -1.1730194, y: 1.2725174, z: 6.9577637}
+  m_LocalRotation: {x: 0.10164104, y: -0.5552464, z: 0.06860698, w: 0.82259566}
+  m_LocalPosition: {x: -0.37026978, y: 2.5, z: 6.6340485}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
