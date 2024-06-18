@@ -15,7 +15,7 @@ MonoBehaviour:
   name: Shadlucho
   description: 
   model: {fileID: 1734572081990470152, guid: 7f3425f16f17470468f250a8fd950f73, type: 3}
-  sprite: {fileID: 21300000, guid: ad09cccdda096de4aa65a5a89f1890a0, type: 3}
+  sprite: {fileID: 21300000, guid: c52ced37f290c974a917b21c39f0be2e, type: 3}
   type1: 6
   type2: 14
   maxHp: 105
@@ -33,7 +33,7 @@ MonoBehaviour:
     level: 3
   - moveBase: {fileID: 11400000, guid: afce50355f854494684eac6d574e2b1c, type: 2}
     level: 5
-  - moveBase: {fileID: 11400000, guid: 71166c908ffa4bd44986db0826c1a1a1, type: 2}
+  - moveBase: {fileID: 11400000, guid: 441e6cd1f6555a94bb60a8e539e12c27, type: 2}
     level: 8
   - moveBase: {fileID: 11400000, guid: bb9bb7c0b210cbd47bd3c728f039fff9, type: 2}
     level: 9

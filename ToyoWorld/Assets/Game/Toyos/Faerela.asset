@@ -15,7 +15,7 @@ MonoBehaviour:
   name: Faerela
   description: 
   model: {fileID: 2266157265114488493, guid: 2eb3f370fbc1c324abd3d85f109a0e09, type: 3}
-  sprite: {fileID: 21300000, guid: ad09cccdda096de4aa65a5a89f1890a0, type: 3}
+  sprite: {fileID: 21300000, guid: 6d9ef695a1e63a74ab8826e5324fc43d, type: 3}
   type1: 4
   type2: 12
   maxHp: 79

@@ -15,7 +15,7 @@ MonoBehaviour:
   name: Lordraga
   description: 
   model: {fileID: 5392594881420878511, guid: 83070421c5764d84ca60046a0e2cf750, type: 3}
-  sprite: {fileID: 21300000, guid: d819d29c71518d340b52028b17af51c2, type: 3}
+  sprite: {fileID: 21300000, guid: 9c09af92c8893f940abf9b0bf7e1b8e2, type: 3}
   type1: 14
   type2: 8
   maxHp: 80

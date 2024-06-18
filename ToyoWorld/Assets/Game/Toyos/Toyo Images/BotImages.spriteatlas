@@ -50,11 +50,19 @@ SpriteAtlas:
     - {fileID: 2800000, guid: 6c399239b6e8d844a9322c3b1cc7ffb3, type: 3}
     - {fileID: 2800000, guid: d016b3ecbafaaf746894a67f8189cf0c, type: 3}
     - {fileID: 2800000, guid: ad09cccdda096de4aa65a5a89f1890a0, type: 3}
+    - {fileID: 2800000, guid: 9c09af92c8893f940abf9b0bf7e1b8e2, type: 3}
+    - {fileID: 2800000, guid: fc67b2a1ab93bf644b0e7535498704cd, type: 3}
+    - {fileID: 2800000, guid: c52ced37f290c974a917b21c39f0be2e, type: 3}
+    - {fileID: 2800000, guid: 6d9ef695a1e63a74ab8826e5324fc43d, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
+  - {fileID: 21300000, guid: fc67b2a1ab93bf644b0e7535498704cd, type: 3}
+  - {fileID: 21300000, guid: 9c09af92c8893f940abf9b0bf7e1b8e2, type: 3}
+  - {fileID: 21300000, guid: 6d9ef695a1e63a74ab8826e5324fc43d, type: 3}
+  - {fileID: 21300000, guid: c52ced37f290c974a917b21c39f0be2e, type: 3}
   - {fileID: 21300000, guid: 6c399239b6e8d844a9322c3b1cc7ffb3, type: 3}
   - {fileID: 21300000, guid: d25a4d995741ce44a91dc46d26b411d5, type: 3}
   - {fileID: 21300000, guid: 6125d8cacb902664499f94a50e7aa0de, type: 3}
@@ -62,6 +70,10 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 548aa23d6aee2e149bb0e8d781fd4192, type: 3}
   - {fileID: 21300000, guid: ad09cccdda096de4aa65a5a89f1890a0, type: 3}
   m_PackedSpriteNamesToIndex:
+  - Glacalia icon
+  - Dark drag icon
+  - Faerela icon
+  - shadlucho icon
   - Normal Bot
   - Fire Bot
   - Electric Bot
