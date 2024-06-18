@@ -95,6 +95,12 @@ public class Pokeball : MonoBehaviour
             yield return new WaitForSeconds(0.2f);
 
             ToyoParty.SpawnModel(ToyoToSpawn, hit.point);
+
+            ToyoToSpawn.Animator.enabled = false;
+            yield return null;
+
+            ToyoToSpawn.Model.transform.position = hit.point;
+            ToyoToSpawn.Animator.enabled = true;
             ToyoToSpawn.Model.transform.forward = (wildToyo != null)? -dirToPlayerPokemon : dirToCam;
 
             if (wildToyo != null)
