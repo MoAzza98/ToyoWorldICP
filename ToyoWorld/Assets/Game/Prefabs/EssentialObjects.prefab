@@ -3426,7 +3426,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1892150446935412254}
-  m_LocalRotation: {x: 0.08670122, y: -0.55639964, z: 0.058522727, w: 0.8243043}
+  m_LocalRotation: {x: 0.08670123, y: -0.55639964, z: 0.058522724, w: 0.8243043}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3657,7 +3657,7 @@ MonoBehaviour:
   aimCamera: {fileID: 759289347}
   aimTarget: {fileID: 1728181910}
   pokeballPrefab: {fileID: 5138836318887020727, guid: 85ddb030a260c914597fe05cb80e1eb8, type: 3}
-  animator: {fileID: 0}
+  animator: {fileID: 1892150447038394691}
   freeLookCam: {fileID: 1892150446602941668}
 --- !u!114 &1788154404
 MonoBehaviour:

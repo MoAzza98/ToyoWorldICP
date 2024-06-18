@@ -1,0 +1,91 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Move Effects
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 1
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 0
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: 6278ac3f1b44fda4f9528b48f68095fe, type: 3}
+    - {fileID: 2800000, guid: 58b4fec564f5d7648ad5798886bf0b2f, type: 3}
+    - {fileID: 2800000, guid: e8926def209b80f4a842975a69c0f82e, type: 3}
+    - {fileID: 2800000, guid: e0b494d30e128ab4db7746719b6f8dfa, type: 3}
+    - {fileID: 2800000, guid: 3daf006377345424993034bef19cdad7, type: 3}
+    - {fileID: 2800000, guid: 0b0e0c53c83a1fe4abd416be53a2ea93, type: 3}
+    - {fileID: 2800000, guid: 27cab3fb960151b41a58a1293085758a, type: 3}
+    - {fileID: 2800000, guid: 3b1504c5efd36b4408be6dc1a427a707, type: 3}
+    - {fileID: 2800000, guid: 4f594fbdd098a7f44bc9a4d021339343, type: 3}
+    - {fileID: 2800000, guid: 84ffcf5e226a2f44bbd8459f200eddf6, type: 3}
+    - {fileID: 2800000, guid: e8b4b9edd6a5b2949b1e8ee5011e7a51, type: 3}
+    - {fileID: 2800000, guid: 301ac96895c13dc4cb61ee51dfed9337, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 0b0e0c53c83a1fe4abd416be53a2ea93, type: 3}
+  - {fileID: 21300000, guid: 3daf006377345424993034bef19cdad7, type: 3}
+  - {fileID: 21300000, guid: e0b494d30e128ab4db7746719b6f8dfa, type: 3}
+  - {fileID: 21300000, guid: 3b1504c5efd36b4408be6dc1a427a707, type: 3}
+  - {fileID: 21300000, guid: 58b4fec564f5d7648ad5798886bf0b2f, type: 3}
+  - {fileID: 21300000, guid: 301ac96895c13dc4cb61ee51dfed9337, type: 3}
+  - {fileID: 21300000, guid: 27cab3fb960151b41a58a1293085758a, type: 3}
+  - {fileID: 21300000, guid: 4f594fbdd098a7f44bc9a4d021339343, type: 3}
+  - {fileID: 21300000, guid: e8b4b9edd6a5b2949b1e8ee5011e7a51, type: 3}
+  - {fileID: 21300000, guid: 84ffcf5e226a2f44bbd8459f200eddf6, type: 3}
+  - {fileID: 21300000, guid: 6278ac3f1b44fda4f9528b48f68095fe, type: 3}
+  - {fileID: 21300000, guid: e8926def209b80f4a842975a69c0f82e, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - Slash_03_ClawSlashfx
+  - Slash_01_ClawSlashfx
+  - Sakura_ClawSlashfx
+  - Slash_05_ClawSlashfx
+  - Circle_ClawSlashfx
+  - Untitled-1_ClawSlashfx
+  - Slash_04_ClawSlashfx
+  - Slash_06_ClawSlashfx
+  - Slash_08_Ab_ClawSlashfx
+  - Slash_07_ClawSlashfx
+  - Circle_01_ClawSlashfx
+  - feather_1_ClawSlashfx
+  m_RenderDataMap: {}
+  m_Tag: Move Effects
+  m_IsVariant: 0

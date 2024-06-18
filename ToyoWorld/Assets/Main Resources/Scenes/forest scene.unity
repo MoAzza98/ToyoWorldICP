@@ -39312,6 +39312,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: c08355e2847c17f4a9fb3f50f9e37c22, type: 3}
   m_PrefabInstance: {fileID: 440134115}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &1296037941 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1892150447038394691, guid: 69b4dc28f9e0112419844163f0990b82, type: 3}
+  m_PrefabInstance: {fileID: 1885612620}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1296233641
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -56616,6 +56621,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: -0.050791323
       objectReference: {fileID: 0}
+    - target: {fileID: 1892150447038394700, guid: 69b4dc28f9e0112419844163f0990b82, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 1296037941}
     - target: {fileID: 1892150447038394701, guid: 69b4dc28f9e0112419844163f0990b82, type: 3}
       propertyPath: m_LocalPosition.x
       value: 19.79
