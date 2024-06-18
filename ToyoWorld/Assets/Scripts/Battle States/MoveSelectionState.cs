@@ -6,6 +6,7 @@ using UnityEngine;
 public class MoveSelectionState : State<BattleState>
 {
     [SerializeField] MoveSelectionUI moveSelectionUI;
+    [SerializeField] GameObject controlUI;
 
     public static MoveSelectionState i { get; private set; }
     private void Awake()
@@ -17,13 +18,14 @@ public class MoveSelectionState : State<BattleState>
     public override void Enter(BattleState owner)
     {
         bs = owner;
+        controlUI?.gameObject.SetActive(true);
         moveSelectionUI.gameObject.SetActive(true);
         moveSelectionUI.SetMoves(bs.PlayerToyo.Moves);
         moveSelectionUI.OnSelected += OnMoveSelected;
         moveSelectionUI.OnBack += OnBack;
 
-        PlayerController.i.SetControl(false);
-        PlayerController.i.FreezeCamera(true);
+        //PlayerController.i.SetControl(false);
+        //PlayerController.i.FreezeCamera(true);
     }
 
     public override void Execute()
@@ -33,12 +35,13 @@ public class MoveSelectionState : State<BattleState>
 
     public override void Exit()
     {
+        controlUI?.gameObject.SetActive(false);
         moveSelectionUI.gameObject.SetActive(false);
         moveSelectionUI.OnSelected -= OnMoveSelected;
         moveSelectionUI.OnBack -= OnBack;
 
-        PlayerController.i.SetControl(true);
-        PlayerController.i.FreezeCamera(false);
+        //PlayerController.i.SetControl(true);
+        //PlayerController.i.FreezeCamera(false);
     }
 
     void OnMoveSelected(int selection)

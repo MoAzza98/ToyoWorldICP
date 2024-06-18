@@ -9,6 +9,7 @@ public class FreeRoamState : State<GameController>
     [SerializeField] PlayerController player;
     [SerializeField] PartyWidget partyWidget;
     [SerializeField] Button moveSwitchButton;
+    [SerializeField] GameObject gameControls;
 
     public static FreeRoamState i { get; private set; }
     private void Awake()
@@ -23,6 +24,7 @@ public class FreeRoamState : State<GameController>
 
         player.SetControl(true);
         partyWidget.gameObject.SetActive(true);
+        gameControls?.SetActive(true);
 
         moveSwitchButton.onClick.AddListener(GoToMoveSwitchState);
     }
@@ -46,11 +48,13 @@ public class FreeRoamState : State<GameController>
     {
         moveSwitchButton.gameObject.SetActive(true);
         partyWidget.gameObject.SetActive(true);
+        gameControls?.SetActive(true);
     }
 
     public override void OnLostFocus()
     {
         moveSwitchButton.gameObject.SetActive(false);
+        gameControls?.SetActive(false);
     }
 
     void GoToMoveSwitchState()

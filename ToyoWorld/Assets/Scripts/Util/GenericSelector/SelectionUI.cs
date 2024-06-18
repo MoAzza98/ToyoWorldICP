@@ -49,7 +49,7 @@ public class SelectionUI<T> : MonoBehaviour where T : ISelectableItem
 
     void HandleListSelection()
     {
-        float v = Input.GetAxisRaw("Vertical");
+        float v = Input.GetAxisRaw("VerticalArrow");
 
         if (selectionTimer == 0f && Mathf.Abs(v) > 0.2f)
         {

@@ -114,8 +114,14 @@ public class PlayerController : MonoBehaviour
                 isAiming = false;
                 animator.SetBool("isAiming", isAiming);
 
-                StartCoroutine(DoAction("Throw", () => aimCamera.SetActive(false)));
-                StartCoroutine(DoAction("Throw", () => gameControls.SetActive(true)));
+                StartCoroutine(DoAction("Throw"));
+
+                StartCoroutine(AsyncUtil.RunAfterTime(0.5f, () =>
+                {
+                    aimCamera.SetActive(false);
+                    gameControls.SetActive(true);
+                }));
+                
             }
             else if (Input.GetButtonDown("Throw"))
             {
