@@ -53,8 +53,18 @@ public class ActionSelectionState : State<BattleState>
 
     void OnSelected(int selection)
     {
-        bs.SelectedAction = selection == 0 ? BattleActions.Move : BattleActions.Run;
-        bs.StateMachine.Push(MoveSelectionState.i, true);
+        if (selection == 0)
+        {
+            // Move
+            bs.SelectedAction = BattleActions.Move;
+            bs.StateMachine.Push(MoveSelectionState.i, true);
+        }
+        else
+        {
+            // Run
+            bs.SelectedAction = BattleActions.Run;
+            bs.StateMachine.ChangeState(RunTurnState.i);
+        }
     }
 
     void OnBack()
