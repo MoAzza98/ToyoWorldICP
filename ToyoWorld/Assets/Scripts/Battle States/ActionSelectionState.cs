@@ -6,6 +6,7 @@ using UnityEngine;
 public class ActionSelectionState : State<BattleState>
 {
     [SerializeField] GameObject actionSelectionUI;
+    [SerializeField] GameObject genControlsUI;
     [SerializeField] PartyWidget partyWidget;
 
     public static ActionSelectionState i { get; private set; }
@@ -20,6 +21,7 @@ public class ActionSelectionState : State<BattleState>
         bs = owner;
         actionSelectionUI.SetActive(true);
         partyWidget.gameObject.SetActive(true);
+        genControlsUI.gameObject.SetActive(false);
     }
 
     public override void Execute()

@@ -38,7 +38,7 @@ SpriteAtlas:
       padding: 4
       blockOffset: 1
       allowAlphaSplitting: 0
-      enableRotation: 1
+      enableRotation: 0
       enableTightPacking: 0
       enableAlphaDilation: 0
     secondaryTextureSettings: {}
@@ -54,13 +54,11 @@ SpriteAtlas:
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
-  - {fileID: 21300000, guid: 56c41fd3767ac5640b002e2afbcb4331, type: 3}
   - {fileID: 21300000, guid: c7636556c9724674eb02f72302c536a3, type: 3}
   - {fileID: 21300000, guid: e477543785ca4fd4d86999832f40b39f, type: 3}
   - {fileID: 21300000, guid: 7bfffef855d42c045b6401db9973782b, type: 3}
   - {fileID: 21300000, guid: 6dab2d99821b7d9448f66bd6d1307125, type: 3}
   m_PackedSpriteNamesToIndex:
-  - dead tree
   - desert thorns
   - cactus
   - desert foliage

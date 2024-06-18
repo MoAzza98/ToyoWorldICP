@@ -24,6 +24,8 @@ public class BattleState : State<GameController>
 
     public StateMachine<BattleState> StateMachine { get; private set; }
 
+    public GameObject genControlsUI;
+
     public static BattleState i { get; private set; }
     private void Awake()
     {
@@ -85,6 +87,7 @@ public class BattleState : State<GameController>
         if (won)
             BoomServices.i.UserWonMatch().Forget();
 
+        genControlsUI.SetActive(true);
         //PlayerParty.Pokemons.ForEach(p => p.OnBattleOver());
         //OnBattleOver(won);
     }

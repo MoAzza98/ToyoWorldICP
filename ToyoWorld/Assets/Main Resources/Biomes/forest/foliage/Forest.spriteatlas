@@ -64,25 +64,19 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 55ea309050f97474399c759c06ad3e3b, type: 3}
   - {fileID: 21300000, guid: e4fcc166053cdcf43b29da1fbf8eac43, type: 3}
   - {fileID: 21300000, guid: 5e60d187cfb7ecc4ba6775f93a308fba, type: 3}
-  - {fileID: 21300000, guid: 1d2539977aa97bf4ebb01b8a6ee9160e, type: 3}
   - {fileID: 21300000, guid: 50df94384ca530e45b401c170616af33, type: 3}
   - {fileID: 21300000, guid: 66ed9b98d1ce8304ea8d2c649e59535f, type: 3}
-  - {fileID: 21300000, guid: e890793a388cf7b4bb12ce862b52b8e2, type: 3}
   - {fileID: 21300000, guid: 11333d4a778661e409f2ba2b9192ee8e, type: 3}
   - {fileID: 21300000, guid: eb41787fb315f324ea9709a413ae433d, type: 3}
-  - {fileID: 21300000, guid: c782dcefe72414a4db408987abc0486d, type: 3}
   m_PackedSpriteNamesToIndex:
   - willow leaves
   - main tree leaves
   - short grass
   - grass
-  - pine bark
   - pine tree leaves
   - main tree diffuse
-  - willow bark
   - vegetation
   - grass_curly
-  - main tree foliage
   m_RenderDataMap: {}
   m_Tag: Forest
   m_IsVariant: 0

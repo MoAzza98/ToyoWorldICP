@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] CinemachineFreeLook thirdPersonCam;
     [SerializeField] GameObject aimCamera;
+    [SerializeField] GameObject gameControls;
     [SerializeField] Transform aimTarget;
 
     [SerializeField] Pokeball pokeballPrefab;
@@ -114,6 +115,7 @@ public class PlayerController : MonoBehaviour
                 animator.SetBool("isAiming", isAiming);
 
                 StartCoroutine(DoAction("Throw", () => aimCamera.SetActive(false)));
+                StartCoroutine(DoAction("Throw", () => gameControls.SetActive(true)));
             }
             else if (Input.GetButtonDown("Throw"))
             {
@@ -207,6 +209,7 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("isAiming", isAiming);
 
         aimCamera.SetActive(true);
+        gameControls.SetActive(false);
 
         pokeballObj = Instantiate(pokeballPrefab, animator.GetBoneTransform(HumanBodyBones.RightHand));
         pokeballObj.transform.localPosition = HandOffset;
