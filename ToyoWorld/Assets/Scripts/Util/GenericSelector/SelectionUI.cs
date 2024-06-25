@@ -8,7 +8,7 @@ public class SelectionUI<T> : MonoBehaviour where T : ISelectableItem
 {
     List<T> _items;
     List<T> allItems;
-    int selectedItem = 0;
+    protected int selectedItem = 0;
 
     float selectionTimer = 0f;
 

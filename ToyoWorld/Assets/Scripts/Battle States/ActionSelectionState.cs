@@ -20,12 +20,7 @@ public class ActionSelectionState : State<BattleState>
     {
         bs = owner;
 
-        actionSelectionUI.gameObject.SetActive(true);
-        actionSelectionUI.OnSelected += OnSelected;
-        actionSelectionUI.OnBack += OnBack;
-
-        partyWidget.gameObject.SetActive(true);
-        controlUI?.gameObject.SetActive(true);
+        EnableUI();
     }
 
     public override void Execute()
@@ -34,20 +29,7 @@ public class ActionSelectionState : State<BattleState>
 
         if (Input.GetMouseButtonDown(0))
         {
-            if (partyWidget.SelectedToyo == bs.PlayerToyo)
-            {
-                StartCoroutine(DialogueState.i.ShowDialogue($"You can't switch with the same toyo!"));
-                return;
-            }
-            if (partyWidget.SelectedToyo.Hp <= 0)
-            {
-                StartCoroutine(DialogueState.i.ShowDialogue($"You can't send out a fainted toyo!"));
-                return;
-            }
-
-            bs.SelectedAction = BattleActions.SwitchToyo;
-            bs.SelectedToyo = partyWidget.SelectedToyo;
-            bs.StateMachine.ChangeState(RunTurnState.i);
+            StartCoroutine(SwitchToyo());
         }
     }
 
@@ -76,10 +58,56 @@ public class ActionSelectionState : State<BattleState>
 
     public override void Exit()
     {
+        DisableUI();
+    }
+
+    void EnableUI()
+    {
+        actionSelectionUI.gameObject.SetActive(true);
+        actionSelectionUI.OnSelected += OnSelected;
+        actionSelectionUI.OnBack += OnBack;
+        partyWidget.gameObject.SetActive(true);
+        controlUI?.gameObject.SetActive(true);
+    }
+
+    void DisableUI()
+    {
         actionSelectionUI.OnSelected -= OnSelected;
         actionSelectionUI.OnBack -= OnBack;
         actionSelectionUI.gameObject.SetActive(false);
         partyWidget.gameObject.SetActive(false);
         controlUI?.gameObject.SetActive(false);
+    }
+
+    IEnumerator SwitchToyo()
+    {
+        DisableUI();
+
+        if (partyWidget.SelectedToyo == bs.PlayerToyo)
+        {
+            yield return DialogueState.i.ShowDialogue($"You can't switch with the same toyo!");
+            EnableUI();
+            yield break;
+        }
+        if (partyWidget.SelectedToyo.Hp <= 0)
+        {
+            yield return DialogueState.i.ShowDialogue($"You can't send out a fainted toyo!");
+            EnableUI();
+            yield break;
+        }
+
+        yield return DialogueState.i.ShowDialogue($"Do you want to send out {partyWidget.SelectedToyo.Base.Name}?", choices: new List<string>() { "Yes", "No" });
+        if (DialogueState.i.SelectedChoice == 0)
+        {
+            // Yes
+            bs.SelectedAction = BattleActions.SwitchToyo;
+            bs.SelectedToyo = partyWidget.SelectedToyo;
+            bs.StateMachine.ChangeState(RunTurnState.i);
+        }
+        else
+        {
+            // No
+            EnableUI();
+        }
     }
 }

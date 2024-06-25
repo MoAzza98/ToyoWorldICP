@@ -11,13 +11,19 @@ public class DialogueState : State<GameController>
     [SerializeField] GameObject dialogueBox;
     [SerializeField] TMP_Text dialogueText;
 
+    [SerializeField] ChoiceSelectionUI choiceBoxUI;
+
+    bool choiceBoxOpened = false;
+    bool choiceSelected = false;
+    public int SelectedChoice { get; private set; }
+
     public static DialogueState i { get; private set; }
     private void Awake()
     {
         i = this;
     }
 
-    public IEnumerator ShowDialogue(string text, bool exitCurrState=false)
+    public IEnumerator ShowDialogue(string text, bool exitCurrState=false, List<string> choices=null)
     {
         GameController.i.StateMachine.Push(this, exitCurrState);
 
@@ -30,7 +36,18 @@ public class DialogueState : State<GameController>
             yield return new WaitForSeconds(1/lettersPerSecond);
         }
 
-        yield return new WaitForSeconds(1f);
+        if (choices != null && choices.Count > 0)
+        {
+            choiceBoxUI.SetChoices(choices);
+            choiceBoxUI.OnSelected += OnChoiceSelected;
+
+            choiceBoxOpened = true;
+            choiceSelected = false;
+            yield return new WaitUntil(() => choiceSelected == true);
+        }
+
+        if (!choiceSelected)
+            yield return new WaitForSeconds(1f);
 
         dialogueBox.SetActive(false);
         GameController.i.StateMachine.Pop(exitCurrState);
@@ -43,11 +60,22 @@ public class DialogueState : State<GameController>
 
     public override void Execute()
     {
-        
+        if (choiceBoxOpened)
+            choiceBoxUI.HandleUpdate();
     }
 
     public override void Exit()
     {
         
+    }
+
+    void OnChoiceSelected(int selection)
+    {
+        choiceSelected = true;
+        choiceBoxOpened = false;
+        SelectedChoice = selection;
+
+        choiceBoxUI.OnSelected -= OnChoiceSelected;
+        choiceBoxUI.gameObject.SetActive(false);
     }
 }

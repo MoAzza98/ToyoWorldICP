@@ -171,8 +171,22 @@ public class RunTurnState : State<BattleState>
             var nextPokemon = bs.PlayerParty.GetHealthyToyo();
             if (nextPokemon != null)
             {
-                yield return bs.StateMachine.PushAndWait(PokemonSelectionState.i);
-                yield return SwitchToyo(PokemonSelectionState.i.SelectedToyo);
+                yield return DialogueState.i.ShowDialogue($"Do you want to send out the next pokemon?", choices: new List<string>() { "Yes", "No" });
+                if (DialogueState.i.SelectedChoice == 0)
+                {
+                    // Yes
+                    yield return bs.StateMachine.PushAndWait(PokemonSelectionState.i);
+                    yield return SwitchToyo(PokemonSelectionState.i.SelectedToyo);
+                }
+                else
+                {
+                    // No
+                    yield return DialogueState.i.ShowDialogue($"Ran away safely!");
+
+                    yield return new WaitForSeconds(0.5f);
+                    playerToyo.Model.SetActive(false);
+                    bs.BattleOver(false);
+                }
             }
             else
             {

@@ -23,6 +23,7 @@ public class FreeRoamState : State<GameController>
         gc = owner;
 
         player.SetControl(true);
+        player.CanThrowPokeball = true;
         partyWidget.gameObject.SetActive(true);
         gameControls?.SetActive(true);
 
@@ -40,6 +41,7 @@ public class FreeRoamState : State<GameController>
     public override void Exit()
     {
         player.SetControl(false);
+        player.CanThrowPokeball = false;
 
         moveSwitchButton.onClick.RemoveAllListeners();
     }
@@ -49,12 +51,14 @@ public class FreeRoamState : State<GameController>
         moveSwitchButton.gameObject.SetActive(true);
         partyWidget.gameObject.SetActive(true);
         gameControls?.SetActive(true);
+        player.CanThrowPokeball = true;
     }
 
     public override void OnLostFocus()
     {
         moveSwitchButton.gameObject.SetActive(false);
         gameControls?.SetActive(false);
+        player.CanThrowPokeball = false;
     }
 
     void GoToMoveSwitchState()

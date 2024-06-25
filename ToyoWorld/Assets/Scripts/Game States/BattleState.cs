@@ -47,8 +47,6 @@ public class BattleState : State<GameController>
     public override void Enter(GameController owner)
     {
         gc = owner;
-
-        PlayerController.i.CanThrowPokeball = false;
         StartCoroutine(StartWildBattle());
     }
 
@@ -99,6 +97,6 @@ public class BattleState : State<GameController>
 
     public override void Exit()
     {
-        PlayerController.i.CanThrowPokeball = true;
+
     }
 }
