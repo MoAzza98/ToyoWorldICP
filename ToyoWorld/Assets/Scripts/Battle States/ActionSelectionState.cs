@@ -31,6 +31,12 @@ public class ActionSelectionState : State<BattleState>
         {
             StartCoroutine(SwitchToyo());
         }
+        else if (Input.GetKeyDown(KeyCode.T))
+        {
+            bs.SelectedAction = BattleActions.UseItem;
+            bs.SelectedItem = PlayerController.i.PokeballItem;
+            bs.StateMachine.ChangeState(RunTurnState.i);
+        }
     }
 
     void OnSelected(int selection)

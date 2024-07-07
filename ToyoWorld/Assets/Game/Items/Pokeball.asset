@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f71d318b075e23c4ea9f8cd7b5e6df9d, type: 3}
+  m_Name: Pokeball
+  m_EditorClassIdentifier: 
+  name: Pokeball
+  description: 
+  icon: {fileID: 0}
+  overworldModel: {fileID: 5138836318887020722, guid: 85ddb030a260c914597fe05cb80e1eb8, type: 3}
+  price: 0
+  isSellable: 0
+  catchRateModfier: 1
+  pokeballModel: {fileID: 5138836318887020727, guid: 85ddb030a260c914597fe05cb80e1eb8, type: 3}

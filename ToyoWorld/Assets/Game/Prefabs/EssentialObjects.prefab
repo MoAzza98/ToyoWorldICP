@@ -5048,7 +5048,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1892150446082458348}
-  m_LocalRotation: {x: 0.12575364, y: 0.44356975, z: -0.06301935, w: 0.885133}
+  m_LocalRotation: {x: 0.12548263, y: 0.4473556, z: -0.06355721, w: 0.8832257}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5381,7 +5381,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1892150446602941669}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 16.585648, y: 2.5, z: 25.3358}
+  m_LocalPosition: {x: 16.565262, y: 2.5, z: 25.363327}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5522,8 +5522,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1892150446772606908}
-  m_LocalRotation: {x: 0.10963274, y: 0.44464272, z: -0.05494064, w: 0.88727397}
-  m_LocalPosition: {x: 16.585648, y: 2.5, z: 25.3358}
+  m_LocalRotation: {x: 0.10939645, y: 0.44843763, z: -0.05540952, w: 0.885362}
+  m_LocalPosition: {x: 16.565262, y: 2.5, z: 25.363327}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5672,7 +5672,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1892150446935412254}
-  m_LocalRotation: {x: 0.09351826, y: 0.4455662, z: -0.046865124, w: 0.8891168}
+  m_LocalRotation: {x: 0.0933167, y: 0.44936907, z: -0.047265094, w: 0.88720095}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5750,7 +5750,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1892150446946078485}
-  m_LocalRotation: {x: 0.109632716, y: 0.4446427, z: -0.05494062, w: 0.887274}
+  m_LocalRotation: {x: 0.10939645, y: 0.44843763, z: -0.05540952, w: 0.885362}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5904,6 +5904,7 @@ MonoBehaviour:
   gameControls: {fileID: 1254111088}
   aimTarget: {fileID: 1728181910}
   pokeballPrefab: {fileID: 5138836318887020727, guid: 85ddb030a260c914597fe05cb80e1eb8, type: 3}
+  pokeballItem: {fileID: 11400000, guid: 33387b48d526a8642ba6d4b0dcc2341c, type: 2}
   animator: {fileID: 0}
   freeLookCam: {fileID: 1892150446602941668}
 --- !u!114 &1788154404

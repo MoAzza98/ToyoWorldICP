@@ -11,6 +11,8 @@ public class FreeRoamState : State<GameController>
     [SerializeField] Button moveSwitchButton;
     [SerializeField] GameObject gameControls;
 
+    bool showPartyWidget = true;
+
     public static FreeRoamState i { get; private set; }
     private void Awake()
     {
@@ -34,7 +36,8 @@ public class FreeRoamState : State<GameController>
     {
         if (Input.GetKeyDown(KeyCode.T))
         {
-            gc.StateMachine.Push(MoveSwitchingState.i);
+            showPartyWidget = !showPartyWidget;
+            partyWidget.gameObject.SetActive(showPartyWidget);
         }
     }
 

@@ -55,6 +55,18 @@ public class RunTurnState : State<BattleState>
             {
                 yield return SwitchToyo(bs.SelectedToyo);
             }
+            else if (bs.SelectedAction == BattleActions.UseItem)
+            {
+                if (bs.SelectedItem is PokeballItem)
+                {
+                    yield return bs.ThrowPokeball(bs.SelectedItem as PokeballItem);
+                    if (bs.IsBattleOver) yield break;
+                }
+                else
+                {
+                    // This is handled from item screen, so do nothing and skip to enemy move
+                }
+            }
             else if (bs.SelectedAction == BattleActions.Run)
             {
                 yield return TryToEscape();

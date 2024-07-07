@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,10 @@ public class Pokeball : MonoBehaviour
 
     public Toyo ToyoToSpawn { get; set; }
     public ToyoParty ToyoParty { get; set; }
+    public int ShakeCount { get; set; }
+
+    // Output
+    public bool CatchComplete { get; private set; }
 
     Transform cam;
     Rigidbody rigidbody;
@@ -19,6 +24,8 @@ public class Pokeball : MonoBehaviour
 
     public void LaunchToTarget(Vector3 targetPos)
     {
+        CatchComplete = false;
+
         transform.parent = null;
         rigidbody.isKinematic = false;
         rigidbody.velocity = CalculateLaunchVelocity(targetPos);
@@ -49,7 +56,11 @@ public class Pokeball : MonoBehaviour
         if (collision.gameObject.tag != "Player")
         {
             rigidbody.isKinematic = true;
-            StartCoroutine(SpawnToyo(collision.collider));
+
+            if (ToyoToSpawn != null)
+                StartCoroutine(SpawnToyo(collision.collider));
+            else
+                StartCoroutine(CatchToyo(collision.collider));
         }
     }
 
@@ -60,7 +71,11 @@ public class Pokeball : MonoBehaviour
         if (other.gameObject.tag != "Player")
         {
             rigidbody.isKinematic = true;
-            StartCoroutine(SpawnToyo(other));
+
+            if (ToyoToSpawn != null)
+                StartCoroutine(SpawnToyo(other));
+            else
+                StartCoroutine(CatchToyo(other));
         }
     }
 
@@ -110,5 +125,49 @@ public class Pokeball : MonoBehaviour
         }
 
         Destroy(gameObject);
+    }
+
+    IEnumerator CatchToyo(Collider collider)
+    {
+        var toyo = collider.GetComponent<WildToyo>();
+        if (toyo != null)
+        {
+            var dirToCam = (cam.position - toyo.transform.position).normalized;
+            dirToCam.y = 0;
+
+            var effect = Instantiate(spawnEffect, toyo.transform.position + Vector3.up * 0.5f, Quaternion.identity);
+            effect.transform.forward = dirToCam;
+
+            yield return new WaitForSeconds(0.2f);
+
+            toyo.gameObject.SetActive(false);
+
+            //for (int i = 0; i < Mathf.Min(ShakeCount, 3); ++i)
+            //{
+            //    yield return new WaitForSeconds(0.5f);
+            //    yield return transform.DOPunchRotation(new Vector3(0, 0, 10f), 0.8f).WaitForCompletion();
+            //}
+
+            if (ShakeCount == 4)
+            {
+                // Pokemon is caught
+                yield return DialogueState.i.ShowDialogue($"{toyo.Toyo.Base.Name} was caught");
+                yield return DialogueState.i.ShowDialogue($"{toyo.Toyo.Base.Name} has been added to your party");
+            }
+            else
+            {
+                // Pokemon broke out
+                yield return new WaitForSeconds(1f);
+
+                if (ShakeCount < 2)
+                    yield return DialogueState.i.ShowDialogue($"{toyo.Toyo.Base.Name} broke free");
+                else
+                    yield return DialogueState.i.ShowDialogue($"Almost caught it");
+
+                toyo.Toyo.Model.gameObject.SetActive(true);
+            }
+
+            CatchComplete = true;
+        }
     }
 }

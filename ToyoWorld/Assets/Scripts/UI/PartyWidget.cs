@@ -19,9 +19,10 @@ public class PartyWidget : MonoBehaviour
     private void Start()
     {
         playerParty = PlayerController.i.GetComponent<ToyoParty>();
-
         UpdateSelectionInUI();
         centerSlot.color = Color.white;
+
+        playerParty.OnPartyUpdated += UpdateSelectionInUI;
     }
 
     private void Update()

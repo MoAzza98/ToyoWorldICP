@@ -25,6 +25,8 @@ public class ToyoBase : ScriptableObject
     [SerializeField] int spDefense;
     [SerializeField] int speed;
 
+    [SerializeField] int catchRate = 255;
+
     [SerializeField] int expYield;
     [SerializeField] GrowthRate growthRate;
 
@@ -55,6 +57,8 @@ public class ToyoBase : ScriptableObject
     public int SpAttack => spAttack;
     public int SpDefense => spDefense;
     public int Speed => speed;
+
+    public int CatchRate => catchRate;
 
     public ToyoType Type1 => type1;
     public ToyoType Type2 => type2;

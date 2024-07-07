@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,11 +8,26 @@ public class ToyoParty : MonoBehaviour
 {
     [SerializeField] List<Toyo> toyos;
 
+    public event Action OnPartyUpdated;
+
     private void Awake()
     {
         foreach (var toyo in toyos)
         {
             toyo.Init();
+        }
+    }
+
+    public void AddToyo(Toyo toyo)
+    {
+        if (toyos.Count < 6)
+        {
+            toyos.Add(toyo);
+            OnPartyUpdated?.Invoke();
+        }
+        else
+        {
+            // Add the toyo to box
         }
     }
 

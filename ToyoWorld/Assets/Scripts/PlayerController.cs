@@ -18,6 +18,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Transform aimTarget;
 
     [SerializeField] Pokeball pokeballPrefab;
+    [SerializeField] PokeballItem pokeballItem;
+
+    public PokeballItem PokeballItem => pokeballItem;
 
     bool hasControl = true;
 
@@ -231,8 +234,12 @@ public class PlayerController : MonoBehaviour
         else
             targetPos = rayOrgin + camera.transform.forward * throwRange;
 
-        pokeballObj.ToyoParty = playerParty;
-        pokeballObj.ToyoToSpawn = partyWidget.SelectedToyo;
+        if (partyWidget.gameObject.activeInHierarchy)
+        {
+            pokeballObj.ToyoParty = playerParty;
+            pokeballObj.ToyoToSpawn = partyWidget.SelectedToyo;
+        }
+
         pokeballObj.LaunchToTarget(targetPos);
     }
 
