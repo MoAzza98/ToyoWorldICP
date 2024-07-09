@@ -12,6 +12,8 @@ public class PartyWidget : MonoBehaviour
     [SerializeField] Image leftSlot;
     [SerializeField] Image rightSlot;
 
+    bool showItems = false;
+
     int selectedToyo = 0;
     public Toyo SelectedToyo => playerParty.Toyos[selectedToyo];
 
@@ -27,6 +29,9 @@ public class PartyWidget : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.T))
+            ToggleShowingItemsOrParty();
+
         float prevSelection = selectedToyo;
 
         if (Input.GetKeyDown(KeyCode.Q))
@@ -42,38 +47,49 @@ public class PartyWidget : MonoBehaviour
 
     public void UpdateSelectionInUI()
     {
-        var toyo = playerParty.Toyos[selectedToyo];
-
-        nameTxt.text = toyo.Base.Name;
-        lvlTxt.text = "Lv. " + toyo.Level.ToString();
-        centerSlot.sprite = toyo.Base.Sprite;
-
-        int nextToyoIndex = GetNextToyoIndex(selectedToyo);
-        int prevToyoIndex = GetPrevToyoIndex(selectedToyo);
-
-        if (playerParty.Toyos.Count == 1)
+        if (showItems)
         {
-            prevToyoIndex = -1;
-            nextToyoIndex = -1;
-        }
-        else if (prevToyoIndex == nextToyoIndex)
-            nextToyoIndex = -1;
-
-        if (prevToyoIndex != -1)
-        {
-            leftSlot.sprite = playerParty.Toyos[prevToyoIndex].Base.Sprite;
-            leftSlot.color = Color.white;
+            lvlTxt.text = "";
+            nameTxt.text = nameTxt.text = "Toyoball";
+            leftSlot.sprite = null;
+            centerSlot.sprite = null;
+            rightSlot.sprite = null;
         }
         else
-            leftSlot.color = new Color(1, 1, 1, 0);
-
-        if (nextToyoIndex != -1)
         {
-            rightSlot.sprite = playerParty.Toyos[nextToyoIndex].Base.Sprite;
-            rightSlot.color = Color.white;
+            var toyo = playerParty.Toyos[selectedToyo];
+
+            nameTxt.text = toyo.Base.Name;
+            lvlTxt.text = "Lv. " + toyo.Level.ToString();
+            centerSlot.sprite = toyo.Base.Sprite;
+
+            int nextToyoIndex = GetNextToyoIndex(selectedToyo);
+            int prevToyoIndex = GetPrevToyoIndex(selectedToyo);
+
+            if (playerParty.Toyos.Count == 1)
+            {
+                prevToyoIndex = -1;
+                nextToyoIndex = -1;
+            }
+            else if (prevToyoIndex == nextToyoIndex)
+                nextToyoIndex = -1;
+
+            if (prevToyoIndex != -1)
+            {
+                leftSlot.sprite = playerParty.Toyos[prevToyoIndex].Base.Sprite;
+                leftSlot.color = Color.white;
+            }
+            else
+                leftSlot.color = new Color(1, 1, 1, 0);
+
+            if (nextToyoIndex != -1)
+            {
+                rightSlot.sprite = playerParty.Toyos[nextToyoIndex].Base.Sprite;
+                rightSlot.color = Color.white;
+            }
+            else
+                rightSlot.color = new Color(1, 1, 1, 0);
         }
-        else
-            rightSlot.color = new Color(1, 1, 1, 0);
     }
 
     int GetNextToyoIndex(int currIndex)
@@ -85,4 +101,12 @@ public class PartyWidget : MonoBehaviour
     {
         return currIndex > 0 ? currIndex - 1 : playerParty.Toyos.Count - 1;
     }
+
+    public void ToggleShowingItemsOrParty()
+    {
+        showItems = !showItems;
+        UpdateSelectionInUI();
+    }
+
+    public bool IsShowingItems => showItems;
 }

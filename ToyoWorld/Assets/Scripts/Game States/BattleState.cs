@@ -94,6 +94,7 @@ public class BattleState : State<GameController>
 
     public IEnumerator ThrowPokeball(PokeballItem pokeballItem)
     {
+        PlayerController.i.SetControl(false);
 
         yield return DialogueState.i.ShowDialogue($"Used {pokeballItem.Name.ToUpper()}!");
 
@@ -101,42 +102,16 @@ public class BattleState : State<GameController>
         var pokeball = Instantiate(pokeballItem.PokeballModel, PlayerController.i.animator.GetBoneTransform(HumanBodyBones.RightHand));
         pokeball.transform.localPosition = PlayerController.i.HandOffset;
 
-        int shakeCount = TryToCatchToyo(EnemyToyo, pokeballItem);
+        pokeball.ThrowPokeballFromBattle(EnemyToyo, pokeballItem);
 
-        // Throw pokeball
-        pokeball.ShakeCount = shakeCount;
-        pokeball.LaunchToTarget(EnemyToyo.Model.transform.position + Vector3.up);
+        yield return new WaitForSeconds(0.5f);
+        PlayerController.i.SetControl(true);
 
         yield return new WaitUntil(() => pokeball.CatchComplete);
 
-        if (shakeCount == 4)
-        {
-            PlayerParty.AddToyo(EnemyToyo);
+        // If pokemon caught, then end the battle
+        if (pokeball.ShakeCount == 4)
             BattleOver(true);
-        }
-
-        Destroy(pokeball.gameObject);
-    }
-
-    int TryToCatchToyo(Toyo enemyToyo, PokeballItem pokeballItem)
-    {
-        float a = (3 * enemyToyo.MaxHp - 2 * enemyToyo.Hp) * enemyToyo.Base.CatchRate * pokeballItem.CatchRateModifier /** ConditionsDB.GetStatusBonus(enemyToyo.Status)*/ / (3 * enemyToyo.MaxHp);
-
-        if (a >= 255)
-            return 4;
-
-        float b = 1048560 / Mathf.Sqrt(Mathf.Sqrt(16711680 / a));
-
-        int shakeCount = 0;
-        while (shakeCount < 4)
-        {
-            if (UnityEngine.Random.Range(0, 65535) >= b)
-                break;
-
-            ++shakeCount;
-        }
-
-        return shakeCount;
     }
 
     public override void Execute()

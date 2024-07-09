@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
     Camera camera;
     public Animator animator;
     CharacterController characterController;
-    ToyoParty playerParty;
+    public ToyoParty PlayerParty { get; private set; }
     PartyWidget partyWidget;
     public CinemachineFreeLook freeLookCam;
 
@@ -54,7 +54,7 @@ public class PlayerController : MonoBehaviour
         camTransform = Camera.main.transform;
         
         characterController = GetComponent<CharacterController>();
-        playerParty = GetComponent<ToyoParty>();
+        PlayerParty = GetComponent<ToyoParty>();
 
         partyWidget = FindObjectOfType<PartyWidget>();
         animator = GetComponent<Animator>();
@@ -234,13 +234,17 @@ public class PlayerController : MonoBehaviour
         else
             targetPos = rayOrgin + camera.transform.forward * throwRange;
 
-        if (partyWidget.gameObject.activeInHierarchy)
+        if (partyWidget.IsShowingItems)
         {
-            pokeballObj.ToyoParty = playerParty;
-            pokeballObj.ToyoToSpawn = partyWidget.SelectedToyo;
+            // Throw Item
+            pokeballObj.ThrowPokeballFromFreeRoam(targetPos, pokeballItem);
         }
-
-        pokeballObj.LaunchToTarget(targetPos);
+        else
+        {
+            // Throw Pokemon
+            pokeballObj.ToyoToSpawn = partyWidget.SelectedToyo;
+            pokeballObj.LaunchToTarget(targetPos);
+        }
     }
 
     public void SetControl(bool hasControl)

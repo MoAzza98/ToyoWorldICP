@@ -8,7 +8,6 @@ public class Pokeball : MonoBehaviour
     [SerializeField] GameObject spawnEffect;
 
     public Toyo ToyoToSpawn { get; set; }
-    public ToyoParty ToyoParty { get; set; }
     public int ShakeCount { get; set; }
 
     // Output
@@ -22,10 +21,53 @@ public class Pokeball : MonoBehaviour
         cam = Camera.main.transform;
     }
 
-    public void LaunchToTarget(Vector3 targetPos)
+    Toyo targetToyoToCatch = null;
+    PokeballItem pokeballItem = null;
+    bool thrownFromBattle = false;
+
+    public void ThrowPokeballFromBattle(Toyo wildToyo, PokeballItem pokeballItem)
     {
         CatchComplete = false;
+        this.pokeballItem = pokeballItem;
+        thrownFromBattle = true;
+        targetToyoToCatch = wildToyo;
 
+        ShakeCount = TryToCatchToyo(wildToyo, pokeballItem);
+        ThrowPokeballFromFreeRoam(wildToyo.Model.transform.position + Vector3.up, pokeballItem);
+    }
+
+    public void ThrowPokeballFromFreeRoam(Vector3 targetPos, PokeballItem pokeballItem)
+    {
+        CatchComplete = false;
+        this.pokeballItem = pokeballItem;
+        thrownFromBattle = false;
+
+        LaunchToTarget(targetPos);
+    }
+
+    int TryToCatchToyo(Toyo wildToyo, PokeballItem pokeballItem)
+    {
+        float a = (3 * wildToyo.MaxHp - 2 * wildToyo.Hp) * wildToyo.Base.CatchRate * pokeballItem.CatchRateModifier /** ConditionsDB.GetStatusBonus(enemyToyo.Status)*/ / (3 * wildToyo.MaxHp);
+
+        if (a >= 255)
+            return 4;
+
+        float b = 1048560 / Mathf.Sqrt(Mathf.Sqrt(16711680 / a));
+
+        int shakeCount = 0;
+        while (shakeCount < 4)
+        {
+            if (UnityEngine.Random.Range(0, 65535) >= b)
+                break;
+
+            ++shakeCount;
+        }
+
+        return shakeCount;
+    }
+
+    public void LaunchToTarget(Vector3 targetPos)
+    {
         transform.parent = null;
         rigidbody.isKinematic = false;
         rigidbody.velocity = CalculateLaunchVelocity(targetPos);
@@ -120,7 +162,7 @@ public class Pokeball : MonoBehaviour
 
             if (wildToyo != null)
             {
-                BattleState.i.StartState(ToyoParty, ToyoToSpawn, wildToyo.Toyo);
+                BattleState.i.StartState(PlayerController.i.PlayerParty, ToyoToSpawn, wildToyo.Toyo);
             }
         }
 
@@ -129,30 +171,45 @@ public class Pokeball : MonoBehaviour
 
     IEnumerator CatchToyo(Collider collider)
     {
-        var toyo = collider.GetComponent<WildToyo>();
-        if (toyo != null)
+        var wildToyo = collider.GetComponent<WildToyo>();
+        if (targetToyoToCatch != null && targetToyoToCatch != wildToyo.Toyo)
+            yield break;
+
+        if (wildToyo != null)
         {
-            var dirToCam = (cam.position - toyo.transform.position).normalized;
+            if (!thrownFromBattle)
+                ShakeCount = TryToCatchToyo(wildToyo.Toyo, pokeballItem);
+
+            var dirToCam = (cam.position - wildToyo.transform.position).normalized;
             dirToCam.y = 0;
 
-            var effect = Instantiate(spawnEffect, toyo.transform.position + Vector3.up * 0.5f, Quaternion.identity);
+            var effect = Instantiate(spawnEffect, wildToyo.transform.position + Vector3.up * 0.5f, Quaternion.identity);
             effect.transform.forward = dirToCam;
 
             yield return new WaitForSeconds(0.2f);
 
-            toyo.gameObject.SetActive(false);
+            wildToyo.gameObject.SetActive(false);
 
-            //for (int i = 0; i < Mathf.Min(ShakeCount, 3); ++i)
-            //{
-            //    yield return new WaitForSeconds(0.5f);
-            //    yield return transform.DOPunchRotation(new Vector3(0, 0, 10f), 0.8f).WaitForCompletion();
-            //}
+            // Make pokeball fall down
+            if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 10f, GameLayers.i.GroundLayer))
+            {
+                yield return transform.DOMoveY((hit.point + Vector3.up * 0.2f).y, 0.5f).SetEase(Ease.OutBounce).WaitForCompletion();
+            }
+
+            for (int i = 0; i < Mathf.Min(ShakeCount, 3); ++i)
+            {
+                yield return new WaitForSeconds(0.5f);
+                yield return transform.DOShakeRotation(0.5f, 20, 8, 70, true);
+            }
 
             if (ShakeCount == 4)
             {
                 // Pokemon is caught
-                yield return DialogueState.i.ShowDialogue($"{toyo.Toyo.Base.Name} was caught");
-                yield return DialogueState.i.ShowDialogue($"{toyo.Toyo.Base.Name} has been added to your party");
+                yield return DialogueState.i.ShowDialogue($"{wildToyo.Toyo.Base.Name} was caught");
+                yield return DialogueState.i.ShowDialogue($"{wildToyo.Toyo.Base.Name} has been added to your party");
+
+                wildToyo.enabled = false;
+                PlayerController.i.PlayerParty.AddToyo(wildToyo.Toyo);
             }
             else
             {
@@ -160,14 +217,24 @@ public class Pokeball : MonoBehaviour
                 yield return new WaitForSeconds(1f);
 
                 if (ShakeCount < 2)
-                    yield return DialogueState.i.ShowDialogue($"{toyo.Toyo.Base.Name} broke free");
+                    yield return DialogueState.i.ShowDialogue($"{wildToyo.Toyo.Base.Name} broke free");
                 else
                     yield return DialogueState.i.ShowDialogue($"Almost caught it");
 
-                toyo.Toyo.Model.gameObject.SetActive(true);
+                if (!thrownFromBattle)
+                    wildToyo.transform.forward = Vector3.Scale(new Vector3(1, 0, 1), (PlayerController.i.transform.position - wildToyo.transform.position));
+
+                wildToyo.Toyo.Model.gameObject.SetActive(true);
+
+                if (thrownFromBattle)
+                    wildToyo.Toyo.ShowHUD();
             }
 
+            targetToyoToCatch = null;
             CatchComplete = true;
         }
+
+        yield return new WaitForSeconds(0.1f);
+        Destroy(gameObject);
     }
 }
