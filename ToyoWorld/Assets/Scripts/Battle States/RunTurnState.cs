@@ -183,7 +183,7 @@ public class RunTurnState : State<BattleState>
             var nextPokemon = bs.PlayerParty.GetHealthyToyo();
             if (nextPokemon != null)
             {
-                yield return DialogueState.i.ShowDialogue($"Do you want to send out the next pokemon?", choices: new List<string>() { "Yes", "No" });
+                yield return DialogueState.i.ShowDialogue($"Do you want to send out the next Toyo?", choices: new List<string>() { "Yes", "No" });
                 if (DialogueState.i.SelectedChoice == 0)
                 {
                     // Yes
