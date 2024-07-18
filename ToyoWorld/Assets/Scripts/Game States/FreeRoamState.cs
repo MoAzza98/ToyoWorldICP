@@ -32,7 +32,8 @@ public class FreeRoamState : State<GameController>
 
     public override void Execute()
     {
-        
+        if (Input.GetKeyDown(KeyCode.R))
+            gc.StateMachine.Push(StorageState.i);
     }
 
     public override void Exit()

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class SelectionUI<T> : MonoBehaviour where T : ISelectableItem
 {
@@ -10,10 +11,19 @@ public class SelectionUI<T> : MonoBehaviour where T : ISelectableItem
     List<T> allItems;
     protected int selectedItem = 0;
 
+    SelectionType selectionType;
+    int gridWidth = 2;
+
     float selectionTimer = 0f;
 
     public event Action<int> OnSelected;
     public event Action OnBack;
+
+    public void SetSelectionSettings(SelectionType selectionType, int gridWidth)
+    {
+        this.selectionType = selectionType;
+        this.gridWidth = gridWidth;
+    }
 
     public void SetItems(List<T> items)
     {
@@ -34,7 +44,10 @@ public class SelectionUI<T> : MonoBehaviour where T : ISelectableItem
 
         int prevSelection = selectedItem;
 
-        HandleListSelection();
+        if (selectionType == SelectionType.List)
+            HandleListSelection();
+        else if (selectionType == SelectionType.Grid)
+            HandleGridSelection();
 
         selectedItem = Mathf.Clamp(selectedItem, 0, _items.Count - 1);
 
@@ -59,7 +72,24 @@ public class SelectionUI<T> : MonoBehaviour where T : ISelectableItem
         }
     }
 
-    void UpdateSelectionInUI()
+    void HandleGridSelection()
+    {
+        float v = Input.GetAxisRaw("VerticalArrow");
+        float h = Input.GetAxisRaw("HorizontalArrow");
+
+        if (selectionTimer == 0 && (Mathf.Abs(v) > 0.2f || Mathf.Abs(h) > 0.2f))
+        {
+            if (Mathf.Abs(h) > Mathf.Abs(v))
+                selectedItem += (int)Mathf.Sign(h);
+            else
+                selectedItem += -(int)Mathf.Sign(v) * gridWidth;
+
+
+            selectionTimer = 0.2f;
+        }
+    }
+
+    public virtual void UpdateSelectionInUI()
     {
         for (int i = 0; i < _items.Count; i++)
         {
@@ -90,4 +120,6 @@ public class SelectionUI<T> : MonoBehaviour where T : ISelectableItem
         selectedItem = index;
         UpdateSelectionInUI();
     }
+
+    public enum SelectionType { List, Grid }
 }

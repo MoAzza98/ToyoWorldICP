@@ -10,8 +10,12 @@ public class ToyoParty : MonoBehaviour
 
     public event Action OnPartyUpdated;
 
+    ToyoStorageBoxes storageBoxes;
+
     private void Awake()
     {
+        storageBoxes = GetComponent<ToyoStorageBoxes>();
+
         foreach (var toyo in toyos)
         {
             toyo.Init();
@@ -27,7 +31,7 @@ public class ToyoParty : MonoBehaviour
         }
         else
         {
-            // Add the toyo to box
+            storageBoxes.AddToyoToEmptySlot(toyo);
         }
     }
 
@@ -54,6 +58,11 @@ public class ToyoParty : MonoBehaviour
         }
 
         return toyo.Model;
+    }
+
+    public void PartyUpdated()
+    {
+        OnPartyUpdated?.Invoke();
     }
 
     public List<Toyo> Toyos => toyos; 

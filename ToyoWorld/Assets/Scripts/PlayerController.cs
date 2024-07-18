@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] CinemachineFreeLook thirdPersonCam;
     [SerializeField] GameObject aimCamera;
     [SerializeField] GameObject gameControls;
+    [SerializeField] GameObject captureToolTip; 
+    [SerializeField] GameObject startBattleToolTip; 
     [SerializeField] Transform aimTarget;
 
     [SerializeField] Pokeball pokeballPrefab;
@@ -218,6 +220,9 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("isAiming", isAiming);
 
         aimCamera.SetActive(true);
+        captureToolTip.SetActive(partyWidget.IsShowingItems);
+        startBattleToolTip.SetActive(!partyWidget.IsShowingItems);
+
         gameControls.SetActive(false);
 
         pokeballObj = Instantiate(pokeballPrefab, animator.GetBoneTransform(HumanBodyBones.RightHand));
