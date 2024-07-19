@@ -49,7 +49,7 @@ We welcome contributions from the community! If you are interested in contributi
 ### How far we've come
 In less than a year, the team has taken ToyoWorld from a vision to a fully playable expansive experience hosted fully on chain. When we started building ToyoWorld, we began in Dfinitys hackathon at the beginning of 2023. At that time, ToyoWorld was just a concept, with one battle scene where the player could either use a static attack, or defend. Since then, we've built an open-world, added a multitude of unique moves each with their own unique properties, Toyos that freely roam the open world, multiple biomes, *numerous* on-chain features and more.
 
-## Where we're at
+### Where we're at
 
 Here's a little summary on our grant milestones, where we've been and where we intend to go:
 - [x] Milestone 1: 
