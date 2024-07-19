@@ -1,6 +1,6 @@
 # ToyoWorld
 
-Welcome to ToyoWorld!
+Welcome to ToyoWorld! Have a look at our Readme to get a better picture of what we're all about!
 
 ## Overview
 
@@ -44,6 +44,22 @@ To start playing ToyoWorld:
 ## Contributing
 
 We welcome contributions from the community! If you are interested in contributing to ToyoWorld, please check out our [contribution guidelines](CONTRIBUTING.md) and [code of conduct](CODE_OF_CONDUCT.md). Contributions that do not adhere to these guidelines or meet the standard of quality expected for ToyoWorld may be rejected.
+
+## Milestones and Progress
+### How far we've come
+In less than a year, the team has taken ToyoWorld from a vision to a fully playable expansive experience hosted fully on chain. When we started building ToyoWorld, we began in Dfinitys hackathon at the beginning of 2023. At that time, ToyoWorld was just a concept, with one battle scene where the player could either use a static attack, or defend. Since then, we've built an open-world, added a multitude of unique moves each with their own unique properties, Toyos that freely roam the open world, multiple biomes, *numerous* on-chain features and more.
+
+## Where we're at
+
+Here's a little summary on our grant milestones, where we've been and where we intend to go:
+- [x] Milestone 1: 
+- [x] Milestone 2:
+- [x] Milestone 3:
+
+### Where we're heading
+Looking forward, there's a lot in store for the future of ToyoWorld. Here's a little more on where we'd like to go from here.
+
+
 
 ## Support
 
