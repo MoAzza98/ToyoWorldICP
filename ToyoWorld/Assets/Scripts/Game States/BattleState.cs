@@ -92,7 +92,7 @@ public class BattleState : State<GameController>
         //OnBattleOver(won);
     }
 
-    public IEnumerator ThrowPokeball(PokeballItem pokeballItem)
+    public IEnumerator ThrowPokeball(ToyoballItem pokeballItem)
     {
         PlayerController.i.SetControl(false);
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Items/Create new pokeball")]
-public class PokeballItem : ItemBase
+public class ToyoballItem : ItemBase
 {
     [SerializeField] float catchRateModfier = 1;
     [SerializeField] Pokeball pokeballModel;

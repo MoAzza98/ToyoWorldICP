@@ -57,9 +57,9 @@ public class RunTurnState : State<BattleState>
             }
             else if (bs.SelectedAction == BattleActions.UseItem)
             {
-                if (bs.SelectedItem is PokeballItem)
+                if (bs.SelectedItem is ToyoballItem)
                 {
-                    yield return bs.ThrowPokeball(bs.SelectedItem as PokeballItem);
+                    yield return bs.ThrowPokeball(bs.SelectedItem as ToyoballItem);
                     if (bs.IsBattleOver) yield break;
                 }
                 else

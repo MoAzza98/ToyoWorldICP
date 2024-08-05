@@ -20,9 +20,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Transform aimTarget;
 
     [SerializeField] Pokeball pokeballPrefab;
-    [SerializeField] PokeballItem pokeballItem;
+    [SerializeField] ToyoballItem pokeballItem;
 
-    public PokeballItem PokeballItem => pokeballItem;
+    public ToyoballItem PokeballItem => pokeballItem;
 
     bool hasControl = true;
 
@@ -44,6 +44,8 @@ public class PlayerController : MonoBehaviour
     public Animator animator;
     CharacterController characterController;
     public ToyoParty PlayerParty { get; private set; }
+
+    Inventory inventory;
     PartyWidget partyWidget;
     public CinemachineFreeLook freeLookCam;
 
@@ -57,6 +59,7 @@ public class PlayerController : MonoBehaviour
         
         characterController = GetComponent<CharacterController>();
         PlayerParty = GetComponent<ToyoParty>();
+        inventory = GetComponent<Inventory>();
 
         partyWidget = FindObjectOfType<PartyWidget>();
         animator = GetComponent<Animator>();
@@ -130,7 +133,10 @@ public class PlayerController : MonoBehaviour
             }
             else if (Input.GetButtonDown("Throw"))
             {
-                Aim();
+                if (partyWidget.IsShowingItems && partyWidget.SelectedItem != null)
+                    Aim();
+                else
+                    Debug.Log("No pokeball left to throw");
             }
             
         }
@@ -242,7 +248,12 @@ public class PlayerController : MonoBehaviour
         if (partyWidget.IsShowingItems)
         {
             // Throw Item
-            pokeballObj.ThrowPokeballFromFreeRoam(targetPos, pokeballItem);
+            var toyoballToThrow = partyWidget.SelectedItem as ToyoballItem;
+            if (toyoballToThrow != null)
+            {
+                pokeballObj.ThrowPokeballFromFreeRoam(targetPos, toyoballToThrow);
+                inventory.RemoveItem(partyWidget.SelectedItem);
+            }
         }
         else
         {

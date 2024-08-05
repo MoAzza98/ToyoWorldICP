@@ -22,10 +22,10 @@ public class Pokeball : MonoBehaviour
     }
 
     Toyo targetToyoToCatch = null;
-    PokeballItem pokeballItem = null;
+    ToyoballItem pokeballItem = null;
     bool thrownFromBattle = false;
 
-    public void ThrowPokeballFromBattle(Toyo wildToyo, PokeballItem pokeballItem)
+    public void ThrowPokeballFromBattle(Toyo wildToyo, ToyoballItem pokeballItem)
     {
         CatchComplete = false;
         this.pokeballItem = pokeballItem;
@@ -36,7 +36,7 @@ public class Pokeball : MonoBehaviour
         ThrowPokeballFromFreeRoam(wildToyo.Model.transform.position + Vector3.up, pokeballItem);
     }
 
-    public void ThrowPokeballFromFreeRoam(Vector3 targetPos, PokeballItem pokeballItem)
+    public void ThrowPokeballFromFreeRoam(Vector3 targetPos, ToyoballItem pokeballItem)
     {
         CatchComplete = false;
         this.pokeballItem = pokeballItem;
@@ -45,7 +45,7 @@ public class Pokeball : MonoBehaviour
         LaunchToTarget(targetPos);
     }
 
-    int TryToCatchToyo(Toyo wildToyo, PokeballItem pokeballItem)
+    int TryToCatchToyo(Toyo wildToyo, ToyoballItem pokeballItem)
     {
         float a = (3 * wildToyo.MaxHp - 2 * wildToyo.Hp) * wildToyo.Base.CatchRate * pokeballItem.CatchRateModifier /** ConditionsDB.GetStatusBonus(enemyToyo.Status)*/ / (3 * wildToyo.MaxHp);
 

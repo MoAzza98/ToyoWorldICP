@@ -5051,7 +5051,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1892150446082458348}
-  m_LocalRotation: {x: 0.06856573, y: 0.21818133, z: -0.015368955, w: 0.9733753}
+  m_LocalRotation: {x: 0.06278913, y: 0.44779715, z: -0.03154335, w: 0.8913699}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5384,7 +5384,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1892150446602941669}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 18.201477, y: 1.8669038, z: 24.364594}
+  m_LocalPosition: {x: 16.804382, y: 1.8669038, z: 25.508408}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5525,8 +5525,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1892150446772606908}
-  m_LocalRotation: {x: 0.046565183, y: 0.21847276, z: -0.01043755, w: 0.9746756}
-  m_LocalPosition: {x: 18.201477, y: 1.8669038, z: 24.364594}
+  m_LocalRotation: {x: 0.042642128, y: 0.4483953, z: -0.021422109, w: 0.8925606}
+  m_LocalPosition: {x: 16.804382, y: 1.8669038, z: 25.508408}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5675,7 +5675,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1892150446935412254}
-  m_LocalRotation: {x: 0.033162657, y: 0.2185956, z: -0.007433384, w: 0.97522354}
+  m_LocalRotation: {x: 0.030368729, y: 0.4486474, z: -0.015256327, w: 0.8930624}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5753,7 +5753,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1892150446946078485}
-  m_LocalRotation: {x: 0.050849173, y: 0.21842477, z: -0.011397802, w: 0.97446144}
+  m_LocalRotation: {x: 0.04656519, y: 0.44829682, z: -0.023392934, w: 0.89236456}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5821,6 +5821,7 @@ GameObject:
   - component: {fileID: 1892150447038394700}
   - component: {fileID: 1788154404}
   - component: {fileID: 8569169314863996040}
+  - component: {fileID: 1622550303514686111}
   - component: {fileID: 3421580467511846874}
   m_Layer: 0
   m_Name: Player
@@ -5950,6 +5951,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0779c760309717f4297ce317c1cc3040, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1622550303514686111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1892150447038394702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58009ce4297d22c419ecf6b1f856a230, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slots: []
+  toyoballSlots:
+  - item: {fileID: 11400000, guid: 33387b48d526a8642ba6d4b0dcc2341c, type: 2}
+    count: 5
+  tmSlots: []
 --- !u!114 &3421580467511846874
 MonoBehaviour:
   m_ObjectHideFlags: 0
