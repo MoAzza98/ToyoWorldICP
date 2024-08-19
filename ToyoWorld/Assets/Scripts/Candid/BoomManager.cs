@@ -65,6 +65,8 @@ namespace Boom
         [SerializeField, ShowOnly] MainDataTypes.LoginData.State loginState;
         [SerializeField, ShowOnly] bool loginCompleted;
 
+        public string PrincipalId => principalId;
+
         protected override void Awake_()
         {
             Broadcast.Register<LoginManager.IndetityJson>(OnLoginCompleted);
