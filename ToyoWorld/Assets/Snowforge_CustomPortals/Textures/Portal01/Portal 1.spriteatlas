@@ -54,11 +54,9 @@ SpriteAtlas:
   m_PackedSprites:
   - {fileID: 21300000, guid: 02cc0cd98b2938a49a8dc8ddeece325c, type: 3}
   - {fileID: 21300000, guid: 9a38c79b71a81cc42802f665e238b07e, type: 3}
-  - {fileID: 21300000, guid: 5dbe644c8d6bbfe45a6880b7e8943319, type: 3}
   m_PackedSpriteNamesToIndex:
   - Portal01_AO_4K
   - Portal01_Albedo_4K
-  - Portal_Normal_4K
   m_RenderDataMap: {}
   m_Tag: Portal 1
   m_IsVariant: 0

@@ -53,12 +53,10 @@ SpriteAtlas:
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
-  - {fileID: 21300000, guid: 6f4bfb539805d2145ad8c82fbf60c796, type: 3}
   - {fileID: 21300000, guid: f0db6eb49451f0a44a589265a10af34f, type: 3}
   - {fileID: 21300000, guid: 33f2898774297104681baf359f409605, type: 3}
   - {fileID: 21300000, guid: 59c2536c92b955a4a8e29c96c0e10af7, type: 3}
   m_PackedSpriteNamesToIndex:
-  - Portal04_Normal_2K
   - Portal04_EntranceTex
   - Portal04_AO_2K
   - Portal04_Albedo_2K
