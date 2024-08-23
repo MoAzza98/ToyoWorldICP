@@ -49,6 +49,34 @@ public class Toyo
         Hp = MaxHp;
     }
 
+    public Toyo(ToyoSaveData saveData)
+    {
+        _base = ToyoDB.GetObjectByName(saveData.name);
+        if (_base == null)
+            Debug.Log(saveData.name);
+
+        Hp = saveData.hp;
+        level = saveData.level;
+        Exp = saveData.exp;
+        Moves = saveData.moves.Select(m => new Move(m)).ToList();
+
+        CalculateStats();
+    }
+
+    public ToyoSaveData GetSaveData()
+    {
+        var saveData = new ToyoSaveData()
+        {
+            name = Base.name,
+            hp = Hp,
+            level = Level,
+            exp = Exp,
+            moves = Moves.Select(m => m.GetSaveData()).ToList()
+        };
+
+        return saveData;
+    }
+
     public void SetModel(GameObject model)
     {
         if (Model != null) return;
@@ -175,6 +203,16 @@ public class Toyo
 
     public ToyoBase Base => _base;
     public int Level => level;
+}
+
+[System.Serializable]
+public class ToyoSaveData
+{
+    public string name;
+    public int hp;
+    public int level;
+    public int exp;
+    public List<MoveSaveData> moves;
 }
 
 public class DamageDetails

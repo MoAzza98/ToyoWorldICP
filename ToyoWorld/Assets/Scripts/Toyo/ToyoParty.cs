@@ -65,5 +65,11 @@ public class ToyoParty : MonoBehaviour
         OnPartyUpdated?.Invoke();
     }
 
-    public List<Toyo> Toyos => toyos; 
+    public List<Toyo> Toyos {
+        get => toyos;
+        set {
+            toyos = value;
+            PartyUpdated();
+        }
+    }
 }

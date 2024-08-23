@@ -2,9 +2,10 @@ using Cinemachine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, ISavable
 {
     [SerializeField] float walkSpeed = 3;
     [SerializeField] float runSpeed = 6;
@@ -272,4 +273,41 @@ public class PlayerController : MonoBehaviour
     {
         thirdPersonCam.gameObject.SetActive(!freeze);
     }
+
+    public void ResetTargetRotation()
+    {
+        targetRotation = transform.rotation;
+    }
+
+    public object CaptureState()
+    {
+        var saveData = new PlayerSaveData()
+        {
+            playerPosition = transform.position,
+            playerRotation = transform.rotation,
+            party = PlayerParty.Toyos.Select(t => t.GetSaveData()).ToList()
+        };
+
+        return saveData;
+    }
+
+    public void RestoreState(object state)
+    {
+        var saveData = state as PlayerSaveData;
+
+        transform.position = saveData.playerPosition;
+        transform.rotation = saveData.playerRotation;
+        ResetTargetRotation();
+        Physics.SyncTransforms();
+
+        PlayerParty.Toyos = saveData.party.Select(t => new Toyo(t)).ToList();
+    }
+}
+
+[System.Serializable]
+public class PlayerSaveData
+{
+    public Vector3 playerPosition;
+    public Quaternion playerRotation;
+    public List<ToyoSaveData> party;
 }
