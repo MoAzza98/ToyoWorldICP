@@ -7,14 +7,20 @@ using UnityEngine;
 
 public class SaveSystem : MonoBehaviour
 {
+    ToyoStorageBoxes storageBoxes;
+    private void Start()
+    {
+        storageBoxes = ToyoStorageBoxes.GetPlayerStorageBoxes();
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Y))
         {
             var saveData = new SaveData()
             {
-                playerPosition = transform.position,
-                playerRotation = transform.rotation
+                playerSaveData = PlayerController.i.CaptureState() as PlayerSaveData,
+                boxData = storageBoxes.CaptureState() as BoxSaveData
             };
 
             string saveDataJson = JsonUtility.ToJson(saveData);
@@ -36,9 +42,8 @@ public class SaveSystem : MonoBehaviour
     {
         yield return Fader.i.FadeIn(0.5f);
 
-        transform.position = saveData.playerPosition;
-        transform.rotation = saveData.playerRotation;
-        Physics.SyncTransforms();
+        PlayerController.i.RestoreState(saveData.playerSaveData);
+        storageBoxes.RestoreState(saveData.boxData);
 
         yield return Fader.i.FadeOut(0.5f);
     }
@@ -82,6 +87,6 @@ public class SaveSystem : MonoBehaviour
 [System.Serializable]
 public class SaveData
 {
-    public Vector3 playerPosition;
-    public Quaternion playerRotation;
+    public PlayerSaveData playerSaveData;
+    public BoxSaveData boxData;
 }

@@ -5051,7 +5051,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1892150446082458348}
-  m_LocalRotation: {x: 0.062684305, y: 0.4507464, z: -0.031751085, w: 0.8898822}
+  m_LocalRotation: {x: 0.062682964, y: 0.45078707, z: -0.031754006, w: 0.8898616}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5384,7 +5384,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1892150446602941669}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 16.789734, y: 1.8669038, z: 25.528229}
+  m_LocalPosition: {x: 16.789543, y: 1.8669039, z: 25.52851}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5525,8 +5525,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1892150446772606908}
-  m_LocalRotation: {x: 0.042570937, y: 0.45134857, z: -0.021563185, w: 0.89107084}
-  m_LocalPosition: {x: 16.789734, y: 1.8669038, z: 25.528229}
+  m_LocalRotation: {x: 0.042570036, y: 0.45138922, z: -0.021565177, w: 0.8910502}
+  m_LocalPosition: {x: 16.789543, y: 1.8669039, z: 25.52851}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5675,7 +5675,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1892150446935412254}
-  m_LocalRotation: {x: 0.03031803, y: 0.45160225, z: -0.015356799, w: 0.8915719}
+  m_LocalRotation: {x: 0.030317413, y: 0.451643, z: -0.015358224, w: 0.89155126}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5753,7 +5753,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1892150446946078485}
-  m_LocalRotation: {x: 0.046487454, y: 0.45124936, z: -0.023546996, w: 0.8908751}
+  m_LocalRotation: {x: 0.04648646, y: 0.45129007, z: -0.023549164, w: 0.8908545}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -7750,7 +7750,7 @@ GameObject:
   - component: {fileID: 4731728119998246}
   - component: {fileID: 6448710740538870387}
   m_Layer: 5
-  m_Name: Toggle Items or Pokemon
+  m_Name: Toggle Items or Toyos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9730,6 +9730,9 @@ GameObject:
   - component: {fileID: 6191907491555153949}
   - component: {fileID: 6398242581842236402}
   - component: {fileID: 7610412679168066832}
+  - component: {fileID: 1035397137960938927}
+  - component: {fileID: 5222594368534735903}
+  - component: {fileID: 7770782443762825734}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -9869,6 +9872,42 @@ MonoBehaviour:
   nameTxt: {fileID: 10017313723309681}
   lvlTxt: {fileID: 1654278231650929057}
   toyoImage: {fileID: 6181992976587324800}
+--- !u!114 &1035397137960938927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4345378303432912555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4f9d9a292e470d44a037a58cbc39b8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5222594368534735903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4345378303432912555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f18756811f7def47bba31ad97a7bfdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7770782443762825734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4345378303432912555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 643d094b612d8594e853ada5cd099acb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4421192736173061605
 GameObject:
   m_ObjectHideFlags: 0
@@ -14502,7 +14541,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '- Toggle Pokemon/Items'
+  m_text: '- Toggle Toyos/Items'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dc2cc93475f76427c86a8262bee36b88, type: 2}
   m_sharedMaterial: {fileID: 2269793554123077917, guid: dc2cc93475f76427c86a8262bee36b88, type: 2}

@@ -9,6 +9,10 @@ public class GameController : MonoBehaviour
     private void Awake()
     {
         i = this;
+
+        ItemDB.Init();
+        MoveDB.Init();
+        ToyoDB.Init();
     }
 
     public StateMachine<GameController> StateMachine { get; private set; }
