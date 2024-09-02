@@ -40,7 +40,11 @@ public class Portal : MonoBehaviour
         PlayerController.i.transform.position = new Vector3(spawnPos.x, yPos, spawnPos.z);
         Physics.SyncTransforms();
 
+        SaveSystem.i.Save();
+
         yield return Fader.i.FadeOut(0.5f);
+
+        
         //GameController.Instance.PauseGame(false);
 
         Destroy(gameObject);

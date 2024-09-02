@@ -134,7 +134,7 @@ public class PlayerController : MonoBehaviour, ISavable
             }
             else if (Input.GetButtonDown("Throw"))
             {
-                if (partyWidget.IsShowingItems && partyWidget.SelectedItem != null)
+                if (partyWidget.IsShowingItems && partyWidget.SelectedItem != null || !partyWidget.IsShowingItems)
                     Aim();
                 else
                     Debug.Log("No pokeball left to throw");

@@ -6,7 +6,7 @@ using UnityEngine;
 
 public enum ItemCategory { Items, Toyoballs, Tms }
 
-public class Inventory : MonoBehaviour
+public class Inventory : MonoBehaviour, ISavable
 {
     [SerializeField] List<ItemSlot> slots;
     [SerializeField] List<ItemSlot> toyoballSlots;
@@ -130,6 +130,33 @@ public class Inventory : MonoBehaviour
     {
         return FindObjectOfType<PlayerController>().GetComponent<Inventory>();
     }
+
+    public object CaptureState()
+    {
+        var saveData = new InventorySaveData()
+        {
+            itemSlots = slots.Select(s => s.GetSaveData()).ToList(),
+            toyoballSlots = toyoballSlots.Select(s => s.GetSaveData()).ToList(),
+            tmSlots = tmSlots.Select(s => s.GetSaveData()).ToList()
+        };
+
+        return saveData;
+    }
+
+    public void RestoreState(object state)
+    {
+        var saveData = state as InventorySaveData;
+        slots.RemoveAll(x => true);
+        saveData.itemSlots.ForEach(s => slots.Add(new ItemSlot(s)));
+
+        toyoballSlots.RemoveAll(x => true);
+        saveData.toyoballSlots.ForEach(s => toyoballSlots.Add(new ItemSlot(s)));
+
+        tmSlots.RemoveAll(x => true);
+        saveData.tmSlots.ForEach(s => tmSlots.Add(new ItemSlot(s)));
+
+        OnUpdated?.Invoke();
+    }
 }
 
 [Serializable]
@@ -143,22 +170,22 @@ public class ItemSlot
 
     }
 
-    //public ItemSlot(ItemSaveData saveData)
-    //{
-    //    item = ItemDB.GetObjectByName(saveData.name);
-    //    count = saveData.count;
-    //}
+    public ItemSlot(ItemSaveData saveData)
+    {
+        item = ItemDB.GetObjectByName(saveData.name);
+        count = saveData.count;
+    }
 
-    //public ItemSaveData GetSaveData()
-    //{
-    //    var saveData = new ItemSaveData()
-    //    {
-    //        name = item.name,
-    //        count = count
-    //    };
+    public ItemSaveData GetSaveData()
+    {
+        var saveData = new ItemSaveData()
+        {
+            name = item.name,
+            count = count
+        };
 
-    //    return saveData;
-    //}
+        return saveData;
+    }
 
     public ItemBase Item {
         get => item;
@@ -168,4 +195,19 @@ public class ItemSlot
         get => count;
         set => count = value;
     }
+}
+
+[Serializable]
+public class InventorySaveData
+{
+    public List<ItemSaveData> itemSlots;
+    public List<ItemSaveData> toyoballSlots;
+    public List<ItemSaveData> tmSlots;
+}
+
+[Serializable]
+public class ItemSaveData
+{
+    public string name;
+    public int count;
 }

@@ -90,6 +90,8 @@ public class BattleState : State<GameController>
         genControlsUI.SetActive(true);
         //PlayerParty.Pokemons.ForEach(p => p.OnBattleOver());
         //OnBattleOver(won);
+
+        SaveSystem.i.Save();
     }
 
     public IEnumerator ThrowPokeball(ToyoballItem pokeballItem)

@@ -7,26 +7,25 @@ using UnityEngine;
 
 public class SaveSystem : MonoBehaviour
 {
+    public static SaveSystem i { get; private set; } 
+    private void Awake()
+    {
+        i = this;
+    }
+
     ToyoStorageBoxes storageBoxes;
+    Inventory inventory;
     private void Start()
     {
         storageBoxes = ToyoStorageBoxes.GetPlayerStorageBoxes();
+        inventory = Inventory.GetInventory();
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Y))
         {
-            var saveData = new SaveData()
-            {
-                playerSaveData = PlayerController.i.CaptureState() as PlayerSaveData,
-                boxData = storageBoxes.CaptureState() as BoxSaveData
-            };
-
-            string saveDataJson = JsonUtility.ToJson(saveData);
-            ExecuteAction(saveDataJson).Forget();
-
-            Debug.Log(saveDataJson);
+            Save();
         }
         else if (Input.GetKeyDown(KeyCode.U))
         {
@@ -38,12 +37,28 @@ public class SaveSystem : MonoBehaviour
         }
     }
 
+    public void Save()
+    {
+        var saveData = new SaveData()
+        {
+            playerSaveData = PlayerController.i.CaptureState() as PlayerSaveData,
+            boxData = storageBoxes.CaptureState() as BoxSaveData,
+            inventoryData = inventory.CaptureState() as InventorySaveData
+        };
+
+        string saveDataJson = JsonUtility.ToJson(saveData);
+        ExecuteAction(saveDataJson).Forget();
+
+        Debug.Log(saveDataJson);
+    }
+
     IEnumerator Load(SaveData saveData)
     {
         yield return Fader.i.FadeIn(0.5f);
 
         PlayerController.i.RestoreState(saveData.playerSaveData);
         storageBoxes.RestoreState(saveData.boxData);
+        inventory.RestoreState(saveData.inventoryData);
 
         yield return Fader.i.FadeOut(0.5f);
     }
@@ -89,4 +104,5 @@ public class SaveData
 {
     public PlayerSaveData playerSaveData;
     public BoxSaveData boxData;
+    public InventorySaveData inventoryData;
 }

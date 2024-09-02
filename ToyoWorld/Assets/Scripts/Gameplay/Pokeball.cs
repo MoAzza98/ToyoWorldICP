@@ -210,6 +210,8 @@ public class Pokeball : MonoBehaviour
 
                 wildToyo.enabled = false;
                 PlayerController.i.PlayerParty.AddToyo(wildToyo.Toyo);
+
+                SaveSystem.i.Save();
             }
             else
             {
