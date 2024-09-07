@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour, ISavable
 
     [SerializeField] float throwRange = 15f;
 
+    [SerializeField] Camera camera;
     [SerializeField] CinemachineFreeLook thirdPersonCam;
     [SerializeField] GameObject aimCamera;
     [SerializeField] GameObject gameControls;
@@ -41,7 +42,6 @@ public class PlayerController : MonoBehaviour, ISavable
     public Vector3 HandOffset { get; set; }
 
     Transform camTransform;
-    Camera camera;
     public Animator animator;
     CharacterController characterController;
     public ToyoParty PlayerParty { get; private set; }
@@ -55,8 +55,7 @@ public class PlayerController : MonoBehaviour, ISavable
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        camera = Camera.main;
-        camTransform = Camera.main.transform;
+        camTransform = camera.transform;
         
         characterController = GetComponent<CharacterController>();
         PlayerParty = GetComponent<ToyoParty>();

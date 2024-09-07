@@ -21,11 +21,11 @@ public class Portal : MonoBehaviour
 
     IEnumerator SwitchScene()
     {
-        DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(transform.root.gameObject);
 
         //GameController.Instance.PauseGame(true);
         yield return Fader.i.FadeIn(0.5f);
-
+        
         yield return SceneManager.LoadSceneAsync(sceneToLoad);
 
         var destPortal = FindObjectsOfType<Portal>().First(x => x != this && x.destinationPortal == this.destinationPortal);

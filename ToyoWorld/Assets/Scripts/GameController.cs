@@ -9,6 +9,7 @@ public class GameController : MonoBehaviour
     private void Awake()
     {
         i = this;
+        DontDestroyOnLoad(transform.root.gameObject);
 
         ItemDB.Init();
         MoveDB.Init();
