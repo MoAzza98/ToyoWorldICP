@@ -29,12 +29,22 @@ public class PartyWidget : MonoBehaviour
         UpdateSelectionInUI();
         centerSlot.color = Color.white;
 
-        playerParty.OnPartyUpdated += UpdateSelectionInUI;
-        inventory.OnUpdated += UpdateSelectionInUI;
+        playerParty.OnPartyUpdated += () =>
+        {
+            selectedToyo = Mathf.Clamp(selectedToyo, 0, playerParty.Toyos.Count - 1);
+            UpdateSelectionInUI();
+        };
+        inventory.OnUpdated += () =>
+        {
+            selectedItem = Mathf.Clamp(selectedItem, 0, inventory.ToyoballSlots.Count);
+            UpdateSelectionInUI();
+        };
     }
 
     private void Update()
     {
+        if (GameController.i.StateMachine.CurrentState == StorageState.i) return;
+
         if (Input.GetKeyDown(KeyCode.T))
             ToggleShowingItemsOrParty();
 
@@ -54,7 +64,7 @@ public class PartyWidget : MonoBehaviour
         }
         else
         {
-            float prevSelection = selectedItem;
+            float prevSelection = selectedToyo;
 
             if (Input.GetKeyDown(KeyCode.Q))
                 selectedToyo = GetPrevIndex(selectedToyo, playerParty.Toyos.Count);
