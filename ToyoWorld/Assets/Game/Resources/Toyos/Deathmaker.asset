@@ -15,7 +15,7 @@ MonoBehaviour:
   name: Deathmaker
   description: 
   model: {fileID: 7587997909637141402, guid: 18cb02163818b4c4881ed092bb878a48, type: 3}
-  sprite: {fileID: 21300000, guid: 2c2a87de09abe4a5ca8de6cbd76711e0, type: 3}
+  sprite: {fileID: 21300000, guid: 5ed93e7ae32254bd5b1c39e6620f1d9f, type: 3}
   type1: 14
   type2: 7
   maxHp: 70
@@ -24,6 +24,7 @@ MonoBehaviour:
   spAttack: 135
   spDefense: 90
   speed: 125
+  catchRate: 255
   expYield: 100
   growthRate: 0
   learnableMoves:

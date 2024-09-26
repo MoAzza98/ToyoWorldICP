@@ -15,7 +15,7 @@ MonoBehaviour:
   name: Arachlord
   description: 
   model: {fileID: 9220383817017189135, guid: 888a2743e21511340ab5e6007fadd92d, type: 3}
-  sprite: {fileID: 21300000, guid: ad09cccdda096de4aa65a5a89f1890a0, type: 3}
+  sprite: {fileID: 21300000, guid: 5ed93e7ae32254bd5b1c39e6620f1d9f, type: 3}
   type1: 9
   type2: 6
   maxHp: 80
@@ -24,6 +24,7 @@ MonoBehaviour:
   spAttack: 40
   spDefense: 105
   speed: 75
+  catchRate: 255
   expYield: 100
   growthRate: 0
   learnableMoves:

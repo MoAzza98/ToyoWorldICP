@@ -15,7 +15,7 @@ MonoBehaviour:
   name: Shadlucho
   description: 
   model: {fileID: 1734572081990470152, guid: 7f3425f16f17470468f250a8fd950f73, type: 3}
-  sprite: {fileID: 21300000, guid: c52ced37f290c974a917b21c39f0be2e, type: 3}
+  sprite: {fileID: 21300000, guid: 5ed93e7ae32254bd5b1c39e6620f1d9f, type: 3}
   type1: 6
   type2: 14
   maxHp: 105
@@ -24,6 +24,7 @@ MonoBehaviour:
   spAttack: 55
   spDefense: 65
   speed: 45
+  catchRate: 255
   expYield: 100
   growthRate: 0
   learnableMoves:
