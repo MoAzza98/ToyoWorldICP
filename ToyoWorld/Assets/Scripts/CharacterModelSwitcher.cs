@@ -14,7 +14,7 @@ public class CharacterModelSwitcher : MonoBehaviour
     [SerializeField] Avatar femaleAvatar;
     [SerializeField] Vector3 femaleHandOffset;
 
-    private void Start()
+    private void OnEnable()
     {
         //PlayerPrefs.SetInt("PlayerGender", 1);
 

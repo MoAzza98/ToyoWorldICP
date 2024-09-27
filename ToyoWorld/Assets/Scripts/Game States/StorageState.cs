@@ -70,6 +70,9 @@ public class StorageState : State<GameController>
 
             var secondToyo = storageUI.TakeToyoFromSlot(slotIndex);
 
+            if (secondToyo == null && storageUI.IsPartySlot(firstSlotIndex) && party.Toyos.Count == 1)
+                return;
+
             if (secondToyo == null && storageUI.IsPartySlot(firstSlotIndex) && storageUI.IsPartySlot(secondSlotIndex))
             {
                 storageUI.PutToyoIntoSlot(selectedToyoToMove, selectedSlotToMove);

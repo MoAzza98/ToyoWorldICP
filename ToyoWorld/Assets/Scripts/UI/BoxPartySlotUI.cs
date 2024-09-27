@@ -12,10 +12,13 @@ public class BoxPartySlotUI : MonoBehaviour
 
     public void SetData(Toyo toyo)
     {
-        nameTxt.text = toyo.Base.name;
-        lvlTxt.text = "Lv. " + toyo.Level;
-        image.sprite = toyo.Base.Sprite;
-        image.color = new Color(255, 255, 255, 100);
+        if (toyo != null)
+        {
+            nameTxt.text = toyo.Base.name;
+            lvlTxt.text = "Lv. " + toyo.Level;
+            image.sprite = toyo.Base.Sprite;
+            image.color = new Color(255, 255, 255, 100);
+        }
     }
 
     public void ClearData()

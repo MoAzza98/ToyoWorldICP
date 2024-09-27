@@ -5982,7 +5982,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d17864634314f284d82c458620371a8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maleModel: {fileID: 4588971056440822157, guid: 9bf402b27a60ccc4a869ad441ae1ac36, type: 3}
+  maleModel: {fileID: 7226391436339385136}
   maleAvatar: {fileID: -7015762578403652589, guid: db78d9c47daf8c94fb106f244d2adfc0, type: 3}
   maleHandOffset: {x: 0.04, y: -0.044, z: -0.032}
   femaleModel: {fileID: 2524312047929512770}
@@ -20125,6 +20125,11 @@ PrefabInstance:
 --- !u!4 &5464319988967928102 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1167323395455757211, guid: 9bf402b27a60ccc4a869ad441ae1ac36, type: 3}
+  m_PrefabInstance: {fileID: 6621980738795035325}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7226391436339385136 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4588971056440822157, guid: 9bf402b27a60ccc4a869ad441ae1ac36, type: 3}
   m_PrefabInstance: {fileID: 6621980738795035325}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6697285167400604116

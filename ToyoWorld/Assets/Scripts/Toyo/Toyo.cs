@@ -47,6 +47,8 @@ public class Toyo
 
         CalculateStats();
         Hp = MaxHp;
+        if (Exp == 0)
+            Exp = Base.GetExpForLevel(level);
     }
 
     public Toyo(ToyoSaveData saveData)
