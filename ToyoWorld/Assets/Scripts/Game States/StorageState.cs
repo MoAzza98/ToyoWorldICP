@@ -29,6 +29,8 @@ public class StorageState : State<GameController>
     {
         gc = owner;
 
+        PlayerController.i.SetControl(false);
+
         storageUI.gameObject.SetActive(true);
         storageUI.SetDataInPartySlots();
         storageUI.SetDataInStorageSlots();
@@ -47,6 +49,8 @@ public class StorageState : State<GameController>
         storageUI.gameObject.SetActive(false);
         storageUI.OnSelected -= OnSlotSelected;
         storageUI.OnBack -= OnBack;
+
+        PlayerController.i.SetControl(true);
     }
 
     void OnSlotSelected(int slotIndex)
@@ -70,9 +74,17 @@ public class StorageState : State<GameController>
 
             var secondToyo = storageUI.TakeToyoFromSlot(slotIndex);
 
+            // Don't allow to move if the is ony one toyo left in the party
             if (secondToyo == null && storageUI.IsPartySlot(firstSlotIndex) && party.Toyos.Count == 1)
-                return;
+            {
+                storageUI.PutToyoIntoSlot(selectedToyoToMove, selectedSlotToMove);
 
+                storageUI.SetDataInStorageSlots();
+                storageUI.SetDataInPartySlots();
+                return;
+            }
+
+            // Moving to a differnt party slot
             if (secondToyo == null && storageUI.IsPartySlot(firstSlotIndex) && storageUI.IsPartySlot(secondSlotIndex))
             {
                 storageUI.PutToyoIntoSlot(selectedToyoToMove, selectedSlotToMove);
@@ -101,6 +113,9 @@ public class StorageState : State<GameController>
         {
             isMovingToyo = false;
             storageUI.PutToyoIntoSlot(selectedToyoToMove, selectedSlotToMove);
+
+            storageUI.SetDataInStorageSlots();
+            storageUI.SetDataInPartySlots();
         }
         else
         {

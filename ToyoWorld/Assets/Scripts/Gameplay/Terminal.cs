@@ -18,7 +18,7 @@ public class Terminal : MonoBehaviour
     {
         overlayTxt.transform.forward = cam.forward;
 
-        if (playerInRange && Input.GetKeyDown(KeyCode.Return))
+        if (playerInRange && Input.GetKeyDown(KeyCode.Return) && GameController.i.StateMachine.CurrentState == FreeRoamState.i)
             StartCoroutine(OpenBox());
     }
 
