@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,16 +17,15 @@ public class CharacterModelSwitcher : MonoBehaviour
 
     private void OnEnable()
     {
-        //PlayerPrefs.SetInt("PlayerGender", 1);
-
         var player = GetComponent<PlayerController>();
+        var animator = GetComponent<Animator>();
 
         if (PlayerPrefs.GetInt("PlayerGender") == 0)
         {
             maleModel.SetActive(true);
             femaleModel.SetActive(false);
 
-            player.animator.avatar = maleAvatar;
+            animator.avatar = maleAvatar;
             player.HandOffset = maleHandOffset;
         }
         else
@@ -33,10 +33,10 @@ public class CharacterModelSwitcher : MonoBehaviour
             femaleModel.SetActive(true);
             maleModel.SetActive(false);
 
-            player.animator.avatar = femaleAvatar;
+            animator.avatar = femaleAvatar;
             player.HandOffset = femaleHandOffset;
         }
 
-        player.animator.WriteDefaultValues();
+        animator.WriteDefaultValues();
     }
 }

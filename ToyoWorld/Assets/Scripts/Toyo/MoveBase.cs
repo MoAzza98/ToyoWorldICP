@@ -17,8 +17,10 @@ public class MoveBase : ScriptableObject
     [SerializeField] int accuracy;
     [SerializeField] int maxPP;
 
+    [Header("VFX Settings")]
     [SerializeField] GameObject vfx;
     [SerializeField] Vector3 vfxOffset = new Vector3(0, 0, 1);
+    [SerializeField] float vfxTimeToPlay = 2f;
 
     public string Name => name;
     public string Description => description;
@@ -32,6 +34,7 @@ public class MoveBase : ScriptableObject
 
     public GameObject VFX => vfx;
     public Vector3 VFXOffset => vfxOffset;
+    public float VFXTimeToPlay => vfxTimeToPlay;
 }
 
 public enum MoveCategory { Physical, Special, Status }

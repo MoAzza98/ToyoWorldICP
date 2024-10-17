@@ -538,6 +538,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Portal04
       objectReference: {fileID: 0}
+    - target: {fileID: 7262525379597920288, guid: 7d0c4cf7736d61f4d9f3029228bc52bb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8035122082083844762, guid: 7d0c4cf7736d61f4d9f3029228bc52bb, type: 3}
       propertyPath: m_RootOrder
       value: 1
