@@ -11,14 +11,21 @@ public class ToyoStorageBoxes : MonoBehaviour, ISavable
 
     Toyo[,] boxes = new Toyo[numberOfBoxes, numberOfSlots];
 
+    public event Action OnUpdated;
+
     public void AddToyo(Toyo toyo, int boxIndex, int slotIndex)
     {
         boxes[boxIndex, slotIndex] = toyo;
+        OnUpdated?.Invoke();
     }
 
     public void RemoveToyo(int boxIndex, int slotIndex)
     {
-        boxes[boxIndex, slotIndex] = null;
+        if (boxes[boxIndex, slotIndex] != null)
+        {
+            boxes[boxIndex, slotIndex] = null;
+            OnUpdated?.Invoke();
+        }
     }
 
     public Toyo GetToyo(int boxIndex, int slotIndex)
@@ -35,6 +42,7 @@ public class ToyoStorageBoxes : MonoBehaviour, ISavable
                 if (boxes[boxIndex, slotIndex] == null)
                 {
                     boxes[boxIndex, slotIndex] = toyo;
+                    OnUpdated?.Invoke();
                     return;
                 }
             }

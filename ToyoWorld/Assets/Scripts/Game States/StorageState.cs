@@ -6,12 +6,13 @@ using UnityEngine;
 public class StorageState : State<GameController>
 {
     [SerializeField] ToyoStorageUI storageUI;
+    [SerializeField] ToyoParty party;
 
     bool isMovingToyo = false;
     int selectedSlotToMove = 0;
     Toyo selectedToyoToMove = null;
 
-    ToyoParty party;
+    
 
     public static StorageState i { get; private set; }
     private void Awake()
@@ -21,7 +22,8 @@ public class StorageState : State<GameController>
 
     private void Start()
     {
-        party = PlayerController.i.PlayerParty;
+        if (party == null)
+            party = PlayerController.i.PlayerParty;
     }
 
     GameController gc;

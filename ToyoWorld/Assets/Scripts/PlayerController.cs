@@ -284,7 +284,7 @@ public class PlayerController : MonoBehaviour, ISavable
         {
             playerPosition = transform.position,
             playerRotation = transform.rotation,
-            party = PlayerParty.Toyos.Select(t => t.GetSaveData()).ToList()
+            party = PlayerParty.Toyos.Where(t => t != null).Select(t => t.GetSaveData()).ToList()
         };
 
         return saveData;

@@ -8,10 +8,11 @@ public class CharacterSelectorUI : MonoBehaviour
 {
     [SerializeField] Button boyButton;
     [SerializeField] Button girlButton;
-    [SerializeField] GameObject essentialObjects;
     [SerializeField] int sceneIdToLoad = 6;
     [SerializeField] Vector3 startingPosition;
     [SerializeField] Vector3 startingRotation;
+
+    GameObject essentialObjects;
 
     private void Start()
     {
@@ -25,7 +26,7 @@ public class CharacterSelectorUI : MonoBehaviour
 
         //PlayerController.i.transform.position = startingPosition;
         //PlayerController.i.transform.rotation = Quaternion.Euler(startingRotation);
-        essentialObjects.SetActive(true);
+        GameController.i.EnableDefaultObjects();
 
         SceneManager.LoadScene(sceneIdToLoad);
     }

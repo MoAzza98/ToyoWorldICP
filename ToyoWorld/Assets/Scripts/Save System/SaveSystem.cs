@@ -3,7 +3,9 @@ using Candid.World.Models;
 using Cysharp.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SaveSystem : MonoBehaviour
 {
@@ -15,39 +17,83 @@ public class SaveSystem : MonoBehaviour
 
     ToyoStorageBoxes storageBoxes;
     Inventory inventory;
+    ToyoParty playerParty;
+
     private void Start()
     {
         storageBoxes = ToyoStorageBoxes.GetPlayerStorageBoxes();
         inventory = Inventory.GetInventory();
+        playerParty = PlayerController.i.PlayerParty;
+
+        inventory.OnUpdated += Save;
+        storageBoxes.OnUpdated += Save;
+        playerParty.OnPartyUpdated += Save;
+
+        StartCoroutine(SaveScheduler());
+
+        EntityUtil.TryGetFieldAsText(BoomManager.Instance.PrincipalId, "save_data", "savedata", out var outVal, "None");
+
+        if (!string.IsNullOrEmpty(outVal))
+        {
+            var saveData = JsonUtility.FromJson<SaveData>(outVal);
+
+            if (saveData.sceneId != 0)
+                LoadNormal(saveData);
+        }
+    }
+
+    Queue<string> saveQueue = new Queue<string>();
+    IEnumerator SaveScheduler()
+    {
+        saveQueue = new Queue<string>();
+
+        while (true)
+        {
+            yield return new WaitForSeconds(1f);
+
+            if (isExecutingAction) continue;
+
+            if (saveQueue.Count > 0)
+            {
+                Debug.Log("Executing save");
+
+                var saveData = saveQueue.Dequeue();
+                isExecutingAction = true;
+                yield return new WaitForSeconds(1f);
+                ExecuteAction(saveData).Forget();
+            }
+        }
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Y))
-        {
-            Save();
-        }
-        else if (Input.GetKeyDown(KeyCode.U))
-        {
-            EntityUtil.TryGetFieldAsText(BoomManager.Instance.PrincipalId, "save_data", "savedata", out var outVal, "None");
-            Debug.Log(outVal);
-            var saveData = JsonUtility.FromJson<SaveData>(outVal);
+        //if (Input.GetKeyDown(KeyCode.Y))
+        //{
+        //    Save();
+        //}
+        //else if (Input.GetKeyDown(KeyCode.U))
+        //{
+        //    EntityUtil.TryGetFieldAsText(BoomManager.Instance.PrincipalId, "save_data", "savedata", out var outVal, "None");
+        //    Debug.Log(outVal);
+        //    var saveData = JsonUtility.FromJson<SaveData>(outVal);
 
-            StartCoroutine(Load(saveData));
-        }
+        //    StartCoroutine(Load(saveData));
+        //}
     }
 
     public void Save()
     {
         var saveData = new SaveData()
         {
+            sceneId = SceneManager.GetActiveScene().buildIndex,
             playerSaveData = PlayerController.i.CaptureState() as PlayerSaveData,
             boxData = storageBoxes.CaptureState() as BoxSaveData,
             inventoryData = inventory.CaptureState() as InventorySaveData
         };
 
         string saveDataJson = JsonUtility.ToJson(saveData);
-        ExecuteAction(saveDataJson).Forget();
+        saveQueue = new Queue<string>();
+        saveQueue.Enqueue(saveDataJson);
 
         Debug.Log(saveDataJson);
     }
@@ -63,9 +109,18 @@ public class SaveSystem : MonoBehaviour
         yield return Fader.i.FadeOut(0.5f);
     }
 
+    void LoadNormal(SaveData saveData)
+    {
+        PlayerController.i.RestoreState(saveData.playerSaveData);
+        storageBoxes.RestoreState(saveData.boxData);
+        inventory.RestoreState(saveData.inventoryData);
+    }
+
+    bool isExecutingAction = false;
     public async UniTaskVoid ExecuteAction(string json)
     {
         //SECTION A: Set up arguments
+        isExecutingAction = true;
 
         List<Field> fields = new()
         {
@@ -73,6 +128,11 @@ public class SaveSystem : MonoBehaviour
         };
 
         //SECTION B: Action execution
+
+        //while (ActionUtil.ActionsInProcess("set_savedata"))
+        //{
+        //    await Task.Delay(1000);
+        //}
 
         //Here we execute the action by passing the actionId we wantto execute.
         // actionLogText.text = $"Processing Action of id: \"{actionId}\" with arguments:\n{JsonConvert.SerializeObject(fields)}";
@@ -89,6 +149,7 @@ public class SaveSystem : MonoBehaviour
 
             Debug.LogError(errorMessage);
             // logCoroutine = StartCoroutine(DisplayTempLog(errorMessage));
+            isExecutingAction = false;
 
             return;
         }
@@ -96,12 +157,15 @@ public class SaveSystem : MonoBehaviour
         //SECTION D: At this point the action was successful, therefore we print the username change
 
         // logCoroutine = StartCoroutine(DisplayTempLog($"You have changed your username to: {newUsername}"));
+
+        isExecutingAction = false;
     }
 }
 
 [System.Serializable]
 public class SaveData
 {
+    public int sceneId;
     public PlayerSaveData playerSaveData;
     public BoxSaveData boxData;
     public InventorySaveData inventoryData;

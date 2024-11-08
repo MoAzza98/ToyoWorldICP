@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
+    [SerializeField] List<GameObject> defaultObjects;
+
     public static GameController i { get; private set; }
     private void Awake()
     {
@@ -26,5 +28,13 @@ public class GameController : MonoBehaviour
     private void Update()
     {
         StateMachine.Execute();
+    }
+
+    public void EnableDefaultObjects()
+    {
+        foreach (var item in defaultObjects)
+        {
+            item.SetActive(true);
+        }
     }
 }

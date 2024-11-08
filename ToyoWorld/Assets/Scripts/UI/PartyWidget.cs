@@ -86,6 +86,8 @@ public class PartyWidget : MonoBehaviour
                 nameTxt.text = "";
                 centerSlot.sprite = null;
                 centerSlot.color = new Color(1, 1, 1, 0);
+
+                return;
             }
 
             var itemSlot = inventory.ToyoballSlots[selectedItem];
