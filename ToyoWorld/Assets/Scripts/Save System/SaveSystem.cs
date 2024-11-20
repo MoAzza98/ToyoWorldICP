@@ -1,6 +1,7 @@
 using Boom;
 using Candid.World.Models;
 using Cysharp.Threading.Tasks;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -60,7 +61,15 @@ public class SaveSystem : MonoBehaviour
                 var saveData = saveQueue.Dequeue();
                 isExecutingAction = true;
                 yield return new WaitForSeconds(1f);
-                ExecuteAction(saveData).Forget();
+
+                try
+                {
+                    ExecuteAction(saveData).Forget();
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError("Save Exception - " + e.Message);
+                }
             }
         }
     }

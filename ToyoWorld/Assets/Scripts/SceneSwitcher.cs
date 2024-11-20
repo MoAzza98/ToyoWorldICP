@@ -22,7 +22,16 @@ public class SceneSwitcher : MonoBehaviour
 
     public void SwapScene()
     {
-        EntityUtil.TryGetFieldAsText(BoomManager.Instance.PrincipalId, "save_data", "savedata", out var outVal, "None");
+        String outVal = null;
+        try
+        {
+            EntityUtil.TryGetFieldAsText(BoomManager.Instance.PrincipalId, "save_data", "savedata", out outVal, null);
+        }
+        catch (Exception e)
+        {
+            Debug.LogError("Load Exception - " + e.Message);
+            outVal = null;
+        }
         Debug.Log(outVal);
 
         if (String.IsNullOrEmpty(outVal))
