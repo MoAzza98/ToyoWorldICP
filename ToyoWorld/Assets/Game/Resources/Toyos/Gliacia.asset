@@ -15,7 +15,7 @@ MonoBehaviour:
   name: Gliacia
   description: 
   model: {fileID: 473698770534021436, guid: 2b9e25e4567fa2642b5b14dda9b0dc07, type: 3}
-  sprite: {fileID: 21300000, guid: 5ed93e7ae32254bd5b1c39e6620f1d9f, type: 3}
+  sprite: {fileID: -1122923779, guid: 3cc338bcb0c5a8e4da94b8bd42364d72, type: 3}
   type1: 15
   type2: 10
   maxHp: 63

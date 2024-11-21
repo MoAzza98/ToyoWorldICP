@@ -15,7 +15,7 @@ MonoBehaviour:
   name: Normal Bot
   description: 
   model: {fileID: 1562641952796896261, guid: 1cc0eca891768814a8ba5f29ddaf2208, type: 3}
-  sprite: {fileID: 21300000, guid: 5ed93e7ae32254bd5b1c39e6620f1d9f, type: 3}
+  sprite: {fileID: -316280946, guid: 3cc338bcb0c5a8e4da94b8bd42364d72, type: 3}
   type1: 1
   type2: 0
   maxHp: 160

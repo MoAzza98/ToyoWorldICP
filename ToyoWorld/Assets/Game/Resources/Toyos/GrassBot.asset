@@ -15,7 +15,7 @@ MonoBehaviour:
   name: Grass Bot
   description: 
   model: {fileID: 5256328835639114060, guid: 9a8f201ae649c5e4090187e5a3f036bd, type: 3}
-  sprite: {fileID: 21300000, guid: 5ed93e7ae32254bd5b1c39e6620f1d9f, type: 3}
+  sprite: {fileID: -1371042821, guid: 3cc338bcb0c5a8e4da94b8bd42364d72, type: 3}
   type1: 4
   type2: 0
   maxHp: 95

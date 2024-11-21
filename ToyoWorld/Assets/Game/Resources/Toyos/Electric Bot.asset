@@ -15,7 +15,7 @@ MonoBehaviour:
   name: Electric Bot
   description: 
   model: {fileID: 925176181758940295, guid: 868f103fadb9f1f49bf49d7bcf6facdb, type: 3}
-  sprite: {fileID: 21300000, guid: 5ed93e7ae32254bd5b1c39e6620f1d9f, type: 3}
+  sprite: {fileID: 439530619, guid: 3cc338bcb0c5a8e4da94b8bd42364d72, type: 3}
   type1: 5
   type2: 0
   maxHp: 90

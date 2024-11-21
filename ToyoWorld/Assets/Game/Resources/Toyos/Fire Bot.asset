@@ -15,7 +15,7 @@ MonoBehaviour:
   name: Fire Bot
   description: 
   model: {fileID: 1733045386838591924, guid: e397d2350043c2a49b75733906559916, type: 3}
-  sprite: {fileID: 21300000, guid: 5ed93e7ae32254bd5b1c39e6620f1d9f, type: 3}
+  sprite: {fileID: 1184131701, guid: 3cc338bcb0c5a8e4da94b8bd42364d72, type: 3}
   type1: 2
   type2: 0
   maxHp: 78
