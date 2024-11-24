@@ -49,10 +49,11 @@ public class SceneSwitcher : MonoBehaviour
             }
             else
                 SceneManager.LoadScene(characterSelectionScene);
-
-
         }
+    }
 
-        
+    public void NewGame()
+    {
+        SceneManager.LoadScene(characterSelectionScene);
     }
 }

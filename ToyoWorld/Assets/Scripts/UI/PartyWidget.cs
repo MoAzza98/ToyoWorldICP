@@ -17,7 +17,7 @@ public class PartyWidget : MonoBehaviour
     int selectedToyo = 0;
     int selectedItem = 0;
     public Toyo SelectedToyo => playerParty.Toyos[selectedToyo];
-    public ItemBase SelectedItem => inventory.ToyoballSlots.Count > 0? inventory.ToyoballSlots[selectedItem].Item : null;
+    public ItemBase SelectedItem => inventory.ToyoballSlots.Count > 0 ? inventory.ToyoballSlots[selectedItem].Item : null;
 
     ToyoParty playerParty;
     Inventory inventory;
@@ -50,30 +50,33 @@ public class PartyWidget : MonoBehaviour
 
         if (showItems)
         {
+            // Select items
+
             selectedItem = Mathf.Clamp(selectedItem, 0, inventory.ToyoballSlots.Count);
 
-            float prevSelection = selectedItem;
+            if (inventory.ToyoballSlots.Count != 0)
+            {
+                float prevSelection = selectedItem;
 
-            if (Input.GetKeyDown(KeyCode.Q))
-                selectedItem = GetPrevIndex(selectedItem, inventory.ToyoballSlots.Count);
-            else if (Input.GetKeyDown(KeyCode.E))
-                selectedItem = GetNextIndex(selectedItem, inventory.ToyoballSlots.Count);
-
-            if (selectedItem != prevSelection)
-                UpdateSelectionInUI();
+                if (Input.GetKeyDown(KeyCode.Q))
+                    selectedItem = GetPrevIndex(selectedItem, inventory.ToyoballSlots.Count);
+                else if (Input.GetKeyDown(KeyCode.E))
+                    selectedItem = GetNextIndex(selectedItem, inventory.ToyoballSlots.Count);
+            }
         }
         else
         {
+            // Select Pokemon
+
             float prevSelection = selectedToyo;
 
             if (Input.GetKeyDown(KeyCode.Q))
                 selectedToyo = GetPrevIndex(selectedToyo, playerParty.Toyos.Count);
             else if (Input.GetKeyDown(KeyCode.E))
                 selectedToyo = GetNextIndex(selectedToyo, playerParty.Toyos.Count);
-
-            if (selectedToyo != prevSelection)
-                UpdateSelectionInUI();
         }
+
+        UpdateSelectionInUI();
     }
 
     public void UpdateSelectionInUI()
@@ -86,6 +89,8 @@ public class PartyWidget : MonoBehaviour
                 nameTxt.text = "";
                 centerSlot.sprite = null;
                 centerSlot.color = new Color(1, 1, 1, 0);
+                leftSlot.color = new Color(1, 1, 1, 0);
+                rightSlot.color = new Color(1, 1, 1, 0);
 
                 return;
             }
@@ -131,6 +136,7 @@ public class PartyWidget : MonoBehaviour
             nameTxt.text = toyo.Base.Name;
             lvlTxt.text = "Lv. " + toyo.Level.ToString();
             centerSlot.sprite = toyo.Base.Sprite;
+            centerSlot.color = Color.white;
 
             int nextToyoIndex = GetNextIndex(selectedToyo, playerParty.Toyos.Count);
             int prevToyoIndex = GetPrevIndex(selectedToyo, playerParty.Toyos.Count);

@@ -38,7 +38,7 @@ public class SaveSystem : MonoBehaviour
         {
             var saveData = JsonUtility.FromJson<SaveData>(outVal);
 
-            if (saveData.sceneId != 0)
+            if (saveData.sceneId != 0 && saveData.sceneId != 1)
                 LoadNormal(saveData);
         }
     }
