@@ -36,6 +36,8 @@ namespace Boom.UI
         //Handle whether or not the button must be interactable
         private void AllowButtonInteractionHandler(WaitingForResponse response)
         {
+            Debug.Log("waiting for login");
+
             noneInteractable = response.value;
             button.gameObject.SetActive(!isEmbeddedAgent);
             button.interactable = !noneInteractable && loginState == MainDataTypes.LoginData.State.Logedout;
@@ -43,6 +45,8 @@ namespace Boom.UI
         //Handle whether or not the button must be disabled
         private void EnableButtonHandler(MainDataTypes.LoginData data)
         {
+            Debug.Log("login complete");
+
             loginState = data.state;
             isEmbeddedAgent = data.isEmbeddedAgent;
             button.gameObject.SetActive(!isEmbeddedAgent);

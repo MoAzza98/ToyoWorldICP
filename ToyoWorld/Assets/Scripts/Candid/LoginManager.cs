@@ -6,6 +6,10 @@ using Boom.Utility;
 using Boom;
 using Boom.Patterns.Broadcasts;
 
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 namespace Candid
 {
     public class LoginManager : MonoBehaviour
@@ -22,7 +26,7 @@ namespace Candid
 
         [SerializeField, ShowOnly] bool autoLoginRequested;
 
-        public static LoginManager  Instance;
+        public static LoginManager Instance;
         public bool IsEmbeddedAgent { get; set; }
 
         [SerializeField]
@@ -33,7 +37,7 @@ namespace Candid
             Instance = this;
 
             IsEmbeddedAgent = BrowserUtils.IsIframe();
-            Debug.Log("Is game embedded? " + IsEmbeddedAgent);
+            //Debug.Log("Is game embedded? " + IsEmbeddedAgent);
 
             UserUtil.AddListenerMainDataChange<MainDataTypes.LoginData>(LoginDataChangeHandler, new() { invokeOnRegistration = true });
         }
@@ -49,7 +53,7 @@ namespace Candid
 
             if (data.state != MainDataTypes.LoginData.State.Logedout) return;
 
-            if(autoLoginRequested) return;
+            if (autoLoginRequested) return;
 
             autoLoginRequested = true;
 
@@ -63,17 +67,18 @@ namespace Candid
         /// </summary>
         public void StartLoginFlowWebGl()
         {
-            Debug.Log("Starting WebGL Login Flow");
+            //Debug.Log("Starting WebGL Login Flow");
+
             BrowserUtils.ToggleLoginIframe(true);
         }
 
         public void CreateIdentityWithJson(string identityJson)
         {
-            Debug.Log("JSON AGENT RECEIVED: " + identityJson);
+            //Debug.Log("JSON AGENT RECEIVED: " + identityJson);
 
             Broadcast.Invoke(new IndetityJson(identityJson));
             BrowserUtils.ToggleLoginIframe(false);
-            
+
             CloseSocket();
         }
 
@@ -83,15 +88,7 @@ namespace Candid
         //     send(JsonConvert.SerializeObject(new WebsocketMessage(){type = "targetCanisterIds", content = JsonConvert.SerializeObject(targetCanisterIds)}));
         // }
 
-        public void CancelLogin()
-        {
-            BrowserUtils.ToggleLoginIframe(false);
-            if (wssv != null)
-            {
-                wssv.Stop();
-                wssv = null;
-            }
-        }
+
 
         /// <summary>
         /// This is the login flow using websockets for PC, Mac, iOS, and Android
@@ -111,14 +108,45 @@ namespace Candid
             wssv.AddWebSocketService<Data>("/Data");
             wssv.Start();
         }
-
+        public void CancelLogin()
+        {
+            BrowserUtils.ToggleLoginIframe(false);
+            if (wssv != null)
+            {
+                wssv.Stop();
+                wssv = null;
+            }
+        }
         public void CloseSocket()
         {
+            if (wssv == null) return;
             "CloseWebSocket".Log();
 
             wssv.Stop();
             wssv = null;
         }
+
+        private void Start()
+        {
+#if UNITY_EDITOR
+            EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
+#endif
+        }
+#if UNITY_EDITOR
+        private void OnPlayModeStateChanged(PlayModeStateChange state)
+        {
+
+            if (state == PlayModeStateChange.ExitingPlayMode)
+            {
+                // This will be triggered when exiting play mode
+                EditorApplication.playModeStateChanged -= OnPlayModeStateChanged;
+                UnityEngine.Debug.Log("Exiting Play Mode");
+
+                CloseSocket();
+
+            }
+        }
+#endif
     }
 
     public class WebsocketMessage
@@ -129,20 +157,32 @@ namespace Candid
 
     public class Data : WebSocketBehavior
     {
+        protected override void OnOpen()
+        {
+            //Debug.Log($"Websocket open");
+        }
+        protected override void OnError(ErrorEventArgs e)
+        {
+            Debug.LogError($"Websocket error: ${e.Message}");
+        }
+        protected override void OnClose(CloseEventArgs e)
+        {
+            //Debug.Log($"Websocket on Close: ${e.Reason}");
+        }
         protected override void OnMessage(MessageEventArgs e)
         {
-            ("Websocket Message Received: " + e.Data).Log();
-            
+            //Debug.Log($"Websocket Message Received: {e.Data}");
+
 
 
             WebsocketMessage message = JsonConvert.DeserializeObject<WebsocketMessage>(e.Data);
-            
+
             if (message == null)
             {
                 Debug.LogError("Error: Unable to parse websocket message, does it follow the correct WebsocketMessage structure?");
                 return;
             }
-            
+
             switch (message.type)
             {
                 // case "fetchCanisterIds":
@@ -150,7 +190,7 @@ namespace Candid
                 //     break;
                 case "identityJson":
                     LoginManager.Instance.CreateIdentityWithJson(message.content);
-                    break; 
+                    break;
                 default:
                     Debug.LogError("No corresponding websocket message type found for=" + message.type);
                     break;

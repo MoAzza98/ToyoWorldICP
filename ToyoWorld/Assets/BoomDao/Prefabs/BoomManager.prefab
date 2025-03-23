@@ -63,7 +63,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enableBoomLogs: 1
   <BoomSettings>k__BackingField: {fileID: 11400000, guid: f922e6742e5194632aea2d31c472258f, type: 2}
-  <WORLD_COLLECTION_CANISTER_ID>k__BackingField: jfn44-pqaaa-aaaap-ahhra-cai
+  <WORLD_COLLECTION_CANISTER_ID>k__BackingField: 6uvic-diaaa-aaaap-abgca-cai
   <BoomDaoGameType>k__BackingField: 0
   cachedAnonAgent:
     <IsInit>k__BackingField: 0

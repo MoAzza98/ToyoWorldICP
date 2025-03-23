@@ -28,7 +28,7 @@ namespace Candid.World.Models
 			return new Result4(Result4Tag.Err, info);
 		}
 
-		public static Result4 Ok(string info)
+		public static Result4 Ok(ActionReturn info)
 		{
 			return new Result4(Result4Tag.Ok, info);
 		}
@@ -39,10 +39,10 @@ namespace Candid.World.Models
 			return (string)this.Value!;
 		}
 
-		public string AsOk()
+		public ActionReturn AsOk()
 		{
 			this.ValidateTag(Result4Tag.Ok);
-			return (string)this.Value!;
+			return (ActionReturn)this.Value!;
 		}
 
 		private void ValidateTag(Result4Tag tag)

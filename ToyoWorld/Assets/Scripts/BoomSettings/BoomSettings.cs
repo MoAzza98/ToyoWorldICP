@@ -26,7 +26,8 @@ namespace Boom
 
         public string WorldHubId
         {
-            get {
+            get
+            {
                 if (WorldEnv_ == WorldEnv.None) Debug.LogError("WorldSettings is not yet setup!");
 
                 return WorldEnv_ ==
@@ -41,7 +42,7 @@ namespace Boom
                 if (WorldEnv_ == WorldEnv.None) Debug.LogError("WorldSettings is not yet setup!");
 
                 return WorldEnv_ ==
-                    WorldEnv.Production ? (proGuildsAsDevMode? Env.CanisterIds.GAMING_GUILDS.DEVELOPMENT : Env.CanisterIds.GAMING_GUILDS.PRODUCTION) : Env.CanisterIds.GAMING_GUILDS.STAGING;
+                    WorldEnv.Production ? (proGuildsAsDevMode ? Env.CanisterIds.GAMING_GUILDS.DEVELOPMENT : Env.CanisterIds.GAMING_GUILDS.PRODUCTION) : Env.CanisterIds.GAMING_GUILDS.STAGING;
             }
         }
 
