@@ -23,7 +23,7 @@ public class StorageState : State<GameController>
     private void Start()
     {
         if (party == null)
-            party = PlayerController.i.PlayerParty;
+            party = PlayerController.i.Party;
     }
 
     GameController gc;

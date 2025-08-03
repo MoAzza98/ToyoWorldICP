@@ -36,7 +36,7 @@ public class ToyoStorageUI : SelectionUI<ButtonImageSlot>
             }
         }
 
-        party = PlayerController.i.PlayerParty;
+        party = PlayerController.i.Party;
         storageBoxes = ToyoStorageBoxes.GetPlayerStorageBoxes();
 
         boxSlotImages = boxSlots.Select(b => b.transform.GetChild(0).GetComponent<Image>()).ToList();

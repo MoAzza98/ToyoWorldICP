@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour, ISavable
     Transform camTransform;
     public Animator animator;
     CharacterController characterController;
-    public ToyoParty PlayerParty { get; private set; }
+    public ToyoParty Party { get; private set; }
 
     Inventory inventory;
     PartyWidget partyWidget;
@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour, ISavable
         camTransform = camera.transform;
         
         characterController = GetComponent<CharacterController>();
-        PlayerParty = GetComponent<ToyoParty>();
+        Party = GetComponent<ToyoParty>();
         inventory = GetComponent<Inventory>();
 
         partyWidget = FindObjectOfType<PartyWidget>();
@@ -284,7 +284,7 @@ public class PlayerController : MonoBehaviour, ISavable
         {
             playerPosition = transform.position,
             playerRotation = transform.rotation,
-            party = PlayerParty.Toyos.Where(t => t != null).Select(t => t.GetSaveData()).ToList()
+            party = Party.Toyos.Where(t => t != null).Select(t => t.GetSaveData()).ToList()
         };
 
         return saveData;
@@ -299,7 +299,7 @@ public class PlayerController : MonoBehaviour, ISavable
         ResetTargetRotation();
         Physics.SyncTransforms();
 
-        PlayerParty.Toyos = saveData.party.Select(t => new Toyo(t)).ToList();
+        Party.Toyos = saveData.party.Select(t => new Toyo(t)).ToList();
     }
 }
 

@@ -162,7 +162,7 @@ public class Pokeball : MonoBehaviour
 
             if (wildToyo != null)
             {
-                BattleState.i.StartState(PlayerController.i.PlayerParty, ToyoToSpawn, wildToyo.Toyo);
+                BattleState.i.StartWildBattle(PlayerController.i.Party, ToyoToSpawn, wildToyo.Toyo);
             }
         }
 
@@ -209,7 +209,7 @@ public class Pokeball : MonoBehaviour
                 yield return DialogueState.i.ShowDialogue($"{wildToyo.Toyo.Base.Name} has been added to your party");
 
                 wildToyo.enabled = false;
-                PlayerController.i.PlayerParty.AddToyo(wildToyo.Toyo);
+                PlayerController.i.Party.AddToyo(wildToyo.Toyo);
             }
             else
             {

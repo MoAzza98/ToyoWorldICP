@@ -14,6 +14,10 @@ public class BattleState : State<GameController>
     public Toyo PlayerToyo { get; set; }
     public Toyo EnemyToyo { get; set; }
     public ToyoParty PlayerParty { get; private set; }
+    public PlayerController Player { get; private set; }
+    public TrainerController Trainer { get; private set; }
+
+    public bool IsTrainerBattle { get; private set; } = false;
 
     public bool IsBattleOver { get; private set; }
 
@@ -35,12 +39,27 @@ public class BattleState : State<GameController>
         StateMachine = new StateMachine<BattleState>(this);
     }
 
-    public void StartState(ToyoParty playerParty, Toyo playerToyo, Toyo wildToyo)
+    public void StartWildBattle(ToyoParty playerParty, Toyo playerToyo, Toyo wildToyo)
     {
         PlayerParty = playerParty;
         PlayerToyo = playerToyo;
         EnemyToyo = wildToyo;
         IsBattleOver = false;
+        IsTrainerBattle = false;
+
+        GameController.i.StateMachine.Push(this);
+    }
+
+    public void StartTrainerBattle(PlayerController player, TrainerController trainer)
+    {
+        Player = player;
+        PlayerParty = player.Party;
+        PlayerToyo = player.Party.GetHealthyToyo();
+        Trainer = trainer;
+        EnemyToyo = trainer.Party.GetHealthyToyo();
+
+        IsBattleOver = false;
+        IsTrainerBattle = true;
 
         GameController.i.StateMachine.Push(this);
     }
@@ -49,15 +68,27 @@ public class BattleState : State<GameController>
     public override void Enter(GameController owner)
     {
         gc = owner;
-        StartCoroutine(StartWildBattle());
+        StartCoroutine(SetupBattle());
     }
 
-    IEnumerator StartWildBattle()
+    IEnumerator SetupBattle()
     {
         BoomServices.i.UserLostMatch().Forget();
 
+        if (IsTrainerBattle)
+        {
+            yield return DialogueState.i.ShowDialogue($"Trainer send out {EnemyToyo.Base.Name}!");
+            var enemyObj =  ToyoParty.SpawnModel(EnemyToyo, Trainer.transform.position + Trainer.transform.forward * 1.5f, Trainer.transform.rotation);
+
+            yield return DialogueState.i.ShowDialogue($"Go {PlayerToyo.Base.Name}!");
+            var playerObj = ToyoParty.SpawnModel(PlayerToyo, enemyObj.transform.position + enemyObj.transform.forward * 3, Quaternion.LookRotation(-enemyObj.transform.forward));
+        }
+        else
+        {
+            yield return DialogueState.i.ShowDialogue($"{EnemyToyo.Base.Name} is keeping it's guard up...");
+        }
+
         ShowBattleHUDs();
-        yield return DialogueState.i.ShowDialogue($"{EnemyToyo.Base.Name} is keeping it's guard up...");
 
         EscapeAttempts = 0;
 
@@ -81,6 +112,9 @@ public class BattleState : State<GameController>
         IsBattleOver = true;
         PlayerToyo.Model.SetActive(false);
         //EnemyToyo.Model.SetActive(false);
+
+        if (IsTrainerBattle)
+            Trainer.SetBattleLost(true);
 
         GameController.i.StateMachine.Pop();
         

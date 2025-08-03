@@ -143,8 +143,8 @@ public class RunTurnState : State<BattleState>
         if (faintedToyo == enemyToyo)
         {
             bool battlWon = true;
-            //if (isTrainerBattle)
-            //    battlWon = trainerParty.GetHealthyPokemon() == null;
+            if (bs.IsTrainerBattle)
+                battlWon = bs.Trainer.Party.GetHealthyToyo() == null;
 
             //if (battlWon)
             //    AudioManager.i.PlayMusic(bs.BattleVictoryMusic);
@@ -183,6 +183,13 @@ public class RunTurnState : State<BattleState>
             var nextPokemon = bs.PlayerParty.GetHealthyToyo();
             if (nextPokemon != null)
             {
+                if (bs.IsTrainerBattle)
+                {
+                    yield return bs.StateMachine.PushAndWait(PokemonSelectionState.i);
+                    yield return SwitchToyo(PokemonSelectionState.i.SelectedToyo);
+                    yield break;
+                }
+
                 yield return DialogueState.i.ShowDialogue($"Do you want to send out the next Toyo?", choices: new List<string>() { "Yes", "No" });
                 if (DialogueState.i.SelectedChoice == 0)
                 {
@@ -210,25 +217,38 @@ public class RunTurnState : State<BattleState>
         else
         {
             yield return new WaitForSeconds(0.5f);
-            playerToyo.Model.SetActive(false);
-            bs.BattleOver(true);
-            //if (!isTrainerBattle)
-            //{
-            //    bs.BattleOver(true);
-            //}
-            //else
-            //{
-            //    var nextPokemon = trainerParty.GetHealthyPokemon();
-            //    if (nextPokemon != null)
-            //    {
-            //        // use next pokemon in trainer party
-            //    }
-            //    else
-            //        bs.BattleOver(true);
-            //}
+
+            if (!bs.IsTrainerBattle)
+            {
+                playerToyo.Model.SetActive(false);
+                bs.BattleOver(true);
+                yield break;
+            }
+
+            var nextToyo = bs.Trainer.Party.GetHealthyToyo();
+            if (nextToyo != null)
+            {
+                // use next pokemon in trainer party
+                yield return SendNextTrainerToyo(nextToyo);
+            }
+            else
+            {
+                playerToyo.Model.SetActive(false);
+                bs.BattleOver(true);
+            }
         }
 
         yield break;
+    }
+
+    public IEnumerator SendNextTrainerToyo(Toyo nextToyo)
+    {
+        ToyoParty.SpawnModel(nextToyo, enemyToyo.Model.transform.position, enemyToyo.Model.transform.rotation);
+        enemyToyo = nextToyo;
+        bs.EnemyToyo = enemyToyo;
+
+        bs.ShowBattleHUDs();
+        yield return DialogueState.i.ShowDialogue($"Trainer send out {nextToyo.Base.Name}!");
     }
 
     IEnumerator ShowDamageDetails(DamageDetails damageDetails)
@@ -247,11 +267,11 @@ public class RunTurnState : State<BattleState>
     IEnumerator TryToEscape()
     {
 
-        //if (isTrainerBattle)
-        //{
-        //    yield return dialogBox.TypeDialog($"You can't run from trainer battles!");
-        //    yield break;
-        //}
+        if (bs.IsTrainerBattle)
+        {
+            yield return DialogueState.i.ShowDialogue($"You can't run from trainer battles!");
+            yield break;
+        }
 
         ++bs.EscapeAttempts;
 

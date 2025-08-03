@@ -24,7 +24,7 @@ public class SaveSystem : MonoBehaviour
     {
         storageBoxes = ToyoStorageBoxes.GetPlayerStorageBoxes();
         inventory = Inventory.GetInventory();
-        playerParty = PlayerController.i.PlayerParty;
+        playerParty = PlayerController.i.Party;
 
         inventory.OnUpdated += Save;
         storageBoxes.OnUpdated += Save;
