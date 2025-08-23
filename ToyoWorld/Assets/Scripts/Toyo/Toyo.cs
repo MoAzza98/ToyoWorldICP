@@ -176,6 +176,12 @@ public class Toyo
         OnHPChanged?.Invoke();
     }
 
+    public void HealFully()
+    {
+        Hp = MaxHp;
+        OnHPChanged?.Invoke();
+    }
+
     public Move GetRandomMove()
     {
         return Moves[UnityEngine.Random.Range(0, Moves.Count)];

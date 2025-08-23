@@ -23,9 +23,24 @@ public class DialogueState : State<GameController>
         i = this;
     }
 
-    public IEnumerator ShowDialogue(string text, bool exitCurrState=false, List<string> choices=null)
+    public IEnumerator ShowDialogueLines(List<string> lines, bool exitCurrState=false, List<string> choices=null)
     {
         GameController.i.StateMachine.Push(this, exitCurrState);
+
+        for (int i = 0; i < lines.Count; i++)
+        {
+            bool isLastLine = (i == lines.Count - 1);
+            yield return ShowDialogue(lines[i], exitCurrState && isLastLine, isLastLine ? choices : null, pushState: false);
+        }
+
+        GameController.i.StateMachine.Pop(exitCurrState);
+    }
+
+    public IEnumerator ShowDialogue(string text, bool exitCurrState=false, List<string> choices=null, 
+        bool pushState = true)
+    {
+        if (pushState)
+            GameController.i.StateMachine.Push(this, exitCurrState);
 
         dialogueBox.SetActive(true);
         
@@ -50,7 +65,9 @@ public class DialogueState : State<GameController>
             yield return new WaitForSeconds(1f);
 
         dialogueBox.SetActive(false);
-        GameController.i.StateMachine.Pop(exitCurrState);
+
+        if (pushState)
+            GameController.i.StateMachine.Pop(exitCurrState);
     }
 
     public override void Enter(GameController owner)

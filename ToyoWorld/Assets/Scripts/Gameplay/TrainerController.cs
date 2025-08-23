@@ -3,17 +3,15 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class TrainerController : MonoBehaviour
+public class TrainerController : Interactable
 {
-    [SerializeField] GameObject overlayTxt;
-    [SerializeField] string dialogueBeforeBattle = "Let's battle and see who is stronger!";
-    [SerializeField] string dialogueAfterBattle = "I'll train hard and beat you one day!";
+    [SerializeField] float moneyReward = 100;
+    [SerializeField] List<string> dialogueBeforeBattle;
+    [SerializeField] List<string> dialogueAfterBattle;
     [SerializeField] GameObject closeUpCam;
 
 
     bool battleLost = false;
-
-    bool playerInRange = false; 
 
     public ToyoParty Party { get; private set; }
 
@@ -24,15 +22,16 @@ public class TrainerController : MonoBehaviour
 
     private void Update()
     {
-        if (playerInRange && GameController.i.StateMachine.CurrentState == FreeRoamState.i)
+
+        if (!isInteracting && playerInRange && GameController.i.StateMachine.CurrentState == FreeRoamState.i)
         {
             if (Input.GetKeyDown(KeyCode.Return))
             {
                 if (!battleLost)
                 {
-                    StartCoroutine(StartBattle());
+                    OnInteractionStarted();
                     playerInRange = false;
-                    overlayTxt.SetActive(false);
+                    StartCoroutine(StartBattle());
                 }
                 else
                 {
@@ -46,17 +45,14 @@ public class TrainerController : MonoBehaviour
     IEnumerator StartBattle()
     {
         // rotate towards player
-        Vector3 direction = PlayerController.i.transform.position - transform.position;
-        direction.y = 0; // Keep the rotation on the horizontal plane
-        transform.forward = direction.normalized;
-        PlayerController.i.transform.forward = -direction.normalized;
+        RotateTowardsTarget(PlayerController.i.transform);
 
         // cut camera to cose-up of trainer
         Camera.main.transform.position = transform.position + Vector3.up * 2f + transform.forward * -2f;
 
         closeUpCam?.SetActive(true);
 
-        yield return DialogueState.i.ShowDialogue(dialogueBeforeBattle);
+        yield return DialogueState.i.ShowDialogueLines(dialogueBeforeBattle, exitCurrState: true);
 
         PlayerController.i.GetComponent<CharacterController>().enabled = false;
         PlayerController.i.transform.position = transform.position + transform.forward * 6f;
@@ -69,31 +65,25 @@ public class TrainerController : MonoBehaviour
 
     IEnumerator ShowAfterBattleDialogue()     
     {
-        overlayTxt.SetActive(false);
-        yield return DialogueState.i.ShowDialogue(dialogueAfterBattle);
-        overlayTxt.SetActive(true);
+        var dirToTarget = RotateTowardsTarget(PlayerController.i.transform);
+        PlayerController.i.ResetTargetRotation();
+
+        OnInteractionStarted();
+        yield return DialogueState.i.ShowDialogueLines(dialogueAfterBattle, exitCurrState: true);
+        OnInteractionEnded();
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void OnBattleLost()
     {
-        if (other.CompareTag("Player"))
-        {
-            playerInRange = true;
-            overlayTxt.SetActive(true);
-        }
+        battleLost = true;
+        StartCoroutine(HandleBattleLostDialogues());
     }
 
-    private void OnTriggerExit(Collider other)
+    IEnumerator HandleBattleLostDialogues()   
     {
-        if (other.CompareTag("Player"))
-        {
-            playerInRange = false;
-            overlayTxt.SetActive(false);
-        }
-    }
-
-    public void SetBattleLost(bool lost)
-    {
-        battleLost = lost;
+        Wallet.i.AddMoney(moneyReward);
+        yield return DialogueState.i.ShowDialogue("You defeated the trainer in battle!");
+        yield return DialogueState.i.ShowDialogue($"You received ${moneyReward} for winning.");
+        OnInteractionEnded();
     }
 }

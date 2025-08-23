@@ -1,3 +1,4 @@
+using DG.Tweening;
 using GDEUtils.StateMachine;
 using System.Collections;
 using System.Collections.Generic;
@@ -45,8 +46,10 @@ public class MoveSwitchingState : State<GameController>
     {
         gc = owner;
 
+        moveSwitchingUI.transform.localScale = Vector3.zero;
         moveSwitchingUI.gameObject.SetActive(true);
-        
+        moveSwitchingUI.transform.DOScale(Vector3.one, 0.3f);
+
         PlayerController.i.SetControl(false);
         PlayerController.i.FreezeCamera(true);
         partyWidget.gameObject.SetActive(false);
@@ -96,7 +99,11 @@ public class MoveSwitchingState : State<GameController>
 
     public override void Exit()
     {
-        moveSwitchingUI.gameObject.SetActive(false);
+        moveSwitchingUI.transform.DOScale(Vector3.zero, 0.3f).OnComplete(() =>
+        {
+            moveSwitchingUI.gameObject.SetActive(false);
+        });
+
         partyWidget.gameObject.SetActive(true);
         PlayerController.i.SetControl(true);
         PlayerController.i.FreezeCamera(false);

@@ -114,7 +114,7 @@ public class BattleState : State<GameController>
         //EnemyToyo.Model.SetActive(false);
 
         if (IsTrainerBattle)
-            Trainer.SetBattleLost(true);
+            Trainer.OnBattleLost();
 
         GameController.i.StateMachine.Pop();
         

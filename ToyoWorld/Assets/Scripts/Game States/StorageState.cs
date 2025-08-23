@@ -1,3 +1,4 @@
+using DG.Tweening;
 using GDEUtils.StateMachine;
 using System.Collections;
 using System.Collections.Generic;
@@ -33,7 +34,10 @@ public class StorageState : State<GameController>
 
         PlayerController.i.SetControl(false);
 
+        storageUI.transform.localScale = Vector3.zero;
         storageUI.gameObject.SetActive(true);
+        storageUI.transform.DOScale(Vector3.one, 0.3f);
+
         storageUI.SetDataInPartySlots();
         storageUI.SetDataInStorageSlots();
 
@@ -48,11 +52,13 @@ public class StorageState : State<GameController>
 
     public override void Exit()
     {
-        storageUI.gameObject.SetActive(false);
+        storageUI.transform.DOScale(Vector3.zero, 0.3f).OnComplete(() =>
+        {
+            storageUI.gameObject.SetActive(false);
+            PlayerController.i.SetControl(true);
+        });
         storageUI.OnSelected -= OnSlotSelected;
         storageUI.OnBack -= OnBack;
-
-        PlayerController.i.SetControl(true);
     }
 
     void OnSlotSelected(int slotIndex)

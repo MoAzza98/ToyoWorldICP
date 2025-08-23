@@ -278,13 +278,19 @@ public class PlayerController : MonoBehaviour, ISavable
         targetRotation = transform.rotation;
     }
 
+    public void EnablePartyWidget(bool enable)
+    {
+        partyWidget.gameObject.SetActive(enable);
+    }
+
     public object CaptureState()
     {
         var saveData = new PlayerSaveData()
         {
             playerPosition = transform.position,
             playerRotation = transform.rotation,
-            party = Party.Toyos.Where(t => t != null).Select(t => t.GetSaveData()).ToList()
+            party = Party.Toyos.Where(t => t != null).Select(t => t.GetSaveData()).ToList(),
+            money = Wallet.i.Money
         };
 
         return saveData;
@@ -300,6 +306,8 @@ public class PlayerController : MonoBehaviour, ISavable
         Physics.SyncTransforms();
 
         Party.Toyos = saveData.party.Select(t => new Toyo(t)).ToList();
+
+        Wallet.i.SetMoney(saveData.money);
     }
 }
 
@@ -309,4 +317,5 @@ public class PlayerSaveData
     public Vector3 playerPosition;
     public Quaternion playerRotation;
     public List<ToyoSaveData> party;
+    public float money;
 }
