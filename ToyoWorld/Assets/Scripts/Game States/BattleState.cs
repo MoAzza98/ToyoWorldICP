@@ -1,5 +1,6 @@
 using DG.Tweening;
 using GDEUtils.StateMachine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,8 @@ public class BattleState : State<GameController>
     public ToyoParty PlayerParty { get; private set; }
     public PlayerController Player { get; private set; }
     public TrainerController Trainer { get; private set; }
+    public event Action<Toyo> OnWildToyoFainted;
+    public event Action<Toyo> OnWildToyoCaptured;
 
     public bool IsTrainerBattle { get; private set; } = false;
 
@@ -147,7 +150,15 @@ public class BattleState : State<GameController>
 
         // If pokemon caught, then end the battle
         if (pokeball.ShakeCount == 4)
+        {
+            //OnWildToyoCaptured?.Invoke(EnemyToyo);
             BattleOver(true);
+        }
+    }
+
+    public void InvokeWildToyoFainted(Toyo faintedToyo)
+    {
+        OnWildToyoFainted?.Invoke(faintedToyo);
     }
 
     public override void Execute()

@@ -145,6 +145,8 @@ public class RunTurnState : State<BattleState>
             bool battlWon = true;
             if (bs.IsTrainerBattle)
                 battlWon = bs.Trainer.Party.GetHealthyToyo() == null;
+            else
+                bs.InvokeWildToyoFainted(faintedToyo);
 
             //if (battlWon)
             //    AudioManager.i.PlayMusic(bs.BattleVictoryMusic);

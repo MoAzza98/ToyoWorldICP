@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,8 @@ public class Pokeball : MonoBehaviour
 
     // Output
     public bool CatchComplete { get; private set; }
+
+    public static event Action<Toyo> OnToyoCaptured;
 
     Transform cam;
     Rigidbody rigidbody;
@@ -62,6 +65,9 @@ public class Pokeball : MonoBehaviour
 
             ++shakeCount;
         }
+        
+        if (shakeCount == 4)
+            OnToyoCaptured?.Invoke(wildToyo);
 
         return shakeCount;
     }

@@ -290,7 +290,8 @@ public class PlayerController : MonoBehaviour, ISavable
             playerPosition = transform.position,
             playerRotation = transform.rotation,
             party = Party.Toyos.Where(t => t != null).Select(t => t.GetSaveData()).ToList(),
-            money = Wallet.i.Money
+            money = Wallet.i.Money,
+            questJournal = QuestController.i.GetSaveData()
         };
 
         return saveData;
@@ -308,6 +309,8 @@ public class PlayerController : MonoBehaviour, ISavable
         Party.Toyos = saveData.party.Select(t => new Toyo(t)).ToList();
 
         Wallet.i.SetMoney(saveData.money);
+
+        QuestController.i.LoadQuestData(saveData.questJournal);
     }
 }
 
@@ -318,4 +321,5 @@ public class PlayerSaveData
     public Quaternion playerRotation;
     public List<ToyoSaveData> party;
     public float money;
+    public QuestJournalSaveData questJournal;
 }

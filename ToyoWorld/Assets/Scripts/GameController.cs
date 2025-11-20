@@ -16,6 +16,7 @@ public class GameController : MonoBehaviour
         ItemDB.Init();
         MoveDB.Init();
         ToyoDB.Init();
+        QuestDB.Init();
     }
 
     public StateMachine<GameController> StateMachine { get; private set; }
