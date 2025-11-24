@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f5b18e2b4aa1c8e438c3c03f737e6804, type: 3}
-  m_Name: Toyoball
+  m_Name: Ultraball
   m_EditorClassIdentifier: 
-  name: Toyoball
-  description: A ball for capturing toyo
-  icon: {fileID: 21300000, guid: d2ec17ced36b04625b4d50952f451a65, type: 3}
+  name: Ultraball
+  description: Ball with the highest catch rate
+  icon: {fileID: 21300000, guid: 238b8110399e2496e8f6248f7dd04a4f, type: 3}
   overworldModel: {fileID: 5138836318887020722, guid: 85ddb030a260c914597fe05cb80e1eb8, type: 3}
-  price: 10
+  price: 30
   isSellable: 1
-  catchRateModfier: 1
+  catchRateModfier: 2
   pokeballModel: {fileID: 5138836318887020727, guid: 85ddb030a260c914597fe05cb80e1eb8, type: 3}
