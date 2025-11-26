@@ -29,6 +29,7 @@ public class SaveSystem : MonoBehaviour
         inventory.OnUpdated += Save;
         storageBoxes.OnUpdated += Save;
         playerParty.OnPartyUpdated += Save;
+        QuestController.i.OnUpdated += Save;
 
         StartCoroutine(SaveScheduler());
 

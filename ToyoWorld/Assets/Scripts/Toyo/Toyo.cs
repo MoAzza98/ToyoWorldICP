@@ -187,6 +187,24 @@ public class Toyo
         return Moves[UnityEngine.Random.Range(0, Moves.Count)];
     }
 
+    public Move GetEffectiveMove(Toyo enemyToyo)
+    {
+        float highestTypeEffectiveness = -99;
+        Move bestMove = Moves.FirstOrDefault();
+
+        foreach (var move in Moves)
+        {
+            float typeEffectiveness = TypeChart.GetEffectiveness(move.Base.Type, enemyToyo.Base.Type1) * TypeChart.GetEffectiveness(move.Base.Type, enemyToyo.Base.Type2);
+            if (typeEffectiveness > highestTypeEffectiveness)
+            {
+                highestTypeEffectiveness = typeEffectiveness;
+                bestMove = move;
+            }
+        }
+
+        return bestMove;
+    }
+
     public bool CheckAndHandleLevelUp()
     {
         if (Exp > Base.GetExpForLevel(level + 1))

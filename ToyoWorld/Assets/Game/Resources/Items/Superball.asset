@@ -18,5 +18,6 @@ MonoBehaviour:
   overworldModel: {fileID: 5138836318887020722, guid: 85ddb030a260c914597fe05cb80e1eb8, type: 3}
   price: 20
   isSellable: 1
+  rarity: 1
   catchRateModfier: 1.5
   pokeballModel: {fileID: 5138836318887020727, guid: 85ddb030a260c914597fe05cb80e1eb8, type: 3}

@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class MapArea : MonoBehaviour
 {
+    [SerializeField] string areaName;
+    [SerializeField] AudioClip backgroundMusic;
     [SerializeField] List<ToyoEncounterRecord> wildToyos;
 
     [HideInInspector]
@@ -15,6 +17,15 @@ public class MapArea : MonoBehaviour
     {
         i = this;
         CalculateChancePercentage();
+    }
+
+    private void Start()
+    {
+        if (!string.IsNullOrEmpty(areaName))
+            StartCoroutine(ShowAreaName());
+
+        if (backgroundMusic != null)
+            AudioManager.i?.PlayMusic(backgroundMusic, fade: true);
     }
 
     void CalculateChancePercentage()
@@ -47,6 +58,12 @@ public class MapArea : MonoBehaviour
         var wildToyo = new Toyo(toyoRecord.toyo, level);
         //wildToyo.Init();
         return wildToyo;
+    }
+
+    IEnumerator ShowAreaName()
+    {
+        yield return new WaitForSeconds(1f);
+        MessageUI.i?.ShowMessage(areaName);
     }
 }
 

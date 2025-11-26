@@ -58,6 +58,11 @@ public class ButtonSlot : MonoBehaviour, ISelectableItem, IPointerEnterHandler
         text.text = txt;
     }
 
+    public void SetTextColor(Color color)
+    {
+        text.color = color;
+    }
+
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (gameObject.activeInHierarchy && !disabled)

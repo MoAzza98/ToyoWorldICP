@@ -8,18 +8,18 @@ public class ShopState : State<GameController>
 {
     [SerializeField] ShopUI shopUI;
     [SerializeField] Wallet playerWallet;
+    [SerializeField] Inventory playerInventory;
 
     // input
     public List<ItemBase> Items { get; set; }
 
     public static ShopState i { get; private set; }
-    Inventory playerInventory;
     
 
     private void Awake()
     {
         i = this;
-        playerInventory = Inventory.GetInventory();
+        
     }
 
     GameController gc;

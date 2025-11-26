@@ -8,6 +8,7 @@ public class ShopSlotUI : MonoBehaviour
 {
     [SerializeField] TMP_Text nameTxt;
     [SerializeField] TMP_Text priceTxt;
+    [SerializeField] TMP_Text rarityTxt;
     [SerializeField] Image image;
 
     ItemBase _item;
@@ -19,7 +20,8 @@ public class ShopSlotUI : MonoBehaviour
             _item = item;
 
             nameTxt.text = item.Name;
-            priceTxt.text = "" + item.Price;
+            priceTxt.text = "$" + item.Price;
+            rarityTxt.text = item.Rarity.ToString();
             image.sprite = item.Icon;
             image.color = new Color(255, 255, 255, 100);
         }
@@ -31,6 +33,7 @@ public class ShopSlotUI : MonoBehaviour
 
         nameTxt.text = "";
         priceTxt.text = "";
+        rarityTxt.text = "";
         image.sprite = null;
         image.color = new Color(255, 255, 255, 0);
     }

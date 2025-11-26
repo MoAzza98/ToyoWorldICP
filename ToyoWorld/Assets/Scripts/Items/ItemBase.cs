@@ -10,6 +10,7 @@ public class ItemBase : ScriptableObject
     [SerializeField] GameObject overworldModel;
     [SerializeField] float price;
     [SerializeField] bool isSellable;
+    [SerializeField] ItemRarity rarity;
 
     public virtual string Name => name;
     public string Description => description;
@@ -18,6 +19,8 @@ public class ItemBase : ScriptableObject
 
     public float Price => price;
     public bool IsSellable => isSellable;
+
+    public ItemRarity Rarity => rarity;
 
     public virtual bool Use(Toyo toyo)
     {
@@ -29,3 +32,5 @@ public class ItemBase : ScriptableObject
     public virtual bool CanUseInBattle => true;
     public virtual bool CanUseOutsideBattle => true;
 }
+
+public enum ItemRarity { Common, Uncommon, Rare, Legendary }

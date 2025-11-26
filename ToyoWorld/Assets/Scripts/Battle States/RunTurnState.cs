@@ -31,7 +31,7 @@ public class RunTurnState : State<BattleState>
         var battleActions = new List<BattleAction>();
 
         // Add a random move for the enemy
-        var enemyAction = new BattleAction(bs.EnemyToyo, bs.PlayerToyo, bs.EnemyToyo.GetRandomMove());
+        var enemyAction = new BattleAction(bs.EnemyToyo, bs.PlayerToyo, bs.EnemyToyo.GetEffectiveMove(bs.PlayerToyo));
         battleActions.Add(enemyAction);
 
         if (bs.SelectedAction == BattleActions.Move)
@@ -89,6 +89,8 @@ public class RunTurnState : State<BattleState>
         source.PlayAnimation("attack");
 
         yield return DialogueState.i.ShowDialogue($"{source.Base.Name} used {move.Base.Name}");
+
+        move.PP--;
 
         // Play animation, vfx, sfx of the move
         if (move.Base.VFX != null)

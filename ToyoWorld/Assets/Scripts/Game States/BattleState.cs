@@ -12,6 +12,10 @@ public class BattleState : State<GameController>
 {
     [SerializeField] BattleHUD battleHudPrefab;
 
+    [Header("Audio")]
+    [SerializeField] AudioClip wildBattleMusic;
+    [SerializeField] AudioClip trainerBattleMusic;
+
     public Toyo PlayerToyo { get; set; }
     public Toyo EnemyToyo { get; set; }
     public ToyoParty PlayerParty { get; private set; }
@@ -42,6 +46,7 @@ public class BattleState : State<GameController>
         StateMachine = new StateMachine<BattleState>(this);
     }
 
+    AudioClip prevMusic = null;
     public void StartWildBattle(ToyoParty playerParty, Toyo playerToyo, Toyo wildToyo)
     {
         PlayerParty = playerParty;
@@ -49,6 +54,9 @@ public class BattleState : State<GameController>
         EnemyToyo = wildToyo;
         IsBattleOver = false;
         IsTrainerBattle = false;
+
+        prevMusic = AudioManager.i.CurrMusic;
+        AudioManager.i.PlayMusic(wildBattleMusic);
 
         GameController.i.StateMachine.Push(this);
     }
@@ -64,6 +72,9 @@ public class BattleState : State<GameController>
         IsBattleOver = false;
         IsTrainerBattle = true;
 
+        prevMusic = AudioManager.i.CurrMusic;
+        AudioManager.i.PlayMusic(trainerBattleMusic);
+
         GameController.i.StateMachine.Push(this);
     }
 
@@ -77,6 +88,8 @@ public class BattleState : State<GameController>
     IEnumerator SetupBattle()
     {
         BoomServices.i.UserLostMatch().Forget();
+
+        MessageUI.i?.ShowMessage("Battle Start");
 
         if (IsTrainerBattle)
         {
@@ -168,6 +181,6 @@ public class BattleState : State<GameController>
 
     public override void Exit()
     {
-
+        AudioManager.i.PlayMusic(prevMusic);
     }
 }

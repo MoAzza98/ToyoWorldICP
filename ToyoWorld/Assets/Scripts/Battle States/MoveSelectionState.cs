@@ -46,6 +46,10 @@ public class MoveSelectionState : State<BattleState>
 
     void OnMoveSelected(int selection)
     {
+        var move = bs.PlayerToyo.Moves[selection];
+        if (move.PP <= 0)
+            return;
+
         bs.SelectedMove = selection;
         bs.StateMachine.ChangeState(RunTurnState.i);
         // Debug.Log($"Selected Move: {bs.PlayerPokemon.Moves[selection].Base.Name}");

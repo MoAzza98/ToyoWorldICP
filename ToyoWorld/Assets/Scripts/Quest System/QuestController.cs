@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,8 @@ public class QuestController : MonoBehaviour
 {
     [SerializeField] bool autoCheckForCompletion = true;
     [SerializeField] float completionCheckTimeInterval = 1;
+
+    public event Action OnUpdated;
 
     public List<Quest> activeQuests = new List<Quest>();
     public List<Quest> completedQuests = new List<Quest>();
@@ -23,6 +26,7 @@ public class QuestController : MonoBehaviour
     {
         var quest = new Quest(questData);
         activeQuests.Add(quest);
+        OnUpdated?.Invoke();
     }
 
     public Quest GetActiveQuest(QuestData questData)
@@ -53,6 +57,7 @@ public class QuestController : MonoBehaviour
             activeQuests.Remove(quest);
             Wallet.i.AddMoney(quest.Data.Reward);
             completedQuests.Add(quest);
+            OnUpdated?.Invoke();
         }
     }
 
